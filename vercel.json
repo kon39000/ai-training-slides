@@ -3,31 +3,14 @@
   "outputDirectory": "./",
   "installCommand": null,
   "devCommand": null,
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "routes": [
-    {
-      "src": "^/$",
-      "dest": "/slides/index.html"
-    },
-    {
-      "src": "^/index.html$",
-      "dest": "/slides/index.html"
-    }
-  ],
-  "headers": [
+  "rewrites": [
     {
       "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        }
-      ]
+      "destination": "/slides/$1"
+    },
+    {
+      "source": "/",
+      "destination": "/slides/index.html"
     }
   ]
 }
