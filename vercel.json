@@ -5,10 +5,14 @@
   "devCommand": null,
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
+  "routes": [
     {
-      "source": "/",
-      "destination": "/slides/index.html"
+      "src": "^/$",
+      "dest": "/slides/index.html"
+    },
+    {
+      "src": "^/index.html$",
+      "dest": "/slides/index.html"
     }
   ],
   "headers": [
