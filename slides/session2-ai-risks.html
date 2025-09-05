@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>セッション2：AIのリスクと安全利用</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+        }
+        .slide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .slide {
+            background: linear-gradient(135deg, #f7fbfb 0%, #ffffff 100%);
+            padding: 60px 80px;
+            min-height: 80vh;
+            display: none;
+            color: #333;
+            font-size: 24px;
+        }
+        .slide.active {
+            display: block;
+        }
+        .slide h1 {
+            color: #004D47;
+            font-size: 3.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .slide h2 {
+            color: #128277;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: left;
+            border-left: 6px solid #128277;
+            padding-left: 1.5rem;
+        }
+        .slide h3 {
+            color: #004D47;
+            font-size: 2.0rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        .slide p, .slide li {
+            color: #333;
+            line-height: 2.1;
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+        .slide strong {
+            color: #128277;
+            font-weight: 700;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(18, 130, 119, 0.9);
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+        }
+        .nav-btn {
+            background: #128277;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .nav-btn:hover {
+            background: #004D47;
+        }
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .slide-counter {
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        .highlight-box {
+            background: #f8fffe;
+            border-left: 6px solid #128277;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+        }
+        .warning-box {
+            background: #fffef6;
+            border-left: 6px solid #FBCD4B;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+        }
+        .danger-box {
+            background: #fff5f5;
+            border-left: 6px solid #e53e3e;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+        }
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+            margin: 2rem 0;
+        }
+        .four-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .center-content {
+            text-align: center;
+            margin: 3rem 0;
+        }
+        .icon-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .icon-list li {
+            margin-bottom: 1.5rem;
+        }
+        .icon-list .fire::before {
+            content: "🔥 ";
+            margin-right: 0.5rem;
+        }
+        .icon-list .warning::before {
+            content: "⚠️ ";
+            margin-right: 0.5rem;
+        }
+        .icon-list .check::before {
+            content: "✅ ";
+            margin-right: 0.5rem;
+        }
+        .icon-list .danger::before {
+            content: "🚨 ";
+            margin-right: 0.5rem;
+        }
+        .icon-list .shield::before {
+            content: "🛡️ ";
+            margin-right: 0.5rem;
+        }
+        .company-case {
+            background: #fff8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid #ff6b35;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- スライド1：セッション2タイトル -->
+        <div class="slide active">
+            <h1>🛡️ セッション2</h1>
+            <h2 style="text-align: center; border: none;">AIのリスクと安全利用</h2>
+            <div class="center-content">
+                <p style="font-size: 2rem; color: #128277;"><strong>安全にAIを使うために</strong></p>
+                <p style="font-size: 1.6rem; margin-top: 3rem;">時間: 10:10-11:00（50分）</p>
+            </div>
+        </div>
+
+        <!-- スライド2：炎上事例1 - マクドナルド -->
+        <div class="slide">
+            <h2>実際のAI炎上事例から学ぶ</h2>
+            <div class="danger-box">
+                <h3>📱 マクドナルドの生成AI広告炎上（2024年）</h3>
+                <div style="font-size: 1.8rem; line-height: 2.2;">
+                    <p><strong>何が起きたか</strong></p>
+                    <ul>
+                        <li>プロモーション動画にAI生成キャラクター使用</li>
+                        <li>SNSで「気持ち悪い」「買う気にならない」と批判殺到</li>
+                        <li><strong>不気味の谷現象</strong>が顕著に表れた事例</li>
+                    </ul>
+                    <p style="color: #e53e3e;"><strong>学び</strong>: AIの品質と顧客感情の重要性</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド3：複数企業の炎上事例1 -->
+        <div class="slide">
+            <h2>複数企業での炎上パターン（1/2）</h2>
+            <div class="two-column" style="gap: 4rem;">
+                <div>
+                    <div class="company-case" style="padding: 2.5rem;">
+                        <h3 style="font-size: 2rem; margin-bottom: 2rem;">🎴 MTG（カードゲーム）</h3>
+                        <ul style="font-size: 1.8rem; line-height: 2.2;">
+                            <li>「AI未使用」と公式説明</li>
+                            <li>後にAI利用が判明</li>
+                            <li><strong style="color: #e53e3e;">信頼失墜</strong>が最大の損失</li>
+                        </ul>
+                        <p style="margin-top: 1.5rem; font-size: 1.6rem; color: #666;">
+                            <strong>学び</strong>: 透明性の欠如による信頼損失
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <div class="company-case" style="padding: 2.5rem;">
+                        <h3 style="font-size: 2rem; margin-bottom: 2rem;">🍣 スシロー</h3>
+                        <ul style="font-size: 1.8rem; line-height: 2.2;">
+                            <li>AI生成の寿司画像を使用</li>
+                            <li>「本物を使え」の強い批判</li>
+                            <li><strong style="color: #e53e3e;">価値観の衝突</strong>が発生</li>
+                        </ul>
+                        <p style="margin-top: 1.5rem; font-size: 1.6rem; color: #666;">
+                            <strong>学び</strong>: 顧客の期待値とのギャップ
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド4：複数企業の炎上事例2 -->
+        <div class="slide">
+            <h2>複数企業での炎上パターン（2/2）</h2>
+            <div class="two-column" style="gap: 4rem;">
+                <div>
+                    <div class="company-case" style="padding: 2.5rem;">
+                        <h3 style="font-size: 2rem; margin-bottom: 2rem;">🧴 花王バブ</h3>
+                        <ul style="font-size: 1.8rem; line-height: 2.2;">
+                            <li>AIか人間かの激しい議論</li>
+                            <li>利用有無の明確化不足</li>
+                            <li><strong style="color: #e53e3e;">透明性</strong>の重要性露呈</li>
+                        </ul>
+                        <p style="margin-top: 1.5rem; font-size: 1.6rem; color: #666;">
+                            <strong>学び</strong>: 事前の明確な説明が必要
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <div class="company-case" style="padding: 2.5rem;">
+                        <h3 style="font-size: 2rem; margin-bottom: 2rem;">✈️ JAL</h3>
+                        <ul style="font-size: 1.8rem; line-height: 2.2;">
+                            <li>公式サイトでの「手抜き感」批判</li>
+                            <li>高品質サービスとAI利用の齟齬</li>
+                            <li><strong style="color: #e53e3e;">ブランド価値</strong>への疑問噴出</li>
+                        </ul>
+                        <p style="margin-top: 1.5rem; font-size: 1.6rem; color: #666;">
+                            <strong>学び</strong>: ブランドイメージとの整合性
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド5：サムスン重大事故 -->
+        <div class="slide">
+            <h2>企業が学ぶべき重大事故</h2>
+            <div class="danger-box">
+                <h3>🚨 サムスン社内情報流出事故</h3>
+                <div style="font-size: 1.8rem; line-height: 2.2;">
+                    <p><strong>事故内容</strong></p>
+                    <ul>
+                        <li>従業員がChatGPTに<strong>社内ソースコード</strong>を入力</li>
+                        <li>機密情報が外部に流出・学習データ化</li>
+                        <li><strong>結果</strong>: 生成AI使用の全面禁止</li>
+                    </ul>
+                    <p><strong>法的・経済的影響</strong></p>
+                    <ul>
+                        <li>情報漏洩による損害賠償リスク</li>
+                        <li>顧客信頼の失墜</li>
+                        <li>競合他社への情報流出</li>
+                        <li>復旧コストの増大</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド6：炎上パターン分析1 -->
+        <div class="slide">
+            <h2>炎上事例から見える4つのパターン（1/2）</h2>
+            <div class="highlight-box" style="margin-top: 4rem;">
+                <h3 style="font-size: 2.2rem;">🔍 共通する要因</h3>
+                <div style="font-size: 2rem; line-height: 2.5; margin-top: 3rem;">
+                    <p><strong>1. 🤖 不気味の谷現象</strong></p>
+                    <ul style="margin-left: 3rem; margin-bottom: 3rem;">
+                        <li>AI生成物への感情的反発</li>
+                        <li>品質と期待のギャップ</li>
+                        <li>「人間らしさ」への強いこだわり</li>
+                    </ul>
+                    <p><strong>2. 🔒 透明性不足・説明責任の欠如</strong></p>
+                    <ul style="margin-left: 3rem;">
+                        <li>AI使用の事前説明不足</li>
+                        <li>後出し訂正による信頼失墜</li>
+                        <li>隠蔽疑惑による炎上拡大</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド7：炎上パターン分析2 -->
+        <div class="slide">
+            <h2>炎上事例から見える4つのパターン（2/2）</h2>
+            <div class="highlight-box" style="margin-top: 4rem;">
+                <h3 style="font-size: 2.2rem;">🔍 共通する要因（続き）</h3>
+                <div style="font-size: 2rem; line-height: 2.5; margin-top: 3rem;">
+                    <p><strong>3. 🏷️ ブランドイメージとの齟齬</strong></p>
+                    <ul style="margin-left: 3rem; margin-bottom: 3rem;">
+                        <li>高級・手作り感との矛盾</li>
+                        <li>企業価値観との不整合</li>
+                        <li>顧客期待との相違</li>
+                    </ul>
+                    <p><strong>4. 💽 情報漏洩による企業リスク</strong></p>
+                    <ul style="margin-left: 3rem;">
+                        <li>機密情報の外部流出</li>
+                        <li>法的・経済的損失</li>
+                        <li>競合優位性の失失</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド7：3大リスク1 - 個人情報漏洩 -->
+        <div class="slide">
+            <h2>3大リスク：1. 個人情報漏洩</h2>
+            <div class="two-column">
+                <div>
+                    <h3>🔐 入力してはいけない情報</h3>
+                    <ul class="icon-list" style="font-size: 1.7rem;">
+                        <li class="danger">顧客の氏名、住所、電話番号</li>
+                        <li class="danger">クレジットカード情報</li>
+                        <li class="danger">医療・健康情報</li>
+                        <li class="danger">社員の人事情報</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>💡 安全な対策</h3>
+                    <ul class="icon-list" style="font-size: 1.7rem;">
+                        <li class="check"><strong>匿名化</strong>: 「田中さん」→「Aさん」</li>
+                        <li class="check"><strong>仮名化</strong>: 実在しない名前に置換</li>
+                        <li class="check"><strong>範囲限定</strong>: 必要最小限のデータのみ</li>
+                        <li class="check"><strong>社内承認</strong>: 承認プロセス確立</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド8：3大リスク2 - 著作権侵害 -->
+        <div class="slide">
+            <h2>3大リスク：2. 著作権侵害</h2>
+            <div class="two-column">
+                <div>
+                    <h3>⚖️ 問題となるケース</h3>
+                    <ul class="icon-list" style="font-size: 1.7rem;">
+                        <li class="warning">既存キャラクターに類似した画像生成</li>
+                        <li class="warning">楽曲の無断複製・改変</li>
+                        <li class="warning">小説・記事の盗作疑惑</li>
+                        <li class="warning">ロゴ・商標の類似デザイン</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>🛡️ 対策指針</h3>
+                    <ul class="icon-list" style="font-size: 1.7rem;">
+                        <li class="shield"><strong>生成前確認</strong>: 類似作品の事前調査</li>
+                        <li class="shield"><strong>著作権表記</strong>: 出典・参考情報明記</li>
+                        <li class="shield"><strong>法務チェック</strong>: 重要生成物は法務確認</li>
+                        <li class="shield"><strong>利用範囲限定</strong>: 商用利用は慎重に</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド9：3大リスク3 - ハルシネーション -->
+        <div class="slide">
+            <h2>3大リスク：3. 誤情報・ハルシネーション</h2>
+            <div class="two-column">
+                <div>
+                    <h3>🤥 よくある間違い</h3>
+                    <ul class="icon-list" style="font-size: 1.7rem;">
+                        <li class="warning">存在しない論文・書籍の引用</li>
+                        <li class="warning">間違った統計データの提示</li>
+                        <li class="warning">事実と異なる歴史情報</li>
+                        <li class="warning">架空の人物・企業情報</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>✅ 対策方法</h3>
+                    <ul class="icon-list" style="font-size: 1.7rem;">
+                        <li class="check"><strong>情報源確認</strong>: 複数ソースで事実確認</li>
+                        <li class="check"><strong>クロスチェック</strong>: 他のAIツールでも確認</li>
+                        <li class="check"><strong>人間による最終確認</strong>: 重要情報は必ず検証</li>
+                        <li class="check"><strong>更新情報確認</strong>: データの鮮度を確認</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド10：安全な使い方10箇条 -->
+        <div class="slide">
+            <h2>安全な使い方10箇条</h2>
+            <div class="two-column">
+                <div>
+                    <h3>🔐 情報管理（1-4）</h3>
+                    <ul style="font-size: 1.7rem; line-height: 2.5;">
+                        <li><strong>1.</strong> 個人情報は入力しない</li>
+                        <li><strong>2.</strong> 機密情報は扱わない</li>
+                        <li><strong>3.</strong> 取引先情報も要注意</li>
+                        <li><strong>4.</strong> 履歴を定期的に確認</li>
+                    </ul>
+                    
+                    <h3>✅ 品質管理（5-8）</h3>
+                    <ul style="font-size: 1.7rem; line-height: 2.5;">
+                        <li><strong>5.</strong> 生成物は必ず人間が確認</li>
+                        <li><strong>6.</strong> 重要文書は複数人でチェック</li>
+                        <li><strong>7.</strong> 情報源を必ず確認</li>
+                        <li><strong>8.</strong> 定期的な監査実施</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>📚 継続学習（9-10）</h3>
+                    <ul style="font-size: 1.7rem; line-height: 2.5;">
+                        <li><strong>9.</strong> 最新情報を常にキャッチ</li>
+                        <li><strong>10.</strong> チーム全体で情報共有</li>
+                    </ul>
+                    
+                    <div class="highlight-box" style="margin-top: 3rem;">
+                        <h3 style="color: #128277; text-align: center;">💡 覚えやすいポイント</h3>
+                        <p style="text-align: center; font-size: 1.8rem; line-height: 2;">
+                            <strong>入れない・信じない・一人で判断しない</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド12：グループワーク開始 -->
+        <div class="slide">
+            <h2>🤝 グループワーク（15分）</h2>
+            <div class="warning-box" style="margin-top: 6rem;">
+                <h3 style="font-size: 2.8rem; text-align: center;">🎯 課題：自社業務で注意すべきポイント整理</h3>
+                <p style="font-size: 2.4rem; margin-top: 3rem; text-align: center;">
+                    <strong>グループ</strong>: 同じ部署・業務の人同士（3-4名）
+                </p>
+            </div>
+            
+            <div class="center-content" style="margin-top: 6rem;">
+                <p style="font-size: 2.2rem; line-height: 2.5;">
+                    <strong style="color: #128277;">次のスライドで検討項目をご確認ください</strong><br>
+                    各項目について話し合いましょう
+                </p>
+            </div>
+        </div>
+
+        <!-- スライド13：検討項目1 -->
+        <div class="slide">
+            <h2>📝 検討項目：情報管理</h2>
+            
+            <div class="highlight-box" style="margin-top: 5rem;">
+                <h3 style="font-size: 2.4rem;">🔐 1. 情報管理について話し合う</h3>
+                <ul style="font-size: 2.2rem; line-height: 2.8; margin-top: 3rem;">
+                    <li>あなたの部署で扱う<strong>個人情報の種類</strong>は？</li>
+                    <li><strong>機密レベル</strong>はどう判断する？</li>
+                    <li><strong>社内承認</strong>が必要な範囲は？</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- スライド14：検討項目2 -->
+        <div class="slide">
+            <h2>📝 検討項目：業務への影響</h2>
+            
+            <div class="highlight-box" style="margin-top: 5rem;">
+                <h3 style="font-size: 2.4rem;">💼 2. 業務への影響を考える</h3>
+                <ul style="font-size: 2.2rem; line-height: 2.8; margin-top: 3rem;">
+                    <li><strong>AI活用したい業務</strong>はどれ？</li>
+                    <li><strong>リスクが高い業務</strong>はどれ？</li>
+                    <li><strong>効果が期待できる分野</strong>は？</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- スライド15：検討項目3 -->
+        <div class="slide">
+            <h2>📝 検討項目：チェック体制</h2>
+            
+            <div class="highlight-box" style="margin-top: 5rem;">
+                <h3 style="font-size: 2.4rem;">🛡️ 3. チェック体制を考える</h3>
+                <ul style="font-size: 2.2rem; line-height: 2.8; margin-top: 3rem;">
+                    <li><strong>確認が必要な生成物</strong>はどれ？</li>
+                    <li><strong>責任者</strong>は誰にする？</li>
+                    <li><strong>緊急時の対応方法</strong>は？</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- スライド16：検討項目4 -->
+        <div class="slide">
+            <h2>📝 検討項目：ルール案</h2>
+            
+            <div class="highlight-box" style="margin-top: 4rem;">
+                <h3 style="font-size: 2.4rem;">📋 4. ルール案を作成する</h3>
+                <ul style="font-size: 2.2rem; line-height: 2.8; margin-top: 3rem;">
+                    <li><strong>部署独自のガイドライン</strong>は？</li>
+                    <li><strong>定期的な見直し方法</strong>は？</li>
+                    <li><strong>研修・周知の仕組み</strong>は？</li>
+                </ul>
+            </div>
+            
+            <div class="warning-box" style="margin-top: 4rem; text-align: center;">
+                <p style="font-size: 2.4rem;"><strong>⏰ 発表準備：各グループ3分で要点をまとめ</strong></p>
+            </div>
+        </div>
+
+        <!-- スライド17：セッション2まとめ1 -->
+        <div class="slide">
+            <h2>セッション2まとめ（1/4）</h2>
+            <div class="highlight-box" style="margin-top: 6rem;">
+                <h3 style="font-size: 2.8rem; text-align: center;">📝 本セッションで学んだこと</h3>
+                <ul class="icon-list" style="font-size: 2.4rem; line-height: 3; margin-top: 4rem;">
+                    <li class="check">AI利用には<strong>明確なリスク</strong>が存在する</li>
+                    <li class="check"><strong>企業炎上事例</strong>から学べる教訓がある</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- スライド18：セッション2まとめ2 -->
+        <div class="slide">
+            <h2>セッション2まとめ（2/4）</h2>
+            <div class="warning-box" style="margin-top: 6rem;">
+                <h3 style="text-align: center; font-size: 2.8rem;">⚠️ 4つの炎上パターン</h3>
+                <ul style="font-size: 2.2rem; line-height: 2.8; margin-top: 4rem;">
+                    <li><strong>1. 不気味の谷現象</strong>：感情的反発</li>
+                    <li><strong>2. 透明性不足</strong>：説明責任の欠如</li>
+                    <li><strong>3. ブランド齟齬</strong>：企業価値観との不整合</li>
+                    <li><strong>4. 情報漏洩</strong>：機密情報の外部流出</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- スライド19：セッション2まとめ3 -->
+        <div class="slide">
+            <h2>セッション2まとめ（3/4）</h2>
+            <div class="highlight-box" style="margin-top: 6rem;">
+                <h3 style="font-size: 2.8rem; text-align: center;">📋 3大リスクと対策</h3>
+                <ul class="icon-list" style="font-size: 2.4rem; line-height: 3; margin-top: 4rem;">
+                    <li class="danger"><strong>情報漏洩</strong>：個人情報・機密情報は入力しない</li>
+                    <li class="warning"><strong>著作権侵害</strong>：類似作品の事前調査</li>
+                    <li class="info"><strong>誤情報</strong>：複数ソースでの事実確認</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- スライド20：セッション2まとめ4 -->
+        <div class="slide">
+            <h2>セッション2まとめ（4/4）</h2>
+            <div class="warning-box" style="margin-top: 4rem;">
+                <h3 style="text-align: center; font-size: 2.8rem;">⚡ 重要なマインド</h3>
+                <p style="text-align: center; font-size: 2.6rem; line-height: 3; margin-top: 3rem;">
+                    <strong style="color: #128277;">AIは強力な道具</strong><br>
+                    <strong>正しく使えば業務が劇的に改善</strong><br>
+                    <strong style="color: #e53e3e;">間違えば企業の信頼を失う</strong>
+                </p>
+            </div>
+            
+            <div class="center-content" style="margin-top: 4rem;">
+                <p style="font-size: 2.6rem; color: #128277;">
+                    <strong>次のセッション：Canva AI基礎と実践</strong>
+                </p>
+                <p style="font-size: 2rem;">10分間の休憩後、11:10から開始します</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="prevSlide()">◀ 前へ</button>
+        <span class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">20</span>
+        </span>
+        <button class="nav-btn" onclick="nextSlide()">次へ ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[n].classList.add('active');
+            document.getElementById('current-slide').textContent = n + 1;
+            
+            document.querySelector('button[onclick="prevSlide()"]').disabled = (n === 0);
+            document.querySelector('button[onclick="nextSlide()"]').disabled = (n === totalSlides - 1);
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key.toLowerCase() === 'f') {
+                e.preventDefault();
+                togglePresentMode();
+            } else if (e.key === 'Escape') {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                    document.querySelector('.navigation').style.display = 'block';
+                }
+            }
+        });
+
+        function togglePresentMode() {
+            const nav = document.querySelector('.navigation');
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().then(() => {
+                    nav.style.display = 'none';
+                }).catch(err => {
+                    console.log('フルスクリーンエラー:', err);
+                });
+            } else {
+                document.exitFullscreen();
+                nav.style.display = 'block';
+            }
+        }
+
+        showSlide(0);
+    </script>
+</body>
+</html>

@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>まとめ・クロージング</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', sans-serif;
+            background: #f0f8f8;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 80px 100px;
+            background: linear-gradient(135deg, #f7fbfb 0%, #ffffff 100%);
+            font-size: 24px;
+            color: #333;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            color: #004D47;
+            font-size: 3.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4rem;
+            line-height: 1.3;
+        }
+
+        h2 {
+            color: #128277;
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: left;
+            border-left: 8px solid #128277;
+            padding-left: 2rem;
+            line-height: 1.4;
+        }
+
+        h3 {
+            color: #004D47;
+            font-size: 2.4rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            text-align: left;
+            line-height: 1.3;
+        }
+
+        p {
+            font-size: 1.8rem;
+            line-height: 2.2;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        li {
+            font-size: 1.8rem;
+            line-height: 2.2;
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+
+        strong {
+            color: #128277;
+            font-weight: 700;
+        }
+
+        .center {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .highlight-box {
+            background: #f8fffe;
+            border-left: 8px solid #128277;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .warning-box {
+            background: #fff8e1;
+            border-left: 8px solid #f57c00;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .success-box {
+            background: #e8f5e8;
+            border: 3px solid #4caf50;
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .celebration-box {
+            background: linear-gradient(135deg, #fff9c4 0%, #ffeb3b 100%);
+            border: 3px solid #ffc107;
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 3rem 0;
+            box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+        }
+
+        .feature-box {
+            background: #e8f5e8;
+            border: 2px solid #4caf50;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .journey-box {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .steps {
+            counter-reset: step-counter;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #128277;
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin: 2rem 0;
+            align-items: start;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 3rem;
+            margin: 2rem 0;
+            align-items: start;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #128277;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #004D47;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-number {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(18, 130, 119, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        ul {
+            margin-left: 2rem;
+        }
+
+        ol {
+            margin-left: 2rem;
+        }
+
+        .timeline-item {
+            background: #f5f5f5;
+            border-left: 4px solid #128277;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .timeline-item h4 {
+            color: #004D47;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            background: #f0f0f0;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- Slide 1: タイトル -->
+        <div class="slide active">
+            <h1>🎊 まとめ・クロージング</h1>
+            <div class="celebration-box" style="margin-top: 6rem;">
+                <h2 style="text-align: center; color: #f57c00; border: none; padding: 0; font-size: 2.8rem;">
+                    🚀 AI活用実践研修<br>お疲れさまでした！
+                </h2>
+                <p style="text-align: center; font-size: 2rem; margin-top: 3rem; color: #e65100;">
+                    6時間の学習で、皆さんは<strong>AIのプロフェッショナル</strong>に大きく近づきました
+                </p>
+            </div>
+            <div class="highlight-box" style="margin-top: 6rem;">
+                <p style="text-align: center; font-size: 1.8rem;">
+                    <strong>⏰ 時間：15分（16:45-17:00）</strong><br>
+                    研修の総まとめと今後のアクションプランを整理しましょう
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 2: 研修全体の振り返り -->
+        <div class="slide">
+            <h2>📈 研修全体の振り返り</h2>
+            <div style="margin-top: 4rem;">
+                <div class="success-box">
+                    <h3 style="color: #2e7d32; text-align: center; font-size: 2.6rem;">
+                        🎯 6時間で達成したこと
+                    </h3>
+                </div>
+                <div style="margin-top: 4rem;">
+                    <div class="timeline-item">
+                        <h4>🌟 セッション1：AI進化の理解</h4>
+                        <p style="font-size: 1.7rem;">最新AI技術とトレンドを把握し、ビジネスへの影響を理解</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>🛡️ セッション2：AIリスク管理</h4>
+                        <p style="font-size: 1.7rem;">セキュリティ、プライバシー、倫理的な観点での安全な活用方法を習得</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>🎨 セッション3：Canva AI実践</h4>
+                        <p style="font-size: 1.7rem;">デザイン業務の効率化と創造性向上を実際に体験</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>💻 セッション4：バイブコーディング</h4>
+                        <p style="font-size: 1.7rem;">プログラミングスキル不要でアプリケーション開発を実現</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>📊 セッション5：データ分析</h4>
+                        <p style="font-size: 1.7rem;">ビジネス洞察獲得のためのAI分析ツール活用をマスター</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>🚀 セッション6：実践プロジェクト</h4>
+                        <p style="font-size: 1.7rem;">全スキルを統合してチームで実用的なプロトタイプを完成</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: 最も重要な学び -->
+        <div class="slide">
+            <h2>💡 最も重要な学び</h2>
+            <div style="margin-top: 4rem;">
+                <div class="celebration-box">
+                    <h3 style="color: #e65100; text-align: center; font-size: 2.8rem;">
+                        🎯 AIは「道具」であり「パートナー」
+                    </h3>
+                    <p style="text-align: center; font-size: 2rem; margin-top: 2rem;">
+                        技術的な知識よりも<strong>「正しい質問力」</strong>と<br>
+                        <strong>「創造的な発想力」</strong>が成功の鍵
+                    </p>
+                </div>
+                <div style="margin-top: 5rem;">
+                    <div class="three-column">
+                        <div class="journey-box">
+                            <h3 style="color: #1976d2; text-align: center;">🤝 協働の力</h3>
+                            <p style="text-align: center; font-size: 1.7rem; margin-top: 1.5rem;">
+                                AIと人間の協働で<br>1+1=10以上の<br>成果を実現
+                            </p>
+                        </div>
+                        <div class="feature-box">
+                            <h3 style="color: #2e7d32; text-align: center;">⚡ 効率化</h3>
+                            <p style="text-align: center; font-size: 1.7rem; margin-top: 1.5rem;">
+                                従来数週間の作業を<br>数時間で完了する<br>劇的な生産性向上
+                            </p>
+                        </div>
+                        <div class="warning-box">
+                            <h3 style="color: #e65100; text-align: center;">🎨 創造性</h3>
+                            <p style="text-align: center; font-size: 1.7rem; margin-top: 1.5rem;">
+                                単純作業の自動化で<br>より創造的な仕事に<br>時間を集中可能
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: ビフォー・アフター -->
+        <div class="slide">
+            <h2>🔄 研修前後の変化</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <h3 style="color: #004D47; text-align: center;">📊 スキルレベルの変化</h3>
+                </div>
+                <div class="two-column" style="margin-top: 4rem;">
+                    <div>
+                        <div class="warning-box" style="border-left: 8px solid #9e9e9e;">
+                            <h3 style="color: #424242;">⏪ 研修前</h3>
+                            <ul style="margin-top: 2rem; font-size: 1.7rem;">
+                                <li>AIツールの存在は知っているが使い方が不明</li>
+                                <li>ChatGPTを簡単な質問にしか使えない</li>
+                                <li>デザイン・プログラミングは専門家の領域</li>
+                                <li>データ分析は複雑で時間がかかる</li>
+                                <li>新しい技術への不安や抵抗感</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="success-box">
+                            <h3 style="color: #2e7d32;">⏩ 研修後</h3>
+                            <ul style="margin-top: 2rem; font-size: 1.7rem;">
+                                <li>複数のAIツールを目的別に使い分け</li>
+                                <li>複雑な作業指示で高品質な成果を生成</li>
+                                <li>デザインからプログラミングまで幅広く対応</li>
+                                <li>データから洞察を短時間で抽出</li>
+                                <li>AIを活用した新しいワークフローを構築</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="celebration-box" style="margin-top: 4rem;">
+                    <p style="text-align: center; font-size: 2.2rem; color: #e65100;">
+                        <strong>🎊 皆さんは今や「AI活用のエキスパート」です！</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: 業務への実装計画 -->
+        <div class="slide">
+            <h2>🎯 明日から始める実装計画</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <h3 style="color: #004D47; text-align: center;">📋 段階的実装のロードマップ</h3>
+                </div>
+                <div style="margin-top: 4rem;">
+                    <ol class="steps" style="font-size: 1.9rem;">
+                        <li><strong>Week 1：簡単なタスクから開始</strong>
+                            <ul style="margin-top: 1rem; font-size: 1.7rem;">
+                                <li>メール文章作成、資料要約、簡単なデザイン作成</li>
+                            </ul>
+                        </li>
+                        <li><strong>Week 2-4：業務プロセスの一部を置き換え</strong>
+                            <ul style="margin-top: 1rem; font-size: 1.7rem;">
+                                <li>レポート作成、データ分析、プレゼン資料作成</li>
+                            </ul>
+                        </li>
+                        <li><strong>Month 2-3：チーム全体での活用推進</strong>
+                            <ul style="margin-top: 1rem; font-size: 1.7rem;">
+                                <li>ワークフロー改善、標準化、ナレッジシェア</li>
+                            </ul>
+                        </li>
+                        <li><strong>Month 4-6：新規プロジェクト企画</strong>
+                            <ul style="margin-top: 1rem; font-size: 1.7rem;">
+                                <li>AI活用の新サービス、効率化システムの開発</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                <div class="feature-box" style="margin-top: 4rem;">
+                    <h3 style="color: #2e7d32; text-align: center;">💡 成功のポイント</h3>
+                    <p style="text-align: center; font-size: 1.8rem; margin-top: 1.5rem;">
+                        小さく始めて段階的に拡大。同僚との情報共有を積極的に行い、<br>
+                        組織全体のAIリテラシー向上に貢献しましょう
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: 継続学習のすすめ -->
+        <div class="slide">
+            <h2>📚 継続学習のすすめ</h2>
+            <div style="margin-top: 4rem;">
+                <div class="warning-box">
+                    <h3 style="color: #e65100; text-align: center; font-size: 2.6rem;">
+                        🚀 AI技術は日々進化しています
+                    </h3>
+                    <p style="text-align: center; font-size: 1.9rem; margin-top: 2rem;">
+                        今日の学習は<strong>スタートライン</strong>。継続的な学習で常に最新をキャッチアップ
+                    </p>
+                </div>
+                <div class="three-column" style="margin-top: 5rem;">
+                    <div class="journey-box">
+                        <h3 style="color: #1976d2; text-align: center;">📰 情報収集</h3>
+                        <ul style="margin-top: 1.5rem; font-size: 1.6rem;">
+                            <li>AI関連ニュースサイト</li>
+                            <li>技術ブログとポッドキャスト</li>
+                            <li>SNSでの最新情報追跡</li>
+                            <li>オンラインコミュニティ参加</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3 style="color: #2e7d32; text-align: center;">🎓 スキルアップ</h3>
+                        <ul style="margin-top: 1.5rem; font-size: 1.6rem;">
+                            <li>オンラインコースの受講</li>
+                            <li>新AIツールの積極的試用</li>
+                            <li>社内勉強会の開催</li>
+                            <li>外部セミナーへの参加</li>
+                        </ul>
+                    </div>
+                    <div class="highlight-box">
+                        <h3 style="color: #004D47; text-align: center;">🤝 ネットワーク</h3>
+                        <ul style="margin-top: 1.5rem; font-size: 1.6rem;">
+                            <li>同業他社との情報交換</li>
+                            <li>専門家とのコネクション</li>
+                            <li>AI活用事例の共有</li>
+                            <li>メンターシップの活用</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="success-box" style="margin-top: 4rem;">
+                    <h3 style="color: #2e7d32; text-align: center;">🎯 おすすめアクション</h3>
+                    <p style="text-align: center; font-size: 1.8rem; margin-top: 1.5rem;">
+                        毎週30分「AI学習タイム」を設定して、新しいツールや機能を試してみましょう
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: 質疑応答 -->
+        <div class="slide">
+            <h2>❓ 質疑応答タイム</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <h3 style="color: #004D47; text-align: center; font-size: 2.6rem;">
+                        🙋‍♀️ ご質問をお聞かせください
+                    </h3>
+                    <p style="text-align: center; font-size: 1.9rem; margin-top: 2rem;">
+                        研修内容、実務での活用方法、技術的な疑問など<br>
+                        何でもお気軽にご質問ください
+                    </p>
+                </div>
+                <div style="margin-top: 5rem;">
+                    <div class="three-column">
+                        <div class="journey-box">
+                            <h3 style="color: #1976d2; text-align: center;">🛠️ 技術的質問</h3>
+                            <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
+                                <li>具体的な操作方法</li>
+                                <li>エラーへの対処法</li>
+                                <li>ツール選択の判断基準</li>
+                                <li>高度な活用テクニック</li>
+                            </ul>
+                        </div>
+                        <div class="feature-box">
+                            <h3 style="color: #2e7d32; text-align: center;">💼 業務活用</h3>
+                            <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
+                                <li>業界特有の活用事例</li>
+                                <li>ROIの測定方法</li>
+                                <li>チーム導入のベストプラクティス</li>
+                                <li>効果的な組織変革の進め方</li>
+                            </ul>
+                        </div>
+                        <div class="warning-box">
+                            <h3 style="color: #e65100; text-align: center;">🔒 セキュリティ</h3>
+                            <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
+                                <li>企業データの取り扱い</li>
+                                <li>プライバシー保護</li>
+                                <li>コンプライアンス対応</li>
+                                <li>リスク管理の方法</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: サポート体制 -->
+        <div class="slide">
+            <h2>🤝 今後のサポート体制</h2>
+            <div style="margin-top: 4rem;">
+                <div class="success-box">
+                    <h3 style="color: #2e7d32; text-align: center; font-size: 2.6rem;">
+                        📞 継続的なサポートをご提供
+                    </h3>
+                    <p style="text-align: center; font-size: 1.9rem; margin-top: 2rem;">
+                        研修終了後も、皆さんのAI活用をしっかりとサポートします
+                    </p>
+                </div>
+                <div style="margin-top: 5rem;">
+                    <div class="two-column">
+                        <div class="highlight-box">
+                            <h3 style="color: #004D47;">📧 アフターフォロー</h3>
+                            <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
+                                <li><strong>メール相談</strong>：いつでも質問可能</li>
+                                <li><strong>月次レポート</strong>：最新AI情報を配信</li>
+                                <li><strong>フォローアップセッション</strong>：3ヶ月後に実施</li>
+                                <li><strong>オンラインコミュニティ</strong>：参加者同士の情報交換</li>
+                            </ul>
+                        </div>
+                        <div class="feature-box">
+                            <h3 style="color: #2e7d32;">🚀 追加サービス</h3>
+                            <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
+                                <li><strong>個別コンサルティング</strong>：具体的課題の解決支援</li>
+                                <li><strong>カスタム研修</strong>：部署特化の内容で実施</li>
+                                <li><strong>プロジェクト支援</strong>：実装プロジェクトのサポート</li>
+                                <li><strong>最新動向セミナー</strong>：四半期ごとに開催</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="contact-info" style="margin-top: 4rem;">
+                        <h3 style="color: #128277; font-size: 2.2rem; margin-bottom: 1.5rem;">📞 お問い合わせ先</h3>
+                        <p style="font-size: 1.8rem;">
+                            <strong>Email</strong>: ai-support@company.com<br>
+                            <strong>Phone</strong>: 03-XXXX-XXXX<br>
+                            <strong>担当</strong>: AI研修サポートチーム
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: 参加者へのメッセージ -->
+        <div class="slide">
+            <h2>💌 皆さんへのメッセージ</h2>
+            <div style="margin-top: 4rem;">
+                <div class="celebration-box">
+                    <h3 style="color: #e65100; text-align: center; font-size: 3rem;">
+                        🌟 あなたは今日から<br>「AI時代のリーダー」
+                    </h3>
+                </div>
+                <div style="margin-top: 5rem;">
+                    <p style="font-size: 2.2rem; text-align: center; line-height: 2.5; color: #004D47;">
+                        今日学んだスキルは、単なる<strong>「技術習得」</strong>ではありません。<br><br>
+                        これは皆さんの<strong>「働き方」</strong>を変え、<br>
+                        <strong>「創造性」</strong>を解放し、<br>
+                        <strong>「新しい価値」</strong>を生み出す力です。
+                    </p>
+                    <div class="highlight-box" style="margin-top: 5rem;">
+                        <p style="text-align: center; font-size: 2rem; color: #128277;">
+                            皆さん一人ひとりが、組織のAI変革をリードし、<br>
+                            より良い未来を築いていくことを期待しています。<br><br>
+                            <strong>共に、AI時代を切り拓いていきましょう！</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: 最終スライド -->
+        <div class="slide">
+            <div class="celebration-box" style="height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <h1 style="font-size: 5rem; margin-bottom: 4rem; text-align: center; color: #e65100;">
+                    🎊 ありがとうございました！
+                </h1>
+                <p style="font-size: 2.8rem; text-align: center; color: #004D47; margin-bottom: 4rem;">
+                    <strong>AI活用実践研修</strong><br>
+                    完了おめでとうございます！
+                </p>
+                <div class="success-box" style="margin: 4rem 0; width: 80%;">
+                    <p style="text-align: center; font-size: 2.2rem; color: #2e7d32;">
+                        皆さんの今後のご活躍を<br>
+                        心よりお祈り申し上げます
+                    </p>
+                </div>
+                <p style="font-size: 2rem; text-align: center; color: #128277;">
+                    <strong>🚀 新しいAI時代への扉が開かれました</strong><br>
+                    素晴らしい未来を創造していきましょう！
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-number" id="slideNumber">1 / 10</div>
+    
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ 前へ</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">次へ ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('slideNumber').textContent = `${currentSlide + 1} / ${totalSlides}`;
+            
+            // Navigation button states
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeSlide(1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                } else {
+                    document.documentElement.requestFullscreen();
+                }
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>

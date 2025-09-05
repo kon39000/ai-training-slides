@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>セッション4：バイブコーディング入門</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', sans-serif;
+            background: #f0f8f8;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 80px 100px;
+            background: linear-gradient(135deg, #f7fbfb 0%, #ffffff 100%);
+            font-size: 24px;
+            color: #333;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            color: #004D47;
+            font-size: 3.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4rem;
+            line-height: 1.3;
+        }
+
+        h2 {
+            color: #128277;
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: left;
+            border-left: 8px solid #128277;
+            padding-left: 2rem;
+            line-height: 1.4;
+        }
+
+        h3 {
+            color: #004D47;
+            font-size: 2.4rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            text-align: left;
+            line-height: 1.3;
+        }
+
+        p {
+            font-size: 1.8rem;
+            line-height: 2.2;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        li {
+            font-size: 1.8rem;
+            line-height: 2.2;
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+
+        strong {
+            color: #128277;
+            font-weight: 700;
+        }
+
+        .center {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .highlight-box {
+            background: #f8fffe;
+            border-left: 8px solid #128277;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .warning-box {
+            background: #fff8e1;
+            border-left: 8px solid #f57c00;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .demo-box {
+            background: #f3e5f5;
+            border: 3px solid #9c27b0;
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .feature-box {
+            background: #e8f5e8;
+            border: 2px solid #4caf50;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .steps {
+            counter-reset: step-counter;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #128277;
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin: 2rem 0;
+            align-items: start;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #128277;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #004D47;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-number {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(18, 130, 119, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        ul {
+            margin-left: 2rem;
+        }
+
+        ol {
+            margin-left: 2rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 1.6rem;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            border: 2px solid #128277;
+            padding: 1.5rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .comparison-table th {
+            background: #128277;
+            color: white;
+            font-weight: 700;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8fffe;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- Slide 1: タイトル -->
+        <div class="slide active">
+            <h1>🎯 セッション4<br>バイブコーディング入門</h1>
+            <div class="center" style="margin-top: 6rem;">
+                <p style="font-size: 2.2rem; color: #128277; font-weight: 500;">
+                    AIとコードの融合で<br>
+                    開発効率を劇的に向上させよう
+                </p>
+            </div>
+            <div class="highlight-box" style="margin-top: 8rem;">
+                <p style="text-align: center; font-size: 1.8rem;">
+                    <strong>⏰ 時間：60分（13:00-14:00）</strong><br>
+                    プログラミング初心者でも安心してご参加ください
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 2: バイブコーディングとは -->
+        <div class="slide">
+            <h2>🤖 バイブコーディングとは</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <h3 style="text-align: center; color: #004D47; font-size: 2.6rem;">
+                        AI + プログラミング = 新しい開発体験
+                    </h3>
+                </div>
+                <div style="margin-top: 5rem;">
+                    <p style="font-size: 2rem; margin-bottom: 2.5rem;">
+                        <strong>「バイブコーディング」</strong>は、AIアシスタントと協働しながら直感的にプログラムを作成する新しい開発手法です
+                    </p>
+                    <ul style="font-size: 1.9rem; line-height: 2.3;">
+                        <li>自然言語でプログラムの要求を伝える</li>
+                        <li>AIがコードを自動生成・修正・改善</li>
+                        <li>対話しながら理想の動作を実現</li>
+                        <li>従来の10倍速い開発サイクル</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: 従来開発との比較 -->
+        <div class="slide">
+            <h2>⚡ 従来の開発との違い</h2>
+            <div class="two-column" style="margin-top: 4rem;">
+                <div class="warning-box">
+                    <h3 style="color: #e65100;">❌ 従来の開発</h3>
+                    <ul style="margin-top: 2rem;">
+                        <li>文法を覚える必要がある</li>
+                        <li>エラー解決に時間がかかる</li>
+                        <li>ライブラリの使い方を調べる</li>
+                        <li>設計からコーディングまで1人で</li>
+                        <li>バグ修正が困難</li>
+                    </ul>
+                </div>
+                <div class="feature-box">
+                    <h3 style="color: #2e7d32;">✅ バイブコーディング</h3>
+                    <ul style="margin-top: 2rem;">
+                        <li>やりたいことを日本語で伝える</li>
+                        <li>AIが瞬時にエラーを解決</li>
+                        <li>最適なライブラリを提案</li>
+                        <li>AIと協働でプロトタイプ作成</li>
+                        <li>リアルタイムでコード改善</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: 主要なAI開発ツール -->
+        <div class="slide">
+            <h2>🛠️ 主要なAI開発ツール</h2>
+            <div style="margin-top: 4rem;">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">ツール名</th>
+                            <th style="width: 35%;">特徴</th>
+                            <th style="width: 25%;">得意分野</th>
+                            <th style="width: 20%;">料金</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>GitHub Copilot</strong></td>
+                            <td>VSCodeに統合、リアルタイム支援</td>
+                            <td>コード補完、関数生成</td>
+                            <td>$10/月</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Claude Code</strong></td>
+                            <td>対話型、プロジェクト全体を理解</td>
+                            <td>設計相談、バグ修正</td>
+                            <td>$20/月</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cursor</strong></td>
+                            <td>AI統合エディター</td>
+                            <td>コード編集、リファクタリング</td>
+                            <td>$20/月</td>
+                        </tr>
+                        <tr>
+                            <td><strong>v0.dev</strong></td>
+                            <td>UIを自動生成</td>
+                            <td>Webアプリ、コンポーネント</td>
+                            <td>無料</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 5: バイブコーディングの流れ -->
+        <div class="slide">
+            <h2>🔄 バイブコーディングの基本フロー</h2>
+            <div style="margin-top: 5rem;">
+                <ol class="steps" style="font-size: 2rem;">
+                    <li><strong>アイデア共有</strong>：「○○のようなアプリを作りたい」</li>
+                    <li><strong>要件整理</strong>：AIと対話しながら機能を明確化</li>
+                    <li><strong>プロトタイプ作成</strong>：AIが基本構造を自動生成</li>
+                    <li><strong>反復改善</strong>：「この部分をもっと○○に」で調整</li>
+                    <li><strong>テスト＆デバッグ</strong>：AIが問題を検出・修正</li>
+                    <li><strong>デプロイ</strong>：本番環境への展開もAIがサポート</li>
+                </ol>
+            </div>
+            <div class="highlight-box" style="margin-top: 4rem;">
+                <p style="text-align: center; font-size: 1.8rem;">
+                    <strong>重要</strong>：技術的な知識は不要。アイデアと対話力があれば十分！
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 6: ライブデモ1 -->
+        <div class="slide">
+            <h2>🎬 ライブデモ1：簡単なWebアプリ作成</h2>
+            <div class="demo-box" style="margin-top: 4rem;">
+                <h3 style="color: #7b1fa2;">📝 課題：ToDoリストアプリを作ろう</h3>
+                <div class="steps" style="margin-top: 3rem;">
+                    <p style="font-size: 1.9rem; margin-bottom: 2rem;"><strong>機能要件</strong>：</p>
+                    <ul style="font-size: 1.8rem; margin-left: 2rem;">
+                        <li>タスクの追加・削除</li>
+                        <li>完了チェック機能</li>
+                        <li>シンプルで使いやすいデザイン</li>
+                        <li>データの永続化（ローカルストレージ）</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="warning-box" style="margin-top: 4rem;">
+                <p style="text-align: center; font-size: 1.8rem;">
+                    <strong>実演時間：10分</strong><br>
+                    ChatGPTまたはClaude Codeを使用してリアルタイムで開発
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 7: デモのポイント解説 -->
+        <div class="slide">
+            <h2>💡 デモで学んだポイント</h2>
+            <div style="margin-top: 4rem;">
+                <div class="feature-box">
+                    <h3 style="color: #2e7d32;">✨ 効果的な指示の出し方</h3>
+                    <ul style="margin-top: 2rem; font-size: 1.8rem;">
+                        <li><strong>具体的に</strong>：「美しいデザイン」→「モダンで、青系の色使い」</li>
+                        <li><strong>段階的に</strong>：一度に全機能を求めず、段階的に追加</li>
+                        <li><strong>例を示す</strong>：「Googleカレンダーのような」など参考例を提示</li>
+                    </ul>
+                </div>
+                <div class="highlight-box" style="margin-top: 3rem;">
+                    <h3 style="color: #004D47;">🔧 AIとの効果的な対話</h3>
+                    <ul style="margin-top: 2rem; font-size: 1.8rem;">
+                        <li>「なぜそのコードにしたか」を質問する</li>
+                        <li>「他にもっと良い方法は？」で選択肢を探る</li>
+                        <li>「初心者にも分かりやすく説明して」でリファクタ要求</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: グループワーク -->
+        <div class="slide">
+            <h2>🤝 グループワーク（20分）</h2>
+            <div class="warning-box" style="margin-top: 4rem;">
+                <h3 style="font-size: 2.8rem; text-align: center;">🎯 課題：チームでアプリアイデア企画</h3>
+            </div>
+            <div style="margin-top: 4rem;">
+                <div class="steps">
+                    <li><strong>チーム分け</strong>（3-4名/チーム）</li>
+                    <li><strong>アプリアイデア検討</strong>（10分）
+                        <ul style="margin-top: 1rem; font-size: 1.6rem;">
+                            <li>業務効率化ツール</li>
+                            <li>エンターテイメントアプリ</li>
+                            <li>学習支援ツール</li>
+                            <li>ライフスタイルアプリ</li>
+                        </ul>
+                    </li>
+                    <li><strong>AI開発プランニング</strong>（7分）</li>
+                    <li><strong>発表準備</strong>（3分）</li>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: 発表タイム -->
+        <div class="slide">
+            <h2>🎤 チーム発表（15分）</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <h3 style="color: #004D47; text-align: center;">📋 発表内容（各チーム3分）</h3>
+                    <ol style="margin-top: 3rem; font-size: 1.9rem;">
+                        <li><strong>アプリ概要</strong>：何を作るか、誰のために</li>
+                        <li><strong>主要機能</strong>：3つの核となる機能</li>
+                        <li><strong>AI活用戦略</strong>：どのAIツールをどう使うか</li>
+                        <li><strong>開発ステップ</strong>：どんな順序で進めるか</li>
+                    </ol>
+                </div>
+                <div class="feature-box" style="margin-top: 4rem;">
+                    <p style="text-align: center; font-size: 1.8rem;">
+                        <strong>🏆 優秀チームには特製ステッカーをプレゼント！</strong><br>
+                        実現可能性・創造性・AI活用度で評価
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: ライブデモ2 -->
+        <div class="slide">
+            <h2>🎬 ライブデモ2：実際に開発してみよう</h2>
+            <div class="demo-box" style="margin-top: 4rem;">
+                <h3 style="color: #7b1fa2;">🚀 最優秀チームのアイデアを実装</h3>
+                <div style="margin-top: 3rem;">
+                    <p style="font-size: 1.9rem; margin-bottom: 2rem;">
+                        <strong>実装時間：10分</strong>
+                    </p>
+                    <div class="steps">
+                        <li>要件をAIに伝える</li>
+                        <li>基本構造の自動生成</li>
+                        <li>機能追加と調整</li>
+                        <li>デザイン改善</li>
+                        <li>簡単なテスト実行</li>
+                    </div>
+                </div>
+            </div>
+            <div class="warning-box" style="margin-top: 3rem;">
+                <p style="text-align: center; font-size: 1.7rem;">
+                    参加者の皆さんも一緒にAIに質問を投げかけてください！<br>
+                    リアルタイムで開発プロセスを体験しましょう
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 11: バイブコーディングのベストプラクティス -->
+        <div class="slide">
+            <h2>🏅 バイブコーディング成功のコツ</h2>
+            <div class="two-column" style="margin-top: 4rem;">
+                <div>
+                    <div class="feature-box">
+                        <h3 style="color: #2e7d32;">✅ やるべきこと</h3>
+                        <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
+                            <li>小さく始めて段階的に拡張</li>
+                            <li>コードの理解を心がける</li>
+                            <li>複数のAIツールを使い分け</li>
+                            <li>セキュリティ面も確認依頼</li>
+                            <li>定期的にコードレビュー依頼</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="warning-box">
+                        <h3 style="color: #e65100;">❌ 避けるべきこと</h3>
+                        <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
+                            <li>一度に複雑すぎる要求</li>
+                            <li>AIの出力を盲信する</li>
+                            <li>テストを怠る</li>
+                            <li>バックアップを取らない</li>
+                            <li>ライセンス確認を忘れる</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: 次のステップ -->
+        <div class="slide">
+            <h2>🚀 今日から始められること</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <h3 style="color: #004D47;">📱 すぐに試せるアイデア</h3>
+                    <ol class="steps" style="margin-top: 2rem; font-size: 1.8rem;">
+                        <li>簡単な計算機アプリ</li>
+                        <li>QRコード生成ツール</li>
+                        <li>天気予報表示アプリ</li>
+                        <li>簡単なゲーム（じゃんけんなど）</li>
+                        <li>社内で使える小さなツール</li>
+                    </ol>
+                </div>
+                <div class="feature-box" style="margin-top: 3rem;">
+                    <h3 style="color: #2e7d32;">📚 学習リソース</h3>
+                    <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
+                        <li><strong>公式ドキュメント</strong>：各AIツールの使い方ガイド</li>
+                        <li><strong>YouTube</strong>：バイブコーディング実践動画</li>
+                        <li><strong>オンラインコース</strong>：UdemyのAI開発講座</li>
+                        <li><strong>コミュニティ</strong>：Discordの開発者グループ</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: セッション4まとめ -->
+        <div class="slide">
+            <h2>📋 セッション4まとめ</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <h3 style="color: #004D47; text-align: center;">🎯 今日学んだこと</h3>
+                    <ul style="margin-top: 2.5rem; font-size: 1.9rem;">
+                        <li><strong>バイブコーディング</strong>：AIと協働する新しい開発手法</li>
+                        <li><strong>効果的な指示</strong>：具体的で段階的なコミュニケーション</li>
+                        <li><strong>実践的開発</strong>：ToDoアプリの実装体験</li>
+                        <li><strong>チームワーク</strong>：アイデア企画から実装まで</li>
+                    </ul>
+                </div>
+                <div class="warning-box" style="margin-top: 4rem;">
+                    <h3 style="color: #e65100; text-align: center;">⏰ 休憩タイム（15分）</h3>
+                    <p style="text-align: center; font-size: 1.8rem; margin-top: 1.5rem;">
+                        <strong>14:00-14:15</strong><br>
+                        午後のセッションに向けてリフレッシュしましょう！<br>
+                        次回は「データ分析・リサーチ活用」です
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-number" id="slideNumber">1 / 13</div>
+    
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ 前へ</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">次へ ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('slideNumber').textContent = `${currentSlide + 1} / ${totalSlides}`;
+            
+            // Navigation button states
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeSlide(1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                } else {
+                    document.documentElement.requestFullscreen();
+                }
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>

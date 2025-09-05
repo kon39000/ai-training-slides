@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session6 Demo - Project Template</title>
+    <style>
+        body { 
+            font-family: 'Yu Gothic', 'Meiryo', sans-serif; 
+            background: linear-gradient(135deg, #e8f5e8, #f9fff9);
+            padding: 2rem;
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 15px 35px rgba(46, 125, 50, 0.1);
+        }
+        
+        h1 { 
+            color: #1b5e20;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #2e7d32, #4caf50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .template-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .template-card {
+            background: linear-gradient(135deg, #f1f8e9, #e8f5e8);
+            border: 2px solid transparent;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .template-card:hover {
+            border-color: #4caf50;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.2);
+        }
+        
+        .template-card.active {
+            border-color: #2e7d32;
+            background: linear-gradient(135deg, #c8e6c9, #e8f5e8);
+        }
+        
+        .template-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .template-title {
+            color: #2e7d32;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .presentation-form {
+            background: linear-gradient(135deg, #f1f8e9, #ffffff);
+            border-radius: 15px;
+            padding: 3rem;
+            border: 2px solid #4caf50;
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 2.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #2e7d32;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid #c8e6c9;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .ai-examples {
+            background: #e8f5e8;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 5px solid #4caf50;
+            margin-top: 1rem;
+        }
+        
+        .ai-examples h4 {
+            color: #2e7d32;
+            margin-bottom: 1rem;
+        }
+        
+        .ai-examples ul {
+            margin-left: 1.5rem;
+        }
+        
+        .ai-examples li {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        
+        .buttons {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #4caf50, #66bb6a);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #81c784, #a5d6a7);
+        }
+        
+        .preview-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            border: 2px solid #4caf50;
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .preview-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        .time-display {
+            background: #2e7d32;
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        
+        .tips-box {
+            background: linear-gradient(135deg, #fff3e0, #fffde7);
+            border: 2px solid #ff9800;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .tips-box h4 {
+            color: #e65100;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 グループ発表テンプレート</h1>
+        
+        <div class="time-display" id="timeDisplay">
+            発表時間: 5分（残り時間: <span id="timer">5:00</span>）
+        </div>
+        
+        <div class="template-selector">
+            <div class="template-card active" onclick="selectTemplate('product')">
+                <div class="template-icon">🛍️</div>
+                <div class="template-title">商品企画</div>
+                <p>新商品・サービスの企画提案</p>
+            </div>
+            
+            <div class="template-card" onclick="selectTemplate('calendar')">
+                <div class="template-icon">📅</div>
+                <div class="template-title">カレンダーデザイン</div>
+                <p>オリジナルカレンダーの企画</p>
+            </div>
+            
+            <div class="template-card" onclick="selectTemplate('goods')">
+                <div class="template-icon">🎁</div>
+                <div class="template-title">グッズ企画</div>
+                <p>オリジナルグッズの商品化</p>
+            </div>
+        </div>
+        
+        <form class="presentation-form" id="presentationForm">
+            <div class="form-group">
+                <label for="teamName">🏷️ チーム名・発表者名</label>
+                <input type="text" id="teamName" placeholder="例: チーム・グリーン / 田中太郎">
+            </div>
+            
+            <div class="form-group">
+                <label for="projectTheme">🎯 プロジェクトテーマ</label>
+                <input type="text" id="projectTheme" placeholder="例: 健康志向の若者向けスマートカレンダー">
+            </div>
+            
+            <div class="form-group">
+                <label for="targetCustomer">👥 ターゲット顧客</label>
+                <textarea id="targetCustomer" placeholder="例: 20-30代の健康意識が高い会社員。デジタルツールに慣れ親しんでおり、効率的な生活を求めている。"></textarea>
+                
+                <div class="ai-examples">
+                    <h4>💡 AIで分析したターゲット像の例</h4>
+                    <ul>
+                        <li>年齢層、職業、ライフスタイルの詳細</li>
+                        <li>購買行動や価値観の特徴</li>
+                        <li>競合商品への不満点</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="aiUsage">🤖 AI活用方法</label>
+                <textarea id="aiUsage" placeholder="例: ChatGPTでキャッチコピー生成 → Canvaで商品デザイン作成 → Geminiで競合分析"></textarea>
+                
+                <div class="ai-examples">
+                    <h4>🛠️ 使用したAIツール</h4>
+                    <ul>
+                        <li><strong>ChatGPT:</strong> アイデア発想、文章作成</li>
+                        <li><strong>Claude:</strong> 戦略立案、分析</li>
+                        <li><strong>Canva AI:</strong> デザイン、画像生成</li>
+                        <li><strong>Gemini:</strong> データ分析、リサーチ</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="keyFeatures">✨ 主な特徴・セールスポイント</label>
+                <textarea id="keyFeatures" placeholder="例: 1. AIによる健康アドバイス機能 2. スマートフォン連携 3. 環境に優しい素材使用"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="deliverables">📦 成果物（リンク・QRコード）</label>
+                <input type="text" id="deliverables" placeholder="例: https://example.com/demo または QRコード、ファイル名など">
+            </div>
+            
+            <div class="form-group">
+                <label for="nextSteps">🚀 今後の展開</label>
+                <textarea id="nextSteps" placeholder="例: 1週間以内にプロトタイプ作成、来月市場調査実施、3ヶ月後にテスト販売開始"></textarea>
+            </div>
+            
+            <div class="buttons">
+                <button type="button" class="btn" onclick="generatePreview()">👁️ プレビュー生成</button>
+                <button type="button" class="btn btn-secondary" onclick="startTimer()">⏱️ 発表タイマー開始</button>
+                <button type="button" class="btn btn-secondary" onclick="resetForm()">🔄 リセット</button>
+            </div>
+        </form>
+        
+        <div class="preview-section" id="previewSection">
+            <h3 style="color: #2e7d32; margin-bottom: 2rem;">📋 発表内容プレビュー</h3>
+            <div class="preview-content" id="previewContent"></div>
+        </div>
+        
+        <div class="tips-box">
+            <h4>🎤 効果的な発表のコツ</h4>
+            <ul>
+                <li><strong>PREP法:</strong> 結論 → 理由 → 具体例 → 結論</li>
+                <li><strong>視覚的訴求:</strong> 画像や図表を効果的に使用</li>
+                <li><strong>ストーリー:</strong> 顧客の課題から解決策への流れを明確に</li>
+                <li><strong>AI活用:</strong> どのAIツールでどんな価値を生み出したかを具体的に</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let currentTemplate = 'product';
+        let timerInterval;
+        let timeLeft = 300; // 5分
+
+        function selectTemplate(template) {
+            currentTemplate = template;
+            
+            // アクティブクラスの切り替え
+            document.querySelectorAll('.template-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            event.target.closest('.template-card').classList.add('active');
+            
+            // テンプレート別のプレースホルダー変更
+            updatePlaceholders(template);
+        }
+
+        function updatePlaceholders(template) {
+            const placeholders = {
+                product: {
+                    theme: '健康志向の若者向けスマートカレンダー',
+                    target: '20-30代の健康意識が高い会社員。デジタルツールに慣れ親しんでおり、効率的な生活を求めている。',
+                    features: '1. AIによる健康アドバイス機能 2. スマートフォン連携 3. 環境に優しい素材使用'
+                },
+                calendar: {
+                    theme: '地域の魅力を伝える観光カレンダー',
+                    target: '30-50代の旅行好きな主婦層。地域の文化や食べ物に興味があり、季節感を大切にする。',
+                    features: '1. 月ごとの観光スポット紹介 2. 地域イベント情報 3. QRコードで詳細情報アクセス'
+                },
+                goods: {
+                    theme: 'エコフレンドリーなオフィス用品シリーズ',
+                    target: '環境意識の高い企業の総務・購買担当者。コスト削減と環境配慮を両立したい。',
+                    features: '1. 100%リサイクル素材使用 2. 長期使用可能な耐久性 3. スタイリッシュなデザイン'
+                }
+            };
+            
+            const current = placeholders[template];
+            document.getElementById('projectTheme').placeholder = `例: ${current.theme}`;
+            document.getElementById('targetCustomer').placeholder = `例: ${current.target}`;
+            document.getElementById('keyFeatures').placeholder = `例: ${current.features}`;
+        }
+
+        function generatePreview() {
+            const formData = {
+                teamName: document.getElementById('teamName').value || '（チーム名未入力）',
+                projectTheme: document.getElementById('projectTheme').value || '（テーマ未入力）',
+                targetCustomer: document.getElementById('targetCustomer').value || '（ターゲット未入力）',
+                aiUsage: document.getElementById('aiUsage').value || '（AI活用方法未入力）',
+                keyFeatures: document.getElementById('keyFeatures').value || '（特徴未入力）',
+                deliverables: document.getElementById('deliverables').value || '（成果物未入力）',
+                nextSteps: document.getElementById('nextSteps').value || '（今後の展開未入力）'
+            };
+            
+            const previewHTML = `
+                <h4 style="color: #2e7d32;">発表者: ${formData.teamName}</h4>
+                <h3 style="color: #1b5e20; margin: 1rem 0;">📌 ${formData.projectTheme}</h3>
+                
+                <div style="margin: 2rem 0; padding: 1.5rem; background: #f1f8e9; border-radius: 8px;">
+                    <strong>🎯 ターゲット顧客:</strong><br>
+                    ${formData.targetCustomer}
+                </div>
+                
+                <div style="margin: 2rem 0; padding: 1.5rem; background: #e8f5e8; border-radius: 8px;">
+                    <strong>🤖 AI活用方法:</strong><br>
+                    ${formData.aiUsage}
+                </div>
+                
+                <div style="margin: 2rem 0; padding: 1.5rem; background: #f1f8e9; border-radius: 8px;">
+                    <strong>✨ 主な特徴:</strong><br>
+                    ${formData.keyFeatures}
+                </div>
+                
+                <div style="margin: 2rem 0; padding: 1.5rem; background: #e8f5e8; border-radius: 8px;">
+                    <strong>📦 成果物:</strong><br>
+                    ${formData.deliverables}
+                </div>
+                
+                <div style="margin: 2rem 0; padding: 1.5rem; background: #c8e6c9; border-radius: 8px;">
+                    <strong>🚀 今後の展開:</strong><br>
+                    ${formData.nextSteps}
+                </div>
+            `;
+            
+            document.getElementById('previewContent').innerHTML = previewHTML;
+            document.getElementById('previewSection').style.display = 'block';
+        }
+
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            
+            timeLeft = 300; // 5分にリセット
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                document.getElementById('timer').textContent = 
+                    `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('timer').textContent = '終了！';
+                    document.getElementById('timer').style.color = '#f44336';
+                    alert('🔔 発表時間終了です！');
+                }
+            }, 1000);
+        }
+
+        function resetForm() {
+            document.getElementById('presentationForm').reset();
+            document.getElementById('previewSection').style.display = 'none';
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timeLeft = 300;
+                document.getElementById('timer').textContent = '5:00';
+                document.getElementById('timer').style.color = 'white';
+            }
+        }
+
+        // 初期設定
+        updatePlaceholders('product');
+    </script>
+</body>
+</html>

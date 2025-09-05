@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>セッション1：AIの最新情報と進化</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+        }
+        .slide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .slide {
+            background: linear-gradient(135deg, #f7fbfb 0%, #ffffff 100%);
+            padding: 60px 80px;
+            min-height: 80vh;
+            display: none;
+            color: #333;
+            font-size: 24px;
+        }
+        .slide.active {
+            display: block;
+        }
+        .slide h1 {
+            color: #004D47;
+            font-size: 3.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .slide h2 {
+            color: #128277;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: left;
+            border-left: 6px solid #128277;
+            padding-left: 1.5rem;
+        }
+        .slide h3 {
+            color: #004D47;
+            font-size: 2.0rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        .slide p, .slide li {
+            color: #333;
+            line-height: 2.1;
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+        .slide strong {
+            color: #128277;
+            font-weight: 700;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(18, 130, 119, 0.9);
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+        }
+        .nav-btn {
+            background: #128277;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .nav-btn:hover {
+            background: #004D47;
+        }
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .slide-counter {
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        .highlight-box {
+            background: #f8fffe;
+            border-left: 6px solid #128277;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+        }
+        .warning-box {
+            background: #fffef6;
+            border-left: 6px solid #FBCD4B;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+        }
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+            margin: 2rem 0;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2.5rem 0;
+        }
+        .comparison-table th {
+            background: #128277;
+            color: white;
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: bold;
+        }
+        .comparison-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid #e2f1ef;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f3fbfa;
+        }
+        .center-content {
+            text-align: center;
+            margin: 3rem 0;
+        }
+        .icon-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .icon-list li {
+            margin-bottom: 1.5rem;
+        }
+        .icon-list .fire::before {
+            content: "🔥 ";
+            margin-right: 0.5rem;
+        }
+        .icon-list .info::before {
+            content: "💡 ";
+            margin-right: 0.5rem;
+        }
+        .icon-list .check::before {
+            content: "✅ ";
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- スライド1：セッション1タイトル -->
+        <div class="slide active">
+            <h1>🚀 セッション1</h1>
+            <h2 style="text-align: center; border: none;">AIの最新情報と進化</h2>
+            <div class="center-content">
+                <p style="font-size: 2rem; color: #128277;"><strong>この1年で変わったAIの世界</strong></p>
+                <p style="font-size: 1.6rem; margin-top: 3rem;">時間: 9:15-10:00（45分）</p>
+            </div>
+        </div>
+
+        <!-- スライド2：ChatGPTの劇的な進化 -->
+        <div class="slide">
+            <h2>ChatGPTの劇的な進化</h2>
+            <div class="two-column">
+                <div>
+                    <h3>📅 従来（2023年）</h3>
+                    <ul style="font-size: 1.8rem;">
+                        <li>GPT-3.5: 基本的な対話</li>
+                        <li>単発的な回答</li>
+                        <li>精度にバラつき</li>
+                        <li>テキストのみ</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>🚀 現在（2025年）</h3>
+                    <ul style="font-size: 1.8rem;">
+                        <li><strong>GPT-5</strong>: 推論能力が飛躍的向上</li>
+                        <li><strong>o1モデル</strong>: 数学・論理思考特化</li>
+                        <li>継続的な学習と記憶</li>
+                        <li>マルチモーダル対応</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド3：GPT-5とo1モデル -->
+        <div class="slide">
+            <h2>GPT-5とo1モデルの特徴</h2>
+            <div class="highlight-box">
+                <h3>🧠 GPT-5の進化ポイント</h3>
+                <ul style="font-size: 1.8rem;">
+                    <li><strong>推論力</strong>: 複雑な論理問題を段階的に解決</li>
+                    <li><strong>記憶力</strong>: 長い会話の文脈を保持</li>
+                    <li><strong>専門性</strong>: 特定分野での深い知識</li>
+                </ul>
+            </div>
+            <div class="highlight-box">
+                <h3>🔬 o1モデル（推論特化）</h3>
+                <ul style="font-size: 1.8rem;">
+                    <li><strong>数学・科学</strong>: 大学院レベルの問題解決</li>
+                    <li><strong>コーディング</strong>: 複雑なアルゴリズム設計</li>
+                    <li><strong>思考過程</strong>: 推論ステップを表示</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- スライド4：注目すべき新機能 -->
+        <div class="slide">
+            <h2>注目すべき新機能</h2>
+            <div style="margin-top: 3rem;">
+                <h3>🔍 DeepResearch機能</h3>
+                <ul style="font-size: 1.8rem; margin-bottom: 2rem;">
+                    <li>学術論文レベルの詳細調査</li>
+                    <li>複数情報源からの統合分析</li>
+                    <li>信頼性の高いレポート生成</li>
+                </ul>
+
+                <h3>🎙️ 音声対話</h3>
+                <ul style="font-size: 1.8rem; margin-bottom: 2rem;">
+                    <li>リアルタイムでの自然な会話</li>
+                    <li>感情やニュアンスの理解</li>
+                    <li>議事録・メモの自動作成</li>
+                </ul>
+
+                <h3>🎬 動画生成</h3>
+                <ul style="font-size: 1.8rem;">
+                    <li>テキストから高品質動画作成</li>
+                    <li>30秒〜2分の動画対応</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- スライド5：Claude 3.5 Sonnet -->
+        <div class="slide">
+            <h2>Claude 3.5 Sonnetの強み</h2>
+            <div class="two-column">
+                <div>
+                    <h3>🛡️ 安全性重視</h3>
+                    <ul style="font-size: 1.8rem;">
+                        <li>情報漏洩リスクが低い</li>
+                        <li>倫理的判断に優れる</li>
+                        <li>透明性の高い回答</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>📊 データ分析特化</h3>
+                    <ul style="font-size: 1.8rem;">
+                        <li>長文読解が得意</li>
+                        <li>複雑なデータ解釈</li>
+                        <li>構造化された出力</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <h3>💼 プロジェクト機能</h3>
+                <ul style="font-size: 1.8rem;">
+                    <li>複数文書の同時管理</li>
+                    <li>大容量ファイル対応（PDF、CSV等）</li>
+                    <li>チーム共有とコラボレーション</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- スライド6：Google Gemini -->
+        <div class="slide">
+            <h2>Google Geminiの強み</h2>
+            <div style="margin-top: 3rem;">
+                <h3>🔗 Google連携の威力</h3>
+                <ul style="font-size: 1.8rem; margin-bottom: 3rem;">
+                    <li>Gmail、Google Drive、Sheetsとの連携</li>
+                    <li>リアルタイムWeb検索</li>
+                    <li>Google Workspaceでの活用</li>
+                </ul>
+
+                <h3>📱 スマホ対応</h3>
+                <ul style="font-size: 1.8rem;">
+                    <li>Androidネイティブ統合</li>
+                    <li>音声コマンド対応</li>
+                    <li>カメラ画像の即座認識・分析</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- スライド7：AIツール比較表 -->
+        <div class="slide">
+            <h2>主要AIツール比較</h2>
+            <table class="comparison-table">
+                <tr>
+                    <th>ツール</th>
+                    <th>強み</th>
+                    <th>料金</th>
+                    <th>おすすめ用途</th>
+                </tr>
+                <tr>
+                    <td><strong>ChatGPT</strong></td>
+                    <td>万能・高速処理</td>
+                    <td>無料〜$20/月</td>
+                    <td>一般的な質問・文章作成</td>
+                </tr>
+                <tr>
+                    <td><strong>Claude</strong></td>
+                    <td>安全性・長文処理</td>
+                    <td>無料〜$20/月</td>
+                    <td>データ分析・文書管理</td>
+                </tr>
+                <tr>
+                    <td><strong>Gemini</strong></td>
+                    <td>Google連携</td>
+                    <td>無料〜$19.99/月</td>
+                    <td>業務効率化・検索</td>
+                </tr>
+                <tr>
+                    <td><strong>Perplexity</strong></td>
+                    <td>リサーチ特化</td>
+                    <td>無料〜$20/月</td>
+                    <td>調査・情報収集</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- スライド8：画像生成AI -->
+        <div class="slide">
+            <h2>画像生成AIの進化</h2>
+            <div class="two-column">
+                <div>
+                    <h3>🎨 主要ツール</h3>
+                    <ul class="icon-list">
+                        <li class="fire"><strong>Midjourney V6</strong><br>最高品質・芸術的</li>
+                        <li class="info"><strong>nano-banana</strong><br>日本製・高速生成</li>
+                        <li class="check"><strong>Flux</strong><br>オープンソース・無料</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>📈 2025年の進化</h3>
+                    <ul style="font-size: 1.8rem;">
+                        <li>リアルタイム生成</li>
+                        <li>スタイル転送の精度向上</li>
+                        <li>動画との統合</li>
+                        <li>商用利用の規約明確化</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド9：グループワーク -->
+        <div class="slide">
+            <h2>🤝 グループワーク（10分）</h2>
+            <div class="warning-box">
+                <h3>お題：AIで代替される／されにくい職業</h3>
+                <p style="font-size: 1.8rem;">3〜4人のグループになって話し合いましょう</p>
+            </div>
+            <div class="two-column" style="margin-top: 3rem;">
+                <div>
+                    <h3>💼 代替されやすい職業</h3>
+                    <ul style="font-size: 1.8rem;">
+                        <li>定型的な事務作業</li>
+                        <li>単純なデータ入力</li>
+                        <li>基礎的な翻訳・通訳</li>
+                        <li>（あなたの考えは？）</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>🛡️ 代替されにくい職業</h3>
+                    <ul style="font-size: 1.8rem;">
+                        <li>創造性が必要な仕事</li>
+                        <li>対人スキルが重要な仕事</li>
+                        <li>複雑な判断が必要な仕事</li>
+                        <li>（あなたの考えは？）</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド10：セッション1まとめ -->
+        <div class="slide">
+            <h2>セッション1まとめ</h2>
+            <div class="highlight-box">
+                <h3>📝 本セッションの要点</h3>
+                <ul class="icon-list" style="font-size: 1.8rem;">
+                    <li class="check">AIは<strong>劇的に進化</strong>している（特に2024-2025年）</li>
+                    <li class="check">各ツールには<strong>明確な強み</strong>がある</li>
+                    <li class="check">適材適所での<strong>使い分け</strong>が重要</li>
+                    <li class="fire">AIは<strong>仕事を奪う</strong>のではなく<strong>変化させる</strong></li>
+                </ul>
+            </div>
+            <div class="center-content">
+                <p style="font-size: 2rem; color: #128277; margin-top: 3rem;">
+                    <strong>次のセッション：AIのリスクと安全利用</strong>
+                </p>
+                <p style="font-size: 1.6rem;">10分間の休憩後、10:10から開始します</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="prevSlide()">◀ 前へ</button>
+        <span class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">10</span>
+        </span>
+        <button class="nav-btn" onclick="nextSlide()">次へ ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[n].classList.add('active');
+            document.getElementById('current-slide').textContent = n + 1;
+            
+            // ナビゲーションボタンの状態更新
+            document.querySelector('button[onclick="prevSlide()"]').disabled = (n === 0);
+            document.querySelector('button[onclick="nextSlide()"]').disabled = (n === totalSlides - 1);
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        // キーボードナビゲーション
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key.toLowerCase() === 'f') {
+                // フルスクリーン切り替えと発表モード
+                e.preventDefault();
+                togglePresentMode();
+            } else if (e.key === 'Escape') {
+                // Escapeでフルスクリーン解除
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                    document.querySelector('.navigation').style.display = 'block';
+                }
+            }
+        });
+
+        // 発表モード切り替え
+        function togglePresentMode() {
+            const nav = document.querySelector('.navigation');
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().then(() => {
+                    nav.style.display = 'none';
+                }).catch(err => {
+                    console.log('フルスクリーンエラー:', err);
+                });
+            } else {
+                document.exitFullscreen();
+                nav.style.display = 'block';
+            }
+        }
+
+        // 初期表示
+        showSlide(0);
+    </script>
+</body>
+</html>

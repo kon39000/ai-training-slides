@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>セッション6：実践プロジェクト</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', sans-serif;
+            background: #f0f8f8;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 80px 100px;
+            background: linear-gradient(135deg, #f7fbfb 0%, #ffffff 100%);
+            font-size: 24px;
+            color: #333;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            color: #004D47;
+            font-size: 3.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4rem;
+            line-height: 1.3;
+        }
+
+        h2 {
+            color: #128277;
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: left;
+            border-left: 8px solid #128277;
+            padding-left: 2rem;
+            line-height: 1.4;
+        }
+
+        h3 {
+            color: #004D47;
+            font-size: 2.4rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            text-align: left;
+            line-height: 1.3;
+        }
+
+        p {
+            font-size: 1.8rem;
+            line-height: 2.2;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        li {
+            font-size: 1.8rem;
+            line-height: 2.2;
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+
+        strong {
+            color: #128277;
+            font-weight: 700;
+        }
+
+        .center {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .highlight-box {
+            background: #f8fffe;
+            border-left: 8px solid #128277;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .warning-box {
+            background: #fff8e1;
+            border-left: 8px solid #f57c00;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .demo-box {
+            background: #f3e5f5;
+            border: 3px solid #9c27b0;
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .feature-box {
+            background: #e8f5e8;
+            border: 2px solid #4caf50;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .project-box {
+            background: #fff3e0;
+            border: 3px solid #ff9800;
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .success-box {
+            background: #e8f5e8;
+            border: 3px solid #4caf50;
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .steps {
+            counter-reset: step-counter;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #128277;
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin: 2rem 0;
+            align-items: start;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 3rem;
+            margin: 2rem 0;
+            align-items: start;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #128277;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #004D47;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-number {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(18, 130, 119, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        ul {
+            margin-left: 2rem;
+        }
+
+        ol {
+            margin-left: 2rem;
+        }
+
+        .timer-box {
+            background: #ffebee;
+            border: 3px solid #f44336;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .progress-tracker {
+            background: #f0f0f0;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 2rem 0;
+        }
+
+        .progress-bar {
+            background: #128277;
+            height: 10px;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- Slide 1: タイトル -->
+        <div class="slide active">
+            <h1>🚀 セッション6<br>実践プロジェクト</h1>
+            <div class="center" style="margin-top: 6rem;">
+                <p style="font-size: 2.2rem; color: #128277; font-weight: 500;">
+                    学んだスキルを統合して<br>
+                    実際のビジネス課題を解決しよう
+                </p>
+            </div>
+            <div class="highlight-box" style="margin-top: 8rem;">
+                <p style="text-align: center; font-size: 1.8rem;">
+                    <strong>⏰ 時間：75分（15:30-16:45）</strong><br>
+                    チーム協働でプロトタイプを完成させる総仕上げセッション
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 2: プロジェクトの目標 -->
+        <div class="slide">
+            <h2>🎯 プロジェクトの目標</h2>
+            <div style="margin-top: 4rem;">
+                <div class="success-box">
+                    <h3 style="color: #2e7d32; text-align: center; font-size: 2.8rem;">
+                        📈 実践的なAIソリューションの開発
+                    </h3>
+                </div>
+                <div style="margin-top: 5rem;">
+                    <p style="font-size: 2rem; margin-bottom: 2.5rem;">
+                        これまでのセッションで学んだ<strong>全てのスキル</strong>を組み合わせ、実際のビジネス課題を解決するプロトタイプを作成
+                    </p>
+                    <div class="three-column">
+                        <div class="feature-box">
+                            <h3 style="color: #2e7d32; text-align: center;">🎨 デザイン</h3>
+                            <p style="text-align: center;">Canva AIで魅力的なUI/UX設計</p>
+                        </div>
+                        <div class="feature-box">
+                            <h3 style="color: #2e7d32; text-align: center;">💻 開発</h3>
+                            <p style="text-align: center;">バイブコーディングで機能実装</p>
+                        </div>
+                        <div class="feature-box">
+                            <h3 style="color: #2e7d32; text-align: center;">📊 分析</h3>
+                            <p style="text-align: center;">データ分析で効果検証</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: プロジェクト課題の紹介 -->
+        <div class="slide">
+            <h2>📋 プロジェクト課題一覧</h2>
+            <div style="margin-top: 4rem;">
+                <div class="project-box">
+                    <h3 style="color: #e65100; font-size: 2.2rem;">🏢 課題1：業務効率化ツール開発</h3>
+                    <p style="font-size: 1.7rem; margin-top: 1.5rem;">
+                        社内の繰り返し作業を自動化するWebアプリケーション
+                    </p>
+                    <ul style="margin-top: 1rem; font-size: 1.6rem;">
+                        <li>レポート自動生成、スケジュール管理、承認ワークフローなど</li>
+                    </ul>
+                </div>
+                <div class="project-box">
+                    <h3 style="color: #e65100; font-size: 2.2rem;">🛍️ 課題2：顧客体験向上サービス</h3>
+                    <p style="font-size: 1.7rem; margin-top: 1.5rem;">
+                        AI活用で顧客満足度を高めるサービス設計
+                    </p>
+                    <ul style="margin-top: 1rem; font-size: 1.6rem;">
+                        <li>AIチャットボット、パーソナライズ機能、レコメンドシステムなど</li>
+                    </ul>
+                </div>
+                <div class="project-box">
+                    <h3 style="color: #e65100; font-size: 2.2rem;">📈 課題3：データドリブン意思決定支援</h3>
+                    <p style="font-size: 1.7rem; margin-top: 1.5rem;">
+                        経営判断を支援するダッシュボード開発
+                    </p>
+                    <ul style="margin-top: 1rem; font-size: 1.6rem;">
+                        <li>売上予測、トレンド分析、競合比較レポートなど</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: チーム編成と役割分担 -->
+        <div class="slide">
+            <h2>👥 チーム編成と役割分担</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <h3 style="color: #004D47; text-align: center;">🎯 チーム構成（4-5名/チーム）</h3>
+                </div>
+                <div class="two-column" style="margin-top: 4rem;">
+                    <div>
+                        <div class="feature-box">
+                            <h3 style="color: #2e7d32;">📋 推奨役割分担</h3>
+                            <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
+                                <li><strong>プロジェクトマネージャー</strong>：全体統括・進行管理</li>
+                                <li><strong>UX/UIデザイナー</strong>：Canva AIでデザイン担当</li>
+                                <li><strong>開発エンジニア</strong>：バイブコーディング実装</li>
+                                <li><strong>データアナリスト</strong>：データ分析・検証</li>
+                                <li><strong>プレゼンター</strong>：最終発表担当</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="warning-box">
+                            <h3 style="color: #e65100;">⚡ 重要なポイント</h3>
+                            <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
+                                <li>全員がAIツールを活用</li>
+                                <li>役割を超えたコラボレーション</li>
+                                <li>定期的な進捗共有</li>
+                                <li>問題発生時の迅速な調整</li>
+                                <li>最終品質に全員責任</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: プロジェクトタイムライン -->
+        <div class="slide">
+            <h2>⏰ プロジェクトタイムライン（75分）</h2>
+            <div style="margin-top: 4rem;">
+                <ol class="steps" style="font-size: 1.9rem;">
+                    <li><strong>課題選択・チーム結成</strong>（10分）
+                        <ul style="margin-top: 1rem; font-size: 1.6rem;">
+                            <li>課題理解と チーム編成</li>
+                            <li>役割分担の決定</li>
+                        </ul>
+                    </li>
+                    <li><strong>企画・設計フェーズ</strong>（15分）
+                        <ul style="margin-top: 1rem; font-size: 1.6rem;">
+                            <li>アイデア発想とコンセプト設計</li>
+                            <li>機能要件の定義</li>
+                        </ul>
+                    </li>
+                    <li><strong>プロトタイプ開発</strong>（40分）
+                        <ul style="margin-top: 1rem; font-size: 1.6rem;">
+                            <li>デザイン作成、開発実装、データ分析</li>
+                            <li>中間レビューと調整</li>
+                        </ul>
+                    </li>
+                    <li><strong>最終調整・発表準備</strong>（10分）</li>
+                </ol>
+                <div class="timer-box" style="margin-top: 4rem;">
+                    <h3 style="color: #d32f2f; font-size: 2.4rem;">⏰ 時間管理が成功の鍵</h3>
+                    <p style="font-size: 1.7rem; margin-top: 1rem;">
+                        各フェーズの時間を守り、完成度の高いプロトタイプを目指しましょう
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: フェーズ1：課題選択・チーム結成 -->
+        <div class="slide">
+            <h2>🎯 フェーズ1：課題選択・チーム結成（10分）</h2>
+            <div class="timer-box" style="margin-top: 3rem;">
+                <h3 style="color: #d32f2f; font-size: 2.8rem;">🕐 開始時刻：15:30</h3>
+            </div>
+            <div style="margin-top: 4rem;">
+                <div class="steps">
+                    <li><strong>課題理解</strong>（3分）：各課題の詳細を確認</li>
+                    <li><strong>興味のある課題に移動</strong>（2分）：自由に移動してチーム形成</li>
+                    <li><strong>チーム内自己紹介</strong>（2分）：スキル・経験の共有</li>
+                    <li><strong>役割分担決定</strong>（3分）：得意分野に基づく役割配置</li>
+                </div>
+                <div class="warning-box" style="margin-top: 4rem;">
+                    <h3 style="color: #e65100; text-align: center;">📋 このフェーズの成果物</h3>
+                    <ul style="margin-top: 1.5rem; font-size: 1.8rem;">
+                        <li>チーム名の決定</li>
+                        <li>選択した課題の確認</li>
+                        <li>メンバーの役割分担表</li>
+                        <li>連絡手段の確立</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: フェーズ2：企画・設計フェーズ -->
+        <div class="slide">
+            <h2>💡 フェーズ2：企画・設計フェーズ（15分）</h2>
+            <div class="timer-box" style="margin-top: 3rem;">
+                <h3 style="color: #d32f2f; font-size: 2.8rem;">🕐 開始時刻：15:40</h3>
+            </div>
+            <div style="margin-top: 4rem;">
+                <div class="two-column">
+                    <div>
+                        <div class="highlight-box">
+                            <h3 style="color: #004D47;">🎨 アイデア発想（7分）</h3>
+                            <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
+                                <li>ブレインストーミング実施</li>
+                                <li>AIに「アイデア発想のサポート」を依頼</li>
+                                <li>ターゲットユーザーの明確化</li>
+                                <li>解決すべき課題の深堀り</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="feature-box">
+                            <h3 style="color: #2e7d32;">📋 設計・計画（8分）</h3>
+                            <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
+                                <li>コンセプトの決定</li>
+                                <li>主要機能3つの選定</li>
+                                <li>技術スタックの選択</li>
+                                <li>開発タスクの分割</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-box" style="margin-top: 3rem;">
+                    <h3 style="color: #7b1fa2; text-align: center;">💡 設計時のAI活用例</h3>
+                    <p style="text-align: center; font-size: 1.7rem; margin-top: 1.5rem;">
+                        「〇〇な課題を解決するWebアプリのアイデアを5つ提案して」<br>
+                        「このアイデアの実現可能性と必要な技術を評価して」
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: フェーズ3：プロトタイプ開発 -->
+        <div class="slide">
+            <h2>🚀 フェーズ3：プロトタイプ開発（40分）</h2>
+            <div class="timer-box" style="margin-top: 3rem;">
+                <h3 style="color: #d32f2f; font-size: 2.8rem;">🕐 開始時刻：15:55</h3>
+            </div>
+            <div style="margin-top: 4rem;">
+                <div class="three-column">
+                    <div class="feature-box">
+                        <h3 style="color: #2e7d32; text-align: center;">🎨 デザイン（12分）</h3>
+                        <ul style="margin-top: 1.5rem; font-size: 1.5rem;">
+                            <li>Canva AIでワイヤーフレーム</li>
+                            <li>UIコンポーネントの作成</li>
+                            <li>ブランドカラー・フォント選定</li>
+                            <li>ユーザビリティ検証</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3 style="color: #2e7d32; text-align: center;">💻 開発（20分）</h3>
+                        <ul style="margin-top: 1.5rem; font-size: 1.5rem;">
+                            <li>バイブコーディングで機能実装</li>
+                            <li>AIに段階的に開発依頼</li>
+                            <li>エラー修正とデバッグ</li>
+                            <li>基本動作の確認</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3 style="color: #2e7d32; text-align: center;">📊 分析（8分）</h3>
+                        <ul style="margin-top: 1.5rem; font-size: 1.5rem;">
+                            <li>想定データでの動作検証</li>
+                            <li>パフォーマンス測定</li>
+                            <li>効果予測の分析</li>
+                            <li>改善ポイントの特定</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="warning-box" style="margin-top: 3rem;">
+                    <h3 style="color: #e65100; text-align: center;">⚠️ 開発のポイント</h3>
+                    <p style="text-align: center; font-size: 1.7rem; margin-top: 1.5rem;">
+                        <strong>完璧を求めず、動作する最小限の機能を優先</strong><br>
+                        20分で「動くもの」を作り、残り時間で改良していく
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: 中間チェックポイント -->
+        <div class="slide">
+            <h2>📋 中間チェックポイント</h2>
+            <div class="timer-box" style="margin-top: 3rem;">
+                <h3 style="color: #d32f2f; font-size: 2.8rem;">🕐 現在時刻：16:15</h3>
+                <p style="font-size: 1.8rem; margin-top: 1rem;">残り30分で最終調整・発表準備</p>
+            </div>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <h3 style="color: #004D47; text-align: center;">✅ 進捗確認項目</h3>
+                    <div class="two-column" style="margin-top: 2rem;">
+                        <div>
+                            <h4 style="color: #128277; font-size: 2rem;">🎯 必須項目</h4>
+                            <ul style="margin-top: 1rem; font-size: 1.7rem;">
+                                <li>基本機能が1つ以上動作</li>
+                                <li>UIデザインが完成</li>
+                                <li>コンセプトが明確</li>
+                                <li>発表者が決定</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #f57c00; font-size: 2rem;">🚀 理想項目</h4>
+                            <ul style="margin-top: 1rem; font-size: 1.7rem;">
+                                <li>複数機能の連携動作</li>
+                                <li>データ分析結果の反映</li>
+                                <li>ユーザビリティの検証</li>
+                                <li>ビジネス効果の試算</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-box" style="margin-top: 3rem;">
+                    <h3 style="color: #2e7d32; text-align: center;">🆘 困ったときのAI活用法</h3>
+                    <p style="text-align: center; font-size: 1.7rem; margin-top: 1.5rem;">
+                        「このエラーを解決して」「この機能を簡単に実装する方法は？」<br>
+                        「プレゼン用に成果をまとめて」など、積極的にAIを頼りましょう
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: 最終調整・発表準備 -->
+        <div class="slide">
+            <h2>🎤 最終調整・発表準備（10分）</h2>
+            <div class="timer-box" style="margin-top: 3rem;">
+                <h3 style="color: #d32f2f; font-size: 2.8rem;">🕐 開始時刻：16:35</h3>
+            </div>
+            <div style="margin-top: 4rem;">
+                <div class="steps" style="font-size: 1.9rem;">
+                    <li><strong>動作確認・最終テスト</strong>（3分）</li>
+                    <li><strong>発表資料の準備</strong>（5分）
+                        <ul style="margin-top: 1rem; font-size: 1.6rem;">
+                            <li>デモ画面のキャプチャ</li>
+                            <li>主要ポイントの整理</li>
+                            <li>話す内容の確認</li>
+                        </ul>
+                    </li>
+                    <li><strong>発表練習</strong>（2分）</li>
+                </div>
+                <div class="demo-box" style="margin-top: 4rem;">
+                    <h3 style="color: #7b1fa2; text-align: center;">📋 発表構成テンプレート（3分/チーム）</h3>
+                    <ol style="margin-top: 2rem; font-size: 1.7rem;">
+                        <li><strong>課題と解決策</strong>（30秒）：何を解決するのか</li>
+                        <li><strong>プロダクト紹介</strong>（90秒）：機能のデモンストレーション</li>
+                        <li><strong>技術・工夫点</strong>（45秒）：使用したAIツールと工夫</li>
+                        <li><strong>今後の展望</strong>（15秒）：実用化への道筋</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: チーム発表会 -->
+        <div class="slide">
+            <h2>🏆 チーム発表会</h2>
+            <div style="margin-top: 4rem;">
+                <div class="success-box">
+                    <h3 style="color: #2e7d32; font-size: 2.8rem; text-align: center;">
+                        🎯 成果発表の時間です！
+                    </h3>
+                </div>
+                <div style="margin-top: 4rem;">
+                    <div class="highlight-box">
+                        <h3 style="color: #004D47;">📋 発表順序と評価基準</h3>
+                        <div class="two-column" style="margin-top: 2rem;">
+                            <div>
+                                <h4 style="color: #128277; font-size: 2rem;">🎤 発表形式</h4>
+                                <ul style="margin-top: 1rem; font-size: 1.7rem;">
+                                    <li>各チーム3分で発表</li>
+                                    <li>質疑応答は1分</li>
+                                    <li>実際のデモを重視</li>
+                                    <li>全員参加型の発表</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="color: #f57c00; font-size: 2rem;">🏅 評価ポイント</h4>
+                                <ul style="margin-top: 1rem; font-size: 1.7rem;">
+                                    <li><strong>実用性</strong>：実際に使えるか</li>
+                                    <li><strong>AI活用度</strong>：効果的な使い方</li>
+                                    <li><strong>創造性</strong>：斬新なアイデア</li>
+                                    <li><strong>完成度</strong>：動作の安定性</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="warning-box" style="margin-top: 3rem;">
+                        <p style="text-align: center; font-size: 1.8rem;">
+                            <strong>🎊 全チームの努力と成果を讃えましょう！</strong><br>
+                            他チームの発表から新しい学びを得る絶好の機会です
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: 発表評価とフィードバック -->
+        <div class="slide">
+            <h2>📝 発表評価とフィードバック</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <h3 style="color: #004D47; text-align: center;">🏆 優秀プロジェクトの選定</h3>
+                </div>
+                <div class="three-column" style="margin-top: 4rem;">
+                    <div class="success-box">
+                        <h3 style="color: #2e7d32; text-align: center;">🥇 最優秀賞</h3>
+                        <p style="text-align: center; font-size: 1.6rem; margin-top: 1rem;">
+                            総合的に最も優れたプロジェクト
+                        </p>
+                    </div>
+                    <div class="feature-box">
+                        <h3 style="color: #1976d2; text-align: center;">🎨 デザイン賞</h3>
+                        <p style="text-align: center; font-size: 1.6rem; margin-top: 1rem;">
+                            UI/UXが最も優秀なプロジェクト
+                        </p>
+                    </div>
+                    <div class="warning-box" style="border-left: 8px solid #9c27b0;">
+                        <h3 style="color: #7b1fa2; text-align: center;">🤖 AI活用賞</h3>
+                        <p style="text-align: center; font-size: 1.6rem; margin-top: 1rem;">
+                            AIを最も効果的に活用したプロジェクト
+                        </p>
+                    </div>
+                </div>
+                <div style="margin-top: 4rem;">
+                    <div class="two-column">
+                        <div class="highlight-box">
+                            <h3 style="color: #004D47;">💡 学びのポイント</h3>
+                            <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
+                                <li>各チームの工夫と解決策</li>
+                                <li>AI活用の多様なアプローチ</li>
+                                <li>短時間での効率的な開発手法</li>
+                                <li>チームワークの重要性</li>
+                            </ul>
+                        </div>
+                        <div class="feature-box">
+                            <h3 style="color: #2e7d32;">🎯 今後の改善案</h3>
+                            <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
+                                <li>より詳細な機能実装</li>
+                                <li>ユーザビリティテスト</li>
+                                <li>ビジネスモデルの検討</li>
+                                <li>実際のデプロイと運用</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: プロジェクトの振り返り -->
+        <div class="slide">
+            <h2>🔄 プロジェクトの振り返り</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <h3 style="color: #004D47; text-align: center;">📊 成果の整理</h3>
+                    <p style="text-align: center; font-size: 1.9rem; margin-top: 2rem;">
+                        75分という短時間で、どれだけのことが実現できたかを確認しましょう
+                    </p>
+                </div>
+                <div class="two-column" style="margin-top: 4rem;">
+                    <div>
+                        <div class="success-box">
+                            <h3 style="color: #2e7d32;">✅ 達成できたこと</h3>
+                            <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
+                                <li>アイデアから実装まで一気通貫</li>
+                                <li>複数のAIツールの効果的活用</li>
+                                <li>チームでの協働開発経験</li>
+                                <li>短時間でのプロトタイプ完成</li>
+                                <li>ビジネス課題解決への取り組み</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="warning-box">
+                            <h3 style="color: #e65100;">🎯 改善できる点</h3>
+                            <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
+                                <li>時間管理とタスク優先度</li>
+                                <li>チーム内コミュニケーション</li>
+                                <li>技術選択とその根拠</li>
+                                <li>ユーザー視点での検証</li>
+                                <li>発表・プレゼンテーション技術</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-box" style="margin-top: 4rem;">
+                    <h3 style="color: #2e7d32; text-align: center;">💡 重要な気づき</h3>
+                    <p style="text-align: center; font-size: 1.8rem; margin-top: 1.5rem;">
+                        AIツールを組み合わせることで、従来は専門家が必要だった作業も<br>
+                        <strong>短時間で高品質</strong>に実現できることを実感できました
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: 実プロジェクトへの展開 -->
+        <div class="slide">
+            <h2>🚀 実プロジェクトへの展開</h2>
+            <div style="margin-top: 4rem;">
+                <div class="project-box">
+                    <h3 style="color: #e65100; text-align: center; font-size: 2.6rem;">
+                        📈 今日のプロトタイプを実用化するには
+                    </h3>
+                </div>
+                <div style="margin-top: 4rem;">
+                    <ol class="steps" style="font-size: 1.9rem;">
+                        <li><strong>詳細要件定義</strong>：ユーザーインタビュー、市場調査の実施</li>
+                        <li><strong>技術検証</strong>：スケーラビリティ、セキュリティの確保</li>
+                        <li><strong>UI/UX改善</strong>：ユーザビリティテスト、デザイン洗練</li>
+                        <li><strong>データ基盤構築</strong>：本格的なデータ収集・分析環境</li>
+                        <li><strong>運用体制整備</strong>：監視、保守、アップデート計画</li>
+                        <li><strong>ビジネス戦略</strong>：収益モデル、マーケティング戦略</li>
+                    </ol>
+                </div>
+                <div class="highlight-box" style="margin-top: 4rem;">
+                    <h3 style="color: #004D47;">🎯 次のステップ提案</h3>
+                    <div class="two-column" style="margin-top: 2rem;">
+                        <div>
+                            <ul style="font-size: 1.7rem;">
+                                <li>社内でのプレゼンテーション</li>
+                                <li>関係部署との連携検討</li>
+                                <li>予算・リソースの確保</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul style="font-size: 1.7rem;">
+                                <li>継続学習とスキルアップ</li>
+                                <li>外部パートナーとの協働</li>
+                                <li>段階的な実装・検証サイクル</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: セッション6まとめ -->
+        <div class="slide">
+            <h2>📋 セッション6まとめ</h2>
+            <div style="margin-top: 4rem;">
+                <div class="success-box">
+                    <h3 style="color: #2e7d32; text-align: center;">🎯 プロジェクト成果</h3>
+                    <ul style="margin-top: 2.5rem; font-size: 1.9rem;">
+                        <li><strong>統合スキルの実践</strong>：全セッションの学習内容を実際に活用</li>
+                        <li><strong>チーム協働</strong>：役割分担とコラボレーションの実践</li>
+                        <li><strong>短時間開発</strong>：AIツールで劇的に効率化された開発体験</li>
+                        <li><strong>ビジネス視点</strong>：技術だけでなく実用性も考慮した開発</li>
+                    </ul>
+                </div>
+                <div class="highlight-box" style="margin-top: 4rem;">
+                    <h3 style="color: #004D47; text-align: center;">💡 重要な学び</h3>
+                    <p style="text-align: center; font-size: 2rem; margin-top: 2rem;">
+                        AIツールを組み合わせることで、<br>
+                        <strong>「アイデア」から「動くプロトタイプ」まで</strong><br>
+                        75分で実現できることを証明しました
+                    </p>
+                </div>
+                <div class="warning-box" style="margin-top: 4rem;">
+                    <h3 style="color: #e65100; text-align: center;">🎊 最終セッションへ</h3>
+                    <p style="text-align: center; font-size: 1.8rem; margin-top: 1.5rem;">
+                        <strong>16:45-17:00</strong><br>
+                        「まとめ・質疑応答・今後のアクションプラン」<br>
+                        研修全体の振り返りと今後の学習計画を立てましょう！
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-number" id="slideNumber">1 / 15</div>
+    
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ 前へ</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">次へ ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('slideNumber').textContent = `${currentSlide + 1} / ${totalSlides}`;
+            
+            // Navigation button states
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeSlide(1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                } else {
+                    document.documentElement.requestFullscreen();
+                }
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>

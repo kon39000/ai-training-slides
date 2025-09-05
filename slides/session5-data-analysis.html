@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>セッション5：データ分析・リサーチ活用</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', sans-serif;
+            background: #f0f8f8;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 80px 100px;
+            background: linear-gradient(135deg, #f7fbfb 0%, #ffffff 100%);
+            font-size: 24px;
+            color: #333;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            color: #004D47;
+            font-size: 3.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4rem;
+            line-height: 1.3;
+        }
+
+        h2 {
+            color: #128277;
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: left;
+            border-left: 8px solid #128277;
+            padding-left: 2rem;
+            line-height: 1.4;
+        }
+
+        h3 {
+            color: #004D47;
+            font-size: 2.4rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            text-align: left;
+            line-height: 1.3;
+        }
+
+        p {
+            font-size: 1.8rem;
+            line-height: 2.2;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        li {
+            font-size: 1.8rem;
+            line-height: 2.2;
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+
+        strong {
+            color: #128277;
+            font-weight: 700;
+        }
+
+        .center {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .highlight-box {
+            background: #f8fffe;
+            border-left: 8px solid #128277;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .warning-box {
+            background: #fff8e1;
+            border-left: 8px solid #f57c00;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .demo-box {
+            background: #f3e5f5;
+            border: 3px solid #9c27b0;
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .feature-box {
+            background: #e8f5e8;
+            border: 2px solid #4caf50;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .insight-box {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .steps {
+            counter-reset: step-counter;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #128277;
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin: 2rem 0;
+            align-items: start;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 3rem;
+            margin: 2rem 0;
+            align-items: start;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #128277;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #004D47;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-number {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(18, 130, 119, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        ul {
+            margin-left: 2rem;
+        }
+
+        ol {
+            margin-left: 2rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 1.6rem;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            border: 2px solid #128277;
+            padding: 1.5rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .comparison-table th {
+            background: #128277;
+            color: white;
+            font-weight: 700;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8fffe;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- Slide 1: タイトル -->
+        <div class="slide active">
+            <h1>📊 セッション5<br>データ分析・リサーチ活用</h1>
+            <div class="center" style="margin-top: 6rem;">
+                <p style="font-size: 2.2rem; color: #128277; font-weight: 500;">
+                    AIでデータを読み解き<br>
+                    ビジネス洞察を獲得しよう
+                </p>
+            </div>
+            <div class="highlight-box" style="margin-top: 8rem;">
+                <p style="text-align: center; font-size: 1.8rem;">
+                    <strong>⏰ 時間：75分（14:15-15:30）</strong><br>
+                    データ分析未経験者でもAIで本格的な分析が可能
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 2: なぜデータ分析が重要か -->
+        <div class="slide">
+            <h2>🎯 なぜデータ分析が重要なのか</h2>
+            <div style="margin-top: 4rem;">
+                <div class="warning-box">
+                    <h3 style="color: #e65100; text-align: center; font-size: 2.6rem;">
+                        📈 データ駆動経営の時代
+                    </h3>
+                </div>
+                <div style="margin-top: 5rem;">
+                    <p style="font-size: 2rem; margin-bottom: 2.5rem;">
+                        現代のビジネスでは<strong>「勘」「経験」「根性」</strong>から<strong>「データ」「分析」「洞察」</strong>へのシフトが急加速
+                    </p>
+                    <div class="two-column">
+                        <div>
+                            <h3 style="color: #e65100;">❌ 従来の意思決定</h3>
+                            <ul style="font-size: 1.7rem;">
+                                <li>経験と直感に依存</li>
+                                <li>主観的な判断</li>
+                                <li>リスクが高い</li>
+                                <li>結果が予測困難</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 style="color: #2e7d32;">✅ データ駆動の意思決定</h3>
+                            <ul style="font-size: 1.7rem;">
+                                <li>客観的な事実に基づく</li>
+                                <li>予測可能性が高い</li>
+                                <li>リスクを最小化</li>
+                                <li>継続的な改善が可能</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: AIが変えるデータ分析 -->
+        <div class="slide">
+            <h2>🤖 AIが変えるデータ分析</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <h3 style="color: #004D47; text-align: center;">🔄 分析の民主化</h3>
+                    <p style="text-align: center; font-size: 1.9rem; margin-top: 2rem;">
+                        専門知識がなくても、誰でも高度なデータ分析が可能に
+                    </p>
+                </div>
+                <div class="three-column" style="margin-top: 5rem;">
+                    <div class="insight-box">
+                        <h3 style="color: #1976d2; text-align: center;">📊 従来</h3>
+                        <ul style="font-size: 1.6rem; margin-top: 1.5rem;">
+                            <li>統計学の知識必要</li>
+                            <li>専用ソフトを習得</li>
+                            <li>コードを書く技術</li>
+                            <li>時間とコストが膨大</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3 style="color: #2e7d32; text-align: center;">🚀 AI時代</h3>
+                        <ul style="font-size: 1.6rem; margin-top: 1.5rem;">
+                            <li>自然言語で質問</li>
+                            <li>自動でグラフ生成</li>
+                            <li>洞察を文章で提供</li>
+                            <li>リアルタイムで結果</li>
+                        </ul>
+                    </div>
+                    <div class="warning-box" style="border-left: 8px solid #ff9800;">
+                        <h3 style="color: #e65100; text-align: center;">⚡ 結果</h3>
+                        <ul style="font-size: 1.6rem; margin-top: 1.5rem;">
+                            <li>分析時間：週→分</li>
+                            <li>コスト：1/10に削減</li>
+                            <li>精度：大幅向上</li>
+                            <li>アクセス：全員可能</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: AI分析ツール比較 -->
+        <div class="slide">
+            <h2>🛠️ 主要なAI分析ツール</h2>
+            <div style="margin-top: 4rem;">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">ツール名</th>
+                            <th style="width: 35%;">特徴</th>
+                            <th style="width: 25%;">得意分野</th>
+                            <th style="width: 20%;">料金</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ChatGPT<br>Data Analyst</strong></td>
+                            <td>会話型、直感的操作<br>Pythonコード実行可能</td>
+                            <td>探索的分析<br>レポート生成</td>
+                            <td>$20/月</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Claude<br>with Artifacts</strong></td>
+                            <td>コード生成＋実行<br>可視化に優秀</td>
+                            <td>統計分析<br>グラフ作成</td>
+                            <td>$20/月</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tableau AI</strong></td>
+                            <td>BI特化、企業向け<br>高度な可視化</td>
+                            <td>ダッシュボード<br>大規模データ</td>
+                            <td>$75/月</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Google Sheets<br>+ Gemini</strong></td>
+                            <td>スプレッドシート統合<br>簡単操作</td>
+                            <td>日常的な分析<br>チーム共有</td>
+                            <td>$10/月</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 5: データ分析の基本フロー -->
+        <div class="slide">
+            <h2>📋 AIを使った分析フロー</h2>
+            <div style="margin-top: 5rem;">
+                <ol class="steps" style="font-size: 2rem;">
+                    <li><strong>課題設定</strong>：「売上が伸び悩んでいる原因は？」</li>
+                    <li><strong>データ準備</strong>：CSVファイルをAIにアップロード</li>
+                    <li><strong>探索的分析</strong>：「このデータの傾向を教えて」</li>
+                    <li><strong>仮説検証</strong>：「季節要因の影響はある？」</li>
+                    <li><strong>可視化</strong>：「時系列グラフを作成して」</li>
+                    <li><strong>洞察抽出</strong>：「何がポイントか要約して」</li>
+                    <li><strong>施策提案</strong>：「改善案を3つ提示して」</li>
+                </ol>
+            </div>
+            <div class="highlight-box" style="margin-top: 4rem;">
+                <p style="text-align: center; font-size: 1.8rem;">
+                    <strong>重要</strong>：技術的な知識は不要。適切な質問力があれば十分！
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 6: ライブデモ1 -->
+        <div class="slide">
+            <h2>🎬 ライブデモ1：売上データ分析</h2>
+            <div class="demo-box" style="margin-top: 4rem;">
+                <h3 style="color: #7b1fa2;">📈 課題：ECサイト売上の改善点を探る</h3>
+                <div class="steps" style="margin-top: 3rem;">
+                    <p style="font-size: 1.9rem; margin-bottom: 2rem;"><strong>分析データ</strong>：</p>
+                    <ul style="font-size: 1.8rem; margin-left: 2rem;">
+                        <li>月別売上データ（過去2年分）</li>
+                        <li>商品カテゴリ別売上</li>
+                        <li>地域別売上実績</li>
+                        <li>プロモーション実施履歴</li>
+                    </ul>
+                    <p style="font-size: 1.9rem; margin-top: 2rem;"><strong>分析質問例</strong>：</p>
+                    <ul style="font-size: 1.7rem; margin-left: 2rem;">
+                        <li>「売上が最も伸びている月は？」</li>
+                        <li>「収益性の高い商品カテゴリは？」</li>
+                        <li>「地域差の要因は何？」</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: デモの結果と洞察 -->
+        <div class="slide">
+            <h2>💡 分析結果から得られた洞察</h2>
+            <div style="margin-top: 4rem;">
+                <div class="insight-box">
+                    <h3 style="color: #1976d2;">📊 発見された傾向</h3>
+                    <ul style="margin-top: 2rem; font-size: 1.8rem;">
+                        <li><strong>季節性</strong>：12月と3月に売上ピーク</li>
+                        <li><strong>商品特性</strong>：電子機器の収益率が他より20%高い</li>
+                        <li><strong>地域差</strong>：都市部の客単価が地方より1.5倍</li>
+                        <li><strong>プロモーション効果</strong>：メール配信後48時間で売上30%向上</li>
+                    </ul>
+                </div>
+                <div class="feature-box" style="margin-top: 3rem;">
+                    <h3 style="color: #2e7d32;">🎯 AIが提案する改善策</h3>
+                    <ol style="margin-top: 2rem; font-size: 1.8rem;">
+                        <li><strong>商品戦略</strong>：電子機器カテゴリの品揃え強化</li>
+                        <li><strong>プロモーション</strong>：地方向けの特別キャンペーン実施</li>
+                        <li><strong>タイミング</strong>：11月からクリスマス商戦の準備開始</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: リサーチ活用の実践 -->
+        <div class="slide">
+            <h2>🔍 AIを使ったリサーチ活用</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <h3 style="color: #004D47;">🚀 リサーチの効率化</h3>
+                    <p style="font-size: 1.9rem; margin-top: 2rem;">
+                        市場調査、競合分析、トレンド調査がAIで劇的に速くなる
+                    </p>
+                </div>
+                <div class="two-column" style="margin-top: 4rem;">
+                    <div>
+                        <div class="warning-box">
+                            <h3 style="color: #e65100;">⏰ 従来の調査</h3>
+                            <ul style="font-size: 1.7rem; margin-top: 1.5rem;">
+                                <li>週単位の調査期間</li>
+                                <li>複数の情報源を手動検索</li>
+                                <li>データの整理に膨大な時間</li>
+                                <li>主観的な解釈のリスク</li>
+                                <li>高額な調査費用</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="feature-box">
+                            <h3 style="color: #2e7d32;">⚡ AIリサーチ</h3>
+                            <ul style="font-size: 1.7rem; margin-top: 1.5rem;">
+                                <li>数分で基本調査完了</li>
+                                <li>多角的な情報を自動収集</li>
+                                <li>構造化されたレポート生成</li>
+                                <li>客観的なデータに基づく分析</li>
+                                <li>大幅なコスト削減</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: ライブデモ2 -->
+        <div class="slide">
+            <h2>🎬 ライブデモ2：市場調査＆競合分析</h2>
+            <div class="demo-box" style="margin-top: 4rem;">
+                <h3 style="color: #7b1fa2;">🔍 課題：新商品市場への参入検討</h3>
+                <div class="steps" style="margin-top: 3rem;">
+                    <p style="font-size: 1.9rem; margin-bottom: 2rem;"><strong>調査項目</strong>：</p>
+                    <ol style="font-size: 1.8rem; margin-left: 2rem;">
+                        <li>市場規模とトレンド分析</li>
+                        <li>主要競合3社の戦略分析</li>
+                        <li>ターゲット顧客のニーズ調査</li>
+                        <li>価格帯と収益性の分析</li>
+                        <li>参入リスクと機会の評価</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="warning-box" style="margin-top: 3rem;">
+                <p style="text-align: center; font-size: 1.8rem;">
+                    <strong>実演時間：15分</strong><br>
+                    ChatGPT + Web検索機能を使用してリアルタイム市場調査
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 10: グループワーク -->
+        <div class="slide">
+            <h2>🤝 グループワーク（30分）</h2>
+            <div class="warning-box" style="margin-top: 4rem;">
+                <h3 style="font-size: 2.8rem; text-align: center;">🎯 課題：自社データを使った分析実習</h3>
+            </div>
+            <div style="margin-top: 4rem;">
+                <div class="steps">
+                    <li><strong>チーム分け</strong>（3-4名/チーム）</li>
+                    <li><strong>テーマ選択</strong>（5分）
+                        <ul style="margin-top: 1rem; font-size: 1.6rem;">
+                            <li>売上・業績データの分析</li>
+                            <li>顧客満足度調査の分析</li>
+                            <li>市場トレンド調査</li>
+                            <li>競合他社分析</li>
+                        </ul>
+                    </li>
+                    <li><strong>AI分析実践</strong>（20分）</li>
+                    <li><strong>発表資料作成</strong>（5分）</li>
+                </div>
+            </div>
+            <div class="highlight-box" style="margin-top: 3rem;">
+                <p style="text-align: center; font-size: 1.7rem;">
+                    <strong>📝 用意するもの</strong>：サンプルCSVデータ、スマートフォン、ノートPC
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 11: 分析結果発表 -->
+        <div class="slide">
+            <h2>🎤 分析結果発表（15分）</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <h3 style="color: #004D47; text-align: center;">📋 発表内容（各チーム3分）</h3>
+                    <ol style="margin-top: 3rem; font-size: 1.9rem;">
+                        <li><strong>分析テーマ</strong>：何を調べたか</li>
+                        <li><strong>使用ツール</strong>：どのAIを使ったか</li>
+                        <li><strong>重要な発見</strong>：データから分かったこと</li>
+                        <li><strong>ビジネス洞察</strong>：実務にどう活かすか</li>
+                        <li><strong>次のアクション</strong>：具体的な改善策</li>
+                    </ol>
+                </div>
+                <div class="feature-box" style="margin-top: 4rem;">
+                    <p style="text-align: center; font-size: 1.8rem;">
+                        <strong>🏆 優秀チームには実用的なデータ分析テンプレートをプレゼント！</strong><br>
+                        洞察の深さ・実用性・プレゼン力で評価
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: データ分析のベストプラクティス -->
+        <div class="slide">
+            <h2>🏅 データ分析成功のコツ</h2>
+            <div class="two-column" style="margin-top: 4rem;">
+                <div>
+                    <div class="feature-box">
+                        <h3 style="color: #2e7d32;">✅ 効果的なアプローチ</h3>
+                        <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
+                            <li>明確な分析目的を設定</li>
+                            <li>データ品質を事前確認</li>
+                            <li>複数の角度から分析</li>
+                            <li>結果を第三者視点で検証</li>
+                            <li>アクションプランまで作成</li>
+                        </ul>
+                    </div>
+                    <div class="insight-box" style="margin-top: 2rem;">
+                        <h3 style="color: #1976d2;">💡 質問の工夫</h3>
+                        <ul style="margin-top: 1.5rem; font-size: 1.6rem;">
+                            <li>「なぜ」を5回繰り返す</li>
+                            <li>具体的な数値で質問</li>
+                            <li>時系列での変化を追跡</li>
+                            <li>セグメント別に分析</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="warning-box">
+                        <h3 style="color: #e65100;">❌ 注意すべき点</h3>
+                        <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
+                            <li>相関と因果関係を混同</li>
+                            <li>サンプル数が少なすぎる</li>
+                            <li>バイアスのあるデータ</li>
+                            <li>AIの結果を盲信する</li>
+                            <li>プライバシー配慮を怠る</li>
+                        </ul>
+                    </div>
+                    <div class="highlight-box" style="margin-top: 2rem; border-left: 8px solid #ff5722;">
+                        <h3 style="color: #d32f2f;">🛡️ データセキュリティ</h3>
+                        <ul style="margin-top: 1.5rem; font-size: 1.6rem;">
+                            <li>機密データの取り扱い注意</li>
+                            <li>個人情報の匿名化</li>
+                            <li>利用規約の確認</li>
+                            <li>社内ガイドラインに準拠</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: 分析レポートの作成 -->
+        <div class="slide">
+            <h2>📄 効果的なレポート作成</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <h3 style="color: #004D47;">📊 レポート構成のテンプレート</h3>
+                    <ol class="steps" style="margin-top: 2rem; font-size: 1.8rem;">
+                        <li><strong>エグゼクティブサマリー</strong>：結論と推奨事項</li>
+                        <li><strong>分析背景</strong>：課題と目的の明確化</li>
+                        <li><strong>データ概要</strong>：使用したデータの説明</li>
+                        <li><strong>分析結果</strong>：主要な発見事項</li>
+                        <li><strong>洞察と解釈</strong>：データの意味づけ</li>
+                        <li><strong>推奨アクション</strong>：具体的な施策提案</li>
+                        <li><strong>付録</strong>：詳細データと補足情報</li>
+                    </ol>
+                </div>
+                <div class="feature-box" style="margin-top: 3rem;">
+                    <p style="text-align: center; font-size: 1.8rem;">
+                        <strong>💡 ポイント</strong>：AIに「この分析結果をビジネスレポート形式でまとめて」と依頼すると、<br>プロフェッショナルな文書を自動生成できます
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: 今後の学習パス -->
+        <div class="slide">
+            <h2>🚀 さらなるスキルアップのために</h2>
+            <div style="margin-top: 4rem;">
+                <div class="three-column">
+                    <div class="feature-box">
+                        <h3 style="color: #2e7d32; text-align: center;">🎯 初級者向け</h3>
+                        <ul style="margin-top: 1.5rem; font-size: 1.6rem;">
+                            <li>Google Sheetsの関数</li>
+                            <li>基本的な統計の理解</li>
+                            <li>グラフ作成のベストプラクティス</li>
+                            <li>AIツールの使い分け</li>
+                        </ul>
+                    </div>
+                    <div class="insight-box">
+                        <h3 style="color: #1976d2; text-align: center;">📈 中級者向け</h3>
+                        <ul style="margin-top: 1.5rem; font-size: 1.6rem;">
+                            <li>Pythonの基礎</li>
+                            <li>機械学習の概念</li>
+                            <li>ダッシュボード作成</li>
+                            <li>予測分析の手法</li>
+                        </ul>
+                    </div>
+                    <div class="warning-box">
+                        <h3 style="color: #e65100; text-align: center;">🏆 上級者向け</h3>
+                        <ul style="margin-top: 1.5rem; font-size: 1.6rem;">
+                            <li>深層学習の応用</li>
+                            <li>ビッグデータ処理</li>
+                            <li>自然言語処理</li>
+                            <li>カスタムAI開発</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 4rem;">
+                    <h3 style="color: #004D47;">📚 おすすめリソース</h3>
+                    <ul style="margin-top: 2rem; font-size: 1.7rem;">
+                        <li><strong>オンライン学習</strong>：Coursera「データサイエンス」コース</li>
+                        <li><strong>実践練習</strong>：Kaggleのデータセットで腕試し</li>
+                        <li><strong>コミュニティ</strong>：データ分析勉強会への参加</li>
+                        <li><strong>書籍</strong>：「AIを活用したビジネスデータ分析」</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: セッション5まとめ -->
+        <div class="slide">
+            <h2>📋 セッション5まとめ</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <h3 style="color: #004D47; text-align: center;">🎯 今日学んだこと</h3>
+                    <ul style="margin-top: 2.5rem; font-size: 1.9rem;">
+                        <li><strong>データ分析の民主化</strong>：AIで誰でも高度な分析が可能</li>
+                        <li><strong>効率的なリサーチ</strong>：市場調査が劇的に短時間で完了</li>
+                        <li><strong>実践的な分析スキル</strong>：売上データの分析を体験</li>
+                        <li><strong>ビジネス洞察の獲得</strong>：データから actionable な示唆を抽出</li>
+                    </ul>
+                </div>
+                <div class="warning-box" style="margin-top: 4rem;">
+                    <h3 style="color: #e65100; text-align: center;">⏰ 次のセッション</h3>
+                    <p style="text-align: center; font-size: 1.8rem; margin-top: 1.5rem;">
+                        <strong>15:30-16:45</strong><br>
+                        「セッション6：実践プロジェクト」<br>
+                        これまでの学習を活かして総合的なプロジェクトに挑戦します！
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-number" id="slideNumber">1 / 15</div>
+    
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ 前へ</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">次へ ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('slideNumber').textContent = `${currentSlide + 1} / ${totalSlides}`;
+            
+            // Navigation button states
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeSlide(1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                } else {
+                    document.documentElement.requestFullscreen();
+                }
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>

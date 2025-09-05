@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI活用1日研修スライド</title>
+    <style>
+        body {
+            font-family: 'Yu Gothic', 'Meiryo', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #e8f5e8 0%, #ffffff 100%);
+            padding: 80px;
+            box-sizing: border-box;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .slide.active {
+            display: flex;
+        }
+        
+        .slide h1 {
+            color: #1b5e20;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: bold;
+        }
+        
+        .slide h2 {
+            color: #2e7d32;
+            font-size: 2.8rem;
+            border-left: 8px solid #4caf50;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+            font-weight: bold;
+        }
+        
+        .slide h3 {
+            color: #388e3c;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .slide p, .slide li {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        
+        .slide ul, .slide ol {
+            margin-left: 2rem;
+        }
+        
+        .slide strong {
+            color: #2e7d32;
+            font-weight: bold;
+        }
+        
+        .center {
+            text-align: center;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #e8f5e8, #f1f8e9);
+            border: 3px solid #4caf50;
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            margin: 0 10px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: #2e7d32;
+            transform: translateY(-3px);
+        }
+        
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(46, 125, 50, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1rem;
+        }
+        
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: #4caf50;
+            transition: width 0.3s ease;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="slide-counter" id="slideCounter">1 / 20</div>
+    
+    <!-- Slide 1 -->
+    <div class="slide active">
+        <h1>AI活用1日研修</h1>
+        <h2 class="center">〜AIを利用するから作る時代へ〜</h2>
+        <div class="center" style="margin-top: 3rem;">
+            <p><strong>日付:</strong> 2025年09月04日</p>
+            <p><strong>対象:</strong> 40名（グッズ販売・カレンダー販売・絵本出版業）</p>
+        </div>
+    </div>
+    
+    <!-- Slide 2 -->
+    <div class="slide">
+        <h2>講師自己紹介</h2>
+        <div class="highlight-box">
+            <h3>AI活用コンサルタント</h3>
+            <ul>
+                <li>AI実装プロジェクト 50社以上</li>
+                <li>企業研修実績 200回以上</li>
+                <li>最新AI情報を毎日キャッチアップ</li>
+            </ul>
+            <p><strong>本日のお約束</strong><br>
+            実際に使える知識とスキルをお持ち帰りいただきます</p>
+        </div>
+    </div>
+    
+    <!-- Slide 3 -->
+    <div class="slide">
+        <h2>本日の3つの目標</h2>
+        <div class="highlight-box">
+            <h3>📊 1. 最新のAI情報を知る</h3>
+            <ul>
+                <li>GPT-5、o1モデルの実力</li>
+                <li>2024-2025年の劇的な進化</li>
+            </ul>
+            
+            <h3>🚀 2. 業務に応用できるレベルで使える</h3>
+            <ul>
+                <li>実践ワークとハンズオン</li>
+                <li>明日から使える具体的スキル</li>
+            </ul>
+            
+            <h3>📈 3. 社員自ら情報をキャッチアップできる</h3>
+            <ul>
+                <li>継続学習の仕組み作り</li>
+                <li>社内展開の方法論</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Slide 4 -->
+    <div class="slide">
+        <h2>タイムスケジュール</h2>
+        <div class="two-column">
+            <div>
+                <h3>🌅 午前の部（9:00-12:00）</h3>
+                <ul>
+                    <li><strong>9:15-10:00</strong> セッション1: AIの最新情報と進化</li>
+                    <li><strong>10:10-11:00</strong> セッション2: AIのリスクと安全利用</li>
+                    <li><strong>11:10-12:00</strong> セッション3: Canva AI基礎と実践</li>
+                </ul>
+            </div>
+            <div>
+                <h3>🌤️ 午後の部（13:00-18:00）</h3>
+                <ul>
+                    <li><strong>13:00-14:30</strong> セッション4: バイブコーディング入門</li>
+                    <li><strong>14:40-16:00</strong> セッション5: データ分析・情報キャッチアップ</li>
+                    <li><strong>16:10-17:30</strong> セッション6: 実践プロジェクト</li>
+                    <li><strong>17:30-18:00</strong> まとめ・クロージング</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 5 -->
+    <div class="slide">
+        <h1>🚀 セッション1</h1>
+        <h2>AIの最新情報と進化（45分）</h2>
+        <div class="center" style="margin-top: 4rem;">
+            <p style="font-size: 2rem; color: #2e7d32;">
+                <strong>この1年で変わったAIの世界</strong>
+            </p>
+        </div>
+    </div>
+    
+    <!-- Slide 6 -->
+    <div class="slide">
+        <h2>ChatGPTの劇的な進化</h2>
+        <div class="two-column">
+            <div>
+                <h3>従来（2023年）</h3>
+                <ul>
+                    <li>GPT-3.5: 基本的な対話</li>
+                    <li>単発的な回答</li>
+                    <li>精度にバラつき</li>
+                </ul>
+            </div>
+            <div>
+                <h3>現在（2025年）</h3>
+                <ul>
+                    <li><strong>GPT-5</strong>: 推論能力が飛躍的向上</li>
+                    <li><strong>o1モデル</strong>: 数学・論理思考特化</li>
+                    <li>継続的な学習と記憶</li>
+                </ul>
+            </div>
+        </div>
+        <div class="highlight-box">
+            <h3>🔥 特に注目すべき進化ポイント</h3>
+            <ul>
+                <li><strong>リサーチ力</strong>: DeepResearch機能で学術論文レベルの調査</li>
+                <li><strong>音声対話</strong>: 自然な会話でのやりとり実現</li>
+                <li><strong>動画生成</strong>: テキストから高品質動画を自動生成</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Slide 7 -->
+    <div class="slide">
+        <h2>実際のAI炎上事例から学ぶ</h2>
+        <div class="highlight-box">
+            <h3>📱 マクドナルドの生成AI広告炎上（2024年）</h3>
+            <p><strong>何が起きたか</strong></p>
+            <ul>
+                <li>プロモーション動画にAI生成キャラクター使用</li>
+                <li>SNSで「気持ち悪い」「買う気にならない」と批判殺到</li>
+                <li><strong>不気味の谷現象</strong>が顕著に表れた事例</li>
+            </ul>
+            <p style="color: #2e7d32; font-size: 1.4rem; margin-top: 2rem;">
+                <strong>学び: AIの品質と顧客感情の重要性</strong>
+            </p>
+        </div>
+    </div>
+    
+    <!-- Slide 8 -->
+    <div class="slide">
+        <h2>安全な使い方10箇条</h2>
+        <div class="two-column">
+            <div>
+                <h3>🔐 情報管理</h3>
+                <ol>
+                    <li>個人情報は入力しない</li>
+                    <li>機密情報は扱わない</li>
+                    <li>取引先情報も要注意</li>
+                    <li>履歴を定期的に確認</li>
+                </ol>
+                
+                <h3>✅ 品質管理</h3>
+                <ol start="5">
+                    <li>生成物は必ず人間が確認</li>
+                    <li>重要文書は複数人でチェック</li>
+                    <li>情報源を必ず確認</li>
+                    <li>定期的な監査実施</li>
+                </ol>
+            </div>
+            <div>
+                <h3>📚 継続学習</h3>
+                <ol start="9">
+                    <li>最新情報を常にキャッチ</li>
+                    <li>チーム全体で情報共有</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 9 -->
+    <div class="slide">
+        <h1>🎨 Canva AI実践</h1>
+        <h2>Magic Write: AI文章生成</h2>
+        <div class="two-column">
+            <div>
+                <h3>✍️ できること</h3>
+                <ul>
+                    <li>キャッチコピー作成</li>
+                    <li>商品説明文生成</li>
+                    <li>SNS投稿文作成</li>
+                    <li>メール文案作成</li>
+                </ul>
+            </div>
+            <div>
+                <h3>🎯 プロンプトのコツ</h3>
+                <ul>
+                    <li><strong>具体的に</strong>: 「20代女性向け化粧品の」</li>
+                    <li><strong>目的明確</strong>: 「購買意欲を高める」</li>
+                    <li><strong>文字数指定</strong>: 「50文字以内で」</li>
+                    <li><strong>トーン指定</strong>: 「親しみやすく」</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 10 -->
+    <div class="slide">
+        <h1>🧙‍♂️ バイブコーディング入門</h1>
+        <h2>バイブコーディングの本質</h2>
+        <div class="center" style="margin-bottom: 3rem;">
+            <h3>🔄 パラダイムシフト</h3>
+            <p style="font-size: 1.8rem; margin: 2rem 0;">
+                <strong>従来の開発</strong><br>
+                アイデア → 設計 → コーディング → テスト → デプロイ
+            </p>
+            <p style="font-size: 1.8rem; color: #2e7d32;">
+                <strong>バイブコーディング</strong><br>
+                <span style="color: #1b5e20; font-size: 2.2rem;">アイデア → AI対話 → 完成品</span>
+            </p>
+        </div>
+        <div class="highlight-box">
+            <h3>✨ 革命的な変化</h3>
+            <ul>
+                <li>プログラミング知識不要</li>
+                <li>圧倒的な開発スピード</li>
+                <li>誰でもクリエイターに</li>
+                <li>アイデアが直接形になる</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Continue with more slides... -->
+    
+    <!-- Slide 11 -->
+    <div class="slide">
+        <h1>📊 データ分析・リサーチ</h1>
+        <h2>AIによるデータ分析の威力</h2>
+        <div class="center" style="margin-bottom: 3rem;">
+            <h3>🔄 分析業務の革命</h3>
+            <p style="font-size: 1.6rem; margin: 2rem 0;">
+                <strong>従来</strong>: Excel関数 + グラフ作成 + 解釈 (数時間)
+            </p>
+            <p style="font-size: 1.8rem; color: #2e7d32;">
+                <strong>AI活用</strong>: CSVアップロード + プロンプト (数分)
+            </p>
+        </div>
+        <div class="highlight-box">
+            <h3>ChatGPT/Geminiでできること</h3>
+            <ul>
+                <li>CSV要約・傾向分析</li>
+                <li>グラフ自動生成</li>
+                <li>インサイト抽出</li>
+                <li>改善提案</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Add more slides as needed... -->
+    
+    <!-- Final Slide -->
+    <div class="slide">
+        <h1 class="center">🎉 お疲れさまでした！</h1>
+        <div class="center" style="margin-top: 3rem;">
+            <h2>AIと共に成長する新時代の始まり</h2>
+            <p style="font-size: 1.8rem; color: #2e7d32; margin-top: 4rem;">
+                <strong>今日学んだスキルで、明日からの業務を革新しましょう</strong>
+            </p>
+        </div>
+        
+        <div class="highlight-box" style="margin-top: 4rem;">
+            <h3>📞 講師連絡先</h3>
+            <ul>
+                <li><strong>メール</strong>: consultant@example.com</li>
+                <li><strong>LinkedIn</strong>: linkedin.com/in/example</li>
+            </ul>
+            <p style="text-align: center; font-size: 1.5rem; color: #1b5e20; margin-top: 2rem;">
+                <strong>🚀 新しいAI時代での成功を祈念しています！</strong>
+            </p>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">← 前へ</button>
+        <button class="nav-btn" onclick="nextSlide()">次へ →</button>
+    </div>
+    
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        function updateSlideDisplay() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+            
+            document.getElementById('slideCounter').textContent = 
+                `${currentSlide + 1} / ${totalSlides}`;
+            
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+        }
+        
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlideDisplay();
+            }
+        }
+        
+        function previousSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlideDisplay();
+            }
+        }
+        
+        // キーボードナビゲーション
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight' || event.key === ' ') {
+                event.preventDefault();
+                nextSlide();
+            } else if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                previousSlide();
+            }
+        });
+        
+        // 初期表示
+        updateSlideDisplay();
+    </script>
+</body>
+</html>

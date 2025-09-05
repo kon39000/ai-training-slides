@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIセキュリティ○×クイズ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+            position: relative;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+            background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .progress-bar {
+            background: #f0f0f0;
+            height: 10px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress {
+            background: linear-gradient(90deg, #56CCF2 0%, #2F80ED 100%);
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .question-counter {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .quiz-content {
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .start-screen {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .start-screen p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+
+        .question-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .question-text {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #333;
+            border-left: 5px solid #2F80ED;
+        }
+
+        .difficulty {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .difficulty.basic {
+            background: #e8f5e9;
+            color: #4caf50;
+        }
+
+        .difficulty.intermediate {
+            background: #fff3e0;
+            color: #ff9800;
+        }
+
+        .difficulty.advanced {
+            background: #ffebee;
+            color: #f44336;
+        }
+
+        .answer-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);
+            color: white;
+        }
+
+        .btn-true {
+            background: #4caf50;
+            color: white;
+            font-size: 2em;
+            padding: 20px 50px;
+        }
+
+        .btn-false {
+            background: #f44336;
+            color: white;
+            font-size: 2em;
+            padding: 20px 50px;
+        }
+
+        .btn-next {
+            background: #2F80ED;
+            color: white;
+            display: none;
+            margin: 0 auto;
+        }
+
+        .result-section {
+            display: none;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            margin-top: 20px;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 500px;
+            }
+        }
+
+        .result-correct {
+            color: #4caf50;
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .result-incorrect {
+            color: #f44336;
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .explanation {
+            color: #555;
+            line-height: 1.8;
+            font-size: 1.05em;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            border-left: 5px solid #2F80ED;
+        }
+
+        .final-score {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .score-display {
+            font-size: 4em;
+            color: #2F80ED;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .score-message {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .score-detail {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .btn-restart {
+            background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .btn-true, .btn-false {
+                font-size: 1.5em;
+                padding: 15px 30px;
+            }
+
+            .question-text {
+                font-size: 1em;
+                padding: 20px;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        .pulse {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AIセキュリティ○×クイズ</h1>
+        
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="quiz-content">
+            <div class="start-screen" id="startScreen">
+                <p>
+                    AIを安全に活用するためのセキュリティクイズです。<br>
+                    全15問の○×クイズに挑戦して、<br>
+                    AIセキュリティの知識をチェックしましょう！
+                </p>
+                <button class="btn btn-primary pulse" onclick="startQuiz()">クイズを開始</button>
+            </div>
+
+            <div class="question-section" id="questionSection">
+                <div class="question-counter" id="questionCounter">問題 1 / 15</div>
+                <div id="questionContent"></div>
+                <div class="answer-buttons" id="answerButtons">
+                    <button class="btn btn-true" onclick="checkAnswer(true)">○</button>
+                    <button class="btn btn-false" onclick="checkAnswer(false)">×</button>
+                </div>
+                <div class="result-section" id="resultSection">
+                    <div id="resultMessage"></div>
+                    <div class="explanation" id="explanation"></div>
+                </div>
+                <button class="btn btn-next" id="nextButton" onclick="nextQuestion()">次の問題へ</button>
+            </div>
+
+            <div class="final-score" id="finalScore">
+                <div class="score-display" id="scoreDisplay">15/15</div>
+                <div class="score-message" id="scoreMessage">完璧です！</div>
+                <div class="score-detail" id="scoreDetail"></div>
+                <button class="btn btn-restart" onclick="restartQuiz()">もう一度挑戦</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                difficulty: "基礎",
+                question: "ChatGPTに顧客の個人情報（名前、住所、電話番号）を入力して、お礼状の文章を作成してもらうのは問題ない。",
+                answer: false,
+                explanation: "個人情報をAIに入力することは情報漏洩リスクがあります。AIサービスは入力内容を学習に使用する可能性があり、第三者に情報が漏れる危険性があります。個人情報は必ず匿名化または仮名化してから使用しましょう。"
+            },
+            {
+                id: 2,
+                difficulty: "基礎",
+                question: "AIが生成した画像や文章には、必ず「AI生成」であることを明記する必要がある。",
+                answer: true,
+                explanation: "透明性の観点から、AI生成コンテンツであることを明示することが推奨されています。特に商用利用の場合、消費者に対する誠実な情報開示として重要です。また、著作権の観点からも明記が望ましいとされています。"
+            },
+            {
+                id: 3,
+                difficulty: "基礎",
+                question: "会社の機密情報でも、ChatGPTの有料プラン（Plus）なら安全に入力できる。",
+                answer: false,
+                explanation: "有料プランでも機密情報の入力は避けるべきです。有料プランは機能が増えるだけで、セキュリティレベルが企業の機密情報を扱えるレベルになるわけではありません。機密情報は社内システムのみで扱いましょう。"
+            },
+            {
+                id: 4,
+                difficulty: "中級",
+                question: "AIが生成した文章をそのまま公式文書として使用する前に、必ず人間がファクトチェックをする必要がある。",
+                answer: true,
+                explanation: "AIは「ハルシネーション」と呼ばれる、もっともらしい嘘をつくことがあります。特に数値、日付、固有名詞などは誤りやすいため、必ず人間による確認が必要です。公式文書では特に慎重になる必要があります。"
+            },
+            {
+                id: 5,
+                difficulty: "基礎",
+                question: "社内の売上データをExcelファイルのままChatGPTにアップロードして分析してもらうのは安全である。",
+                answer: false,
+                explanation: "売上データは企業の重要な内部情報です。外部のAIサービスにアップロードすることは情報漏洩リスクがあります。データ分析が必要な場合は、数値を仮のものに置き換えるか、社内承認を得た専用ツールを使用しましょう。"
+            },
+            {
+                id: 6,
+                difficulty: "中級",
+                question: "AIで生成した著作物の著作権は、プロンプトを入力した人に自動的に帰属する。",
+                answer: false,
+                explanation: "現在の日本の法律では、AI生成物に著作権が認められるかは明確ではありません。創作的な工夫や人間の創造的寄与が認められる場合のみ著作権が発生する可能性があります。単純なプロンプト入力だけでは著作権は発生しない可能性が高いです。"
+            },
+            {
+                id: 7,
+                difficulty: "基礎",
+                question: "取引先から受け取った契約書の内容をAIに要約してもらうことは問題ない。",
+                answer: false,
+                explanation: "契約書は機密性の高い文書であり、守秘義務の対象となることが多いです。外部のAIサービスに入力することは契約違反になる可能性があります。契約書の処理は社内の適切な部署で行いましょう。"
+            },
+            {
+                id: 8,
+                difficulty: "中級",
+                question: "AIを業務で使用する際は、必ず入力した内容と出力結果のログを保存しておく必要がある。",
+                answer: true,
+                explanation: "トレーサビリティ（追跡可能性）の観点から、AIの使用履歴を記録することは重要です。問題が発生した際の原因究明や、監査対応のためにも履歴の保存は推奨されます。"
+            },
+            {
+                id: 9,
+                difficulty: "応用",
+                question: "AIが生成したコードをそのまま本番環境で使用しても、動作確認さえすれば問題ない。",
+                answer: false,
+                explanation: "AIが生成したコードには、セキュリティ脆弱性が含まれている可能性があります。また、ライセンス違反のコードが混入している可能性もあります。必ずセキュリティレビューとライセンスチェックを行ってから使用しましょう。"
+            },
+            {
+                id: 10,
+                difficulty: "基礎",
+                question: "社員の顔写真をAIの画像生成に使って、社内報の挿絵を作ることは問題ない。",
+                answer: false,
+                explanation: "個人の顔写真は個人情報であり、肖像権の対象でもあります。本人の同意なくAIサービスに入力することは、プライバシーの侵害になる可能性があります。必ず本人の同意を得てから使用しましょう。"
+            },
+            {
+                id: 11,
+                difficulty: "中級",
+                question: "AIチャットボットを社内で使う場合、利用規約とプライバシーポリシーを全員が読む必要がある。",
+                answer: true,
+                explanation: "AIサービスの利用規約には、データの取り扱いや責任範囲が記載されています。組織として適切に利用するため、利用者全員が規約を理解することが重要です。特にデータの二次利用に関する条項は必ず確認しましょう。"
+            },
+            {
+                id: 12,
+                difficulty: "応用",
+                question: "競合他社の公開情報をAIに分析させて、自社の戦略立案に活用することは法的に問題ない。",
+                answer: true,
+                explanation: "公開されている情報を分析することは合法です。ただし、不正な手段で入手した情報や、営業秘密に該当する情報を使用することは違法です。また、分析結果の使用方法によっては競争法上の問題が生じる可能性もあるため注意が必要です。"
+            },
+            {
+                id: 13,
+                difficulty: "応用",
+                question: "AIサービスの無料版と有料版では、入力データの取り扱いポリシーが異なることがある。",
+                answer: true,
+                explanation: "多くのAIサービスでは、無料版では入力データを学習に使用し、有料版では使用しないという違いがあります。例えば、ChatGPTでは有料版でオプトアウト（学習利用の拒否）が可能です。利用前に必ず確認しましょう。"
+            },
+            {
+                id: 14,
+                difficulty: "上級",
+                question: "EUのGDPR（一般データ保護規則）では、AIによる自動意思決定のみで個人に重大な影響を与える決定を行うことは原則として禁止されている。",
+                answer: true,
+                explanation: "GDPRでは、人間の介入なしにAIだけで個人の権利に影響する重要な決定（採用、融資審査など）を行うことを制限しています。日本でも同様の規制が検討されており、AIの判断には必ず人間のレビューを入れることが推奨されます。"
+            },
+            {
+                id: 15,
+                difficulty: "上級",
+                question: "生成AIで作成したコンテンツが他者の著作権を侵害していた場合、AIサービス提供者ではなく利用者が責任を負う。",
+                answer: true,
+                explanation: "現在の法解釈では、AIを道具として使用した利用者が最終的な責任を負うとされています。AIサービスの利用規約でも、生成物の責任は利用者にあると明記されていることが多いです。そのため、生成物を公開・使用する前の確認が重要です。"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+
+        function startQuiz() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('questionSection').style.display = 'block';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = questions[currentQuestion];
+            const questionContent = document.getElementById('questionContent');
+            
+            const difficultyClass = question.difficulty === '基礎' ? 'basic' : 
+                                   question.difficulty === '中級' ? 'intermediate' : 
+                                   'advanced';
+            
+            questionContent.innerHTML = `
+                <div class="difficulty ${difficultyClass}">${question.difficulty}</div>
+                <div class="question-text fade-in">${question.question}</div>
+            `;
+            
+            document.getElementById('questionCounter').textContent = 
+                `問題 ${currentQuestion + 1} / ${questions.length}`;
+            
+            document.getElementById('answerButtons').style.display = 'flex';
+            document.getElementById('resultSection').style.display = 'none';
+            document.getElementById('nextButton').style.display = 'none';
+            
+            updateProgress();
+        }
+
+        function checkAnswer(userAnswer) {
+            const question = questions[currentQuestion];
+            const isCorrect = userAnswer === question.answer;
+            userAnswers.push(isCorrect);
+            
+            if (isCorrect) {
+                score++;
+                document.getElementById('resultMessage').innerHTML = 
+                    '<div class="result-correct">○ 正解！</div>';
+            } else {
+                document.getElementById('resultMessage').innerHTML = 
+                    '<div class="result-incorrect">× 不正解</div>';
+            }
+            
+            document.getElementById('explanation').textContent = question.explanation;
+            
+            document.getElementById('answerButtons').style.display = 'none';
+            document.getElementById('resultSection').style.display = 'block';
+            document.getElementById('nextButton').style.display = 'block';
+            
+            if (currentQuestion === questions.length - 1) {
+                document.getElementById('nextButton').textContent = '結果を見る';
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                showFinalScore();
+            }
+        }
+
+        function showFinalScore() {
+            document.getElementById('questionSection').style.display = 'none';
+            document.getElementById('finalScore').style.display = 'block';
+            
+            document.getElementById('scoreDisplay').textContent = `${score}/${questions.length}`;
+            
+            let message = '';
+            let detail = '';
+            
+            if (score >= 13) {
+                message = 'AIセキュリティマスター！';
+                detail = '素晴らしい！AIを安全に活用するための知識が十分に身についています。';
+            } else if (score >= 10) {
+                message = 'しっかり理解できています！';
+                detail = 'AIセキュリティの基本はマスターしています。さらなる向上を目指しましょう。';
+            } else if (score >= 7) {
+                message = '基本は押さえています！';
+                detail = '基礎知識はありますが、まだ改善の余地があります。復習をおすすめします。';
+            } else {
+                message = 'もう一度復習しましょう！';
+                detail = 'AIセキュリティについてさらに学習が必要です。安全な利用のため、再度確認してください。';
+            }
+            
+            document.getElementById('scoreMessage').textContent = message;
+            document.getElementById('scoreDetail').textContent = detail;
+            
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + (userAnswers.length > currentQuestion ? 1 : 0)) / questions.length) * 100;
+            document.getElementById('progress').style.width = `${progress}%`;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            document.getElementById('finalScore').style.display = 'none';
+            document.getElementById('startScreen').style.display = 'block';
+            updateProgress();
+        }
+    </script>
+</body>
+</html>

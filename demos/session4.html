@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session4 Demo - Timer App</title>
+    <style>
+        body { 
+            font-family: 'Yu Gothic', 'Meiryo', sans-serif; 
+            padding: 3rem; 
+            background: linear-gradient(135deg, #e8f5e8, #f4fff8);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(46, 125, 50, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        h1 { 
+            color: #2e7d32; 
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+        
+        p {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+        
+        #display { 
+            font-size: 4rem; 
+            color: #2e7d32; 
+            font-weight: bold; 
+            margin: 2rem 0;
+            background: linear-gradient(135deg, #e8f5e8, #f1f8e9);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 3px solid #4caf50;
+        }
+        
+        button { 
+            padding: 1.5rem 3rem; 
+            font-size: 1.4rem; 
+            background: linear-gradient(135deg, #4caf50, #66bb6a); 
+            color: white; 
+            border: none; 
+            border-radius: 50px; 
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .demo-info {
+            background: #e8f5e8;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            color: #2e7d32;
+            font-size: 1rem;
+        }
+        
+        .code-sample {
+            background: #f1f8e9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #4caf50;
+            margin-top: 2rem;
+            text-align: left;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #2e7d32;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>タイマーアプリ（バイブコーディングデモ）</h1>
+        <p>「スタート」ボタンを押すと10秒カウントダウンが始まります。<br>
+        このアプリはAIとの対話だけで作成できます！</p>
+        
+        <div id="display">00:10</div>
+        <button onclick="startTimer()" id="startBtn">⏰ スタート</button>
+        
+        <div class="demo-info">
+            <strong>💡 ポイント</strong><br>
+            このようなシンプルなWebアプリは、Canva AIやClaude、ChatGPTに<br>
+            「10秒のタイマーアプリを作って」と伝えるだけで作成可能です。
+        </div>
+        
+        <div class="code-sample">
+            <strong>📝 実際のプロンプト例：</strong><br>
+            「10秒カウントダウンするタイマーアプリを作ってください。<br>
+             スタートボタンを押すと秒数表示が減っていく仕組みでお願いします。」
+        </div>
+    </div>
+
+    <script>
+        let isRunning = false;
+        
+        function startTimer() {
+            if (isRunning) return;
+            
+            isRunning = true;
+            const startBtn = document.getElementById('startBtn');
+            startBtn.textContent = '⏳ 実行中...';
+            startBtn.disabled = true;
+            
+            let t = 10;
+            const display = document.getElementById('display');
+            
+            const interval = setInterval(() => {
+                t--;
+                display.textContent = "00:" + (t < 10 ? "0" : "") + t;
+                
+                if (t <= 0) {
+                    clearInterval(interval);
+                    display.textContent = "🎉 完了!";
+                    display.style.background = "linear-gradient(135deg, #c8e6c9, #e8f5e8)";
+                    
+                    setTimeout(() => {
+                        display.textContent = "00:10";
+                        display.style.background = "linear-gradient(135deg, #e8f5e8, #f1f8e9)";
+                        startBtn.textContent = '⏰ スタート';
+                        startBtn.disabled = false;
+                        isRunning = false;
+                    }, 2000);
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

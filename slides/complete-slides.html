@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI活用1日研修 - 完全版スライド</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+        }
+        .slide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .slide {
+            background: linear-gradient(135deg, #f7fbfb 0%, #ffffff 100%);
+            padding: 60px 80px;
+            min-height: 80vh;
+            display: none;
+            color: #333;
+            font-size: 24px;
+        }
+        .slide.active {
+            display: block;
+        }
+        .slide h1 {
+            color: #004D47;
+            font-size: 3.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+        }
+        .slide h2 {
+            color: #128277;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: left;
+            border-left: 6px solid #128277;
+            padding-left: 1.5rem;
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+        }
+        .slide h3 {
+            color: #004D47;
+            font-size: 2.0rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+        }
+        .slide p, .slide li {
+            color: #333;
+            line-height: 2.1;
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            text-align: left;
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+            font-weight: 400;
+        }
+        .slide strong {
+            color: #128277;
+            font-weight: 700;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(18, 130, 119, 0.9);
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+        }
+        .nav-btn {
+            background: #128277;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .nav-btn:hover {
+            background: #004D47;
+        }
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .slide-counter {
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        .highlight-box {
+            background: #f8fffe;
+            border-left: 6px solid #128277;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+        }
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+            margin: 2rem 0;
+        }
+        .warning-box {
+            background: #fffef6;
+            border-left: 6px solid #FBCD4B;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+        }
+        .checklist {
+            background: #f9fffe;
+            border-left: 6px solid #128277;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+        }
+        .checklist ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .checklist li::before {
+            content: "✅ ";
+            margin-right: 0.5rem;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2.5rem 0;
+        }
+        .comparison-table th {
+            background: #128277;
+            color: white;
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: bold;
+        }
+        .comparison-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid #e2f1ef;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f3fbfa;
+        }
+        .icon-list li {
+            margin-bottom: 1rem;
+        }
+        .icon-list .warning::before {
+            content: "⚠️ ";
+            margin-right: 0.5rem;
+        }
+        .icon-list .info::before {
+            content: "💡 ";
+            margin-right: 0.5rem;
+        }
+        .icon-list .check::before {
+            content: "✅ ";
+            margin-right: 0.5rem;
+        }
+        .icon-list .fire::before {
+            content: "🔥 ";
+            margin-right: 0.5rem;
+        }
+        .center-content {
+            text-align: center;
+            margin: 3rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- スライド1：タイトル -->
+        <div class="slide active">
+            <h1>AI活用1日研修</h1>
+            <h2>〜AIを利用するから作る時代へ〜</h2>
+            <div class="center-content">
+                <p><strong>日付:</strong> 2025年9月4日</p>
+                <p><strong>対象:</strong> 40名（グッズ販売・カレンダー販売・絵本出版業）</p>
+                <p><strong>会場:</strong> 研修センター</p>
+            </div>
+        </div>
+
+        <!-- スライド2：講師自己紹介 -->
+        <div class="slide">
+            <h2>講師自己紹介</h2>
+            <div class="two-column" style="gap: 4rem;">
+                <div>
+                    <p style="font-size: 2rem; margin-bottom: 3rem; line-height: 1.8;">
+                        <strong>こん</strong><br>
+                        <span style="font-size: 1.6rem;">AIコンテンツラボ運営<br>バイブコーディング提唱者</span>
+                    </p>
+                    <ul style="font-size: 1.8rem; line-height: 2.8;">
+                        <li><strong>コミュニティ</strong>：約5,000名</li>
+                        <li><strong>Udemy</strong>：13講座展開中</li>
+                        <li><strong>研修実績</strong>：企業・自治体7回</li>
+                    </ul>
+                </div>
+                <div style="text-align: center; display: flex; align-items: center; justify-content: center;">
+                    <img src="../profile.jpeg" alt="講師写真" style="width: 90%; max-width: 350px; border-radius: 12px; box-shadow: 0 4px 14px rgba(0,0,0,.08);">
+                </div>
+            </div>
+            <div class="highlight-box" style="border-left: 8px solid #128277; margin-top: 3rem;">
+                <p style="font-size: 2rem; margin: 0; text-align: center; font-weight: 700;">
+                    本日の約束：<span style="color: #128277;">使える・作れる・広げられる</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- スライド3：本日の目標（導入） -->
+        <div class="slide">
+            <h1>本日の3つの目標</h1>
+            <div class="center-content" style="margin-top: 5rem;">
+                <p style="font-size: 2rem; color: #128277; line-height: 3;">
+                    <strong>1. 最新のAI情報を知る</strong><br>
+                    <strong>2. 業務に応用できるレベルで使える</strong><br>
+                    <strong>3. 自ら情報をキャッチアップできる</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- スライド4：目標1 -->
+        <div class="slide">
+            <h2>目標1：最新のAI情報を知る</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <ul class="icon-list" style="font-size: 1.8rem; line-height: 2.5;">
+                        <li class="fire">GPT-5の革新的な推論能力</li>
+                        <li class="info">o1モデルの数学・論理思考</li>
+                        <li class="check">2025年の最新トレンド把握</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド5：目標2 -->
+        <div class="slide">
+            <h2>目標2：業務に応用できるレベルで使える</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <ul class="icon-list" style="font-size: 1.8rem; line-height: 2.5;">
+                        <li class="check">実践ワークで体験学習</li>
+                        <li class="fire">明日から使える具体的スキル</li>
+                        <li class="info">業務フローへの組み込み方</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド6：目標3 -->
+        <div class="slide">
+            <h2>目標3：自ら情報をキャッチアップできる</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <ul class="icon-list" style="font-size: 1.8rem; line-height: 2.5;">
+                        <li class="info">継続学習の仕組み作り</li>
+                        <li class="check">社内展開の方法論</li>
+                        <li class="fire">最新情報の効率的収集</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド7：タイムスケジュール -->
+        <div class="slide">
+            <h2>📅 本日のタイムスケジュール</h2>
+            <div class="two-column">
+                <div>
+                    <h3>🌅 午前の部（9:00-12:00）</h3>
+                    <ul>
+                        <li><strong>9:15-10:00</strong><br>セッション1: AIの最新情報と進化</li>
+                        <li><strong>10:10-11:00</strong><br>セッション2: AIのリスクと安全利用</li>
+                        <li><strong>11:10-12:00</strong><br>セッション3: Canva AI基礎と実践</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>🌤️ 午後の部（13:00-18:00）</h3>
+                    <ul>
+                        <li><strong>13:00-14:30</strong><br>セッション4: バイブコーディング入門</li>
+                        <li><strong>14:40-16:00</strong><br>セッション5: データ分析・情報キャッチアップ</li>
+                        <li><strong>16:10-17:30</strong><br>セッション6: 実践プロジェクト</li>
+                        <li><strong>17:30-18:00</strong><br>まとめ・クロージング</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド8：アイスブレイク - アンケート -->
+        <div class="slide">
+            <h2>🧊 アイスブレイク（1/2）</h2>
+            <div class="checklist" style="margin-top: 5rem;">
+                <h3 style="font-size: 2rem;">🙋‍♀️ AIツール利用経験（挙手してください）</h3>
+                <ul style="font-size: 1.8rem; line-height: 3;">
+                    <li>ChatGPTを使ったことがある方？</li>
+                    <li>画像生成AIを試したことがある方？</li>
+                    <li>業務でAIを活用している方？</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- スライド9：アイスブレイク - クイズ -->
+        <div class="slide">
+            <h2>🧊 アイスブレイク（2/2）</h2>
+            <div class="warning-box" style="margin-top: 4rem;">
+                <h3 style="font-size: 2rem;">🧠 AIクイズ</h3>
+                <div style="font-size: 1.8rem; line-height: 3; margin-top: 2rem;">
+                    <p><strong>Q1:</strong> ChatGPTの最新版は？</p>
+                    <p><strong>Q2:</strong> AIが苦手なことは？</p>
+                    <p><strong>Q3:</strong> バイブコーディングとは？</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド10：セッション1開始 -->
+        <div class="slide">
+            <h1>🚀 セッション1</h1>
+            <h2>AIの最新情報と進化（45分）</h2>
+            <div class="center-content">
+                <p style="font-size: 1.8rem; color: #128277;"><strong>この1年で変わったAIの世界</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="prevSlide()">◀ 前へ</button>
+        <span class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">6</span>
+        </span>
+        <button class="nav-btn" onclick="nextSlide()">次へ ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[n].classList.add('active');
+            document.getElementById('current-slide').textContent = n + 1;
+            
+            // ナビゲーションボタンの状態更新
+            document.querySelector('button[onclick="prevSlide()"]').disabled = (n === 0);
+            document.querySelector('button[onclick="nextSlide()"]').disabled = (n === totalSlides - 1);
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        // キーボードナビゲーション
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key.toLowerCase() === 'f') {
+                // フルスクリーン切り替えと発表モード
+                e.preventDefault();
+                togglePresentMode();
+            } else if (e.key === 'Escape') {
+                // Escapeでフルスクリーン解除
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                    document.querySelector('.navigation').style.display = 'block';
+                }
+            }
+        });
+
+        // 発表モード切り替え
+        function togglePresentMode() {
+            const nav = document.querySelector('.navigation');
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().then(() => {
+                    nav.style.display = 'none';
+                }).catch(err => {
+                    console.log('フルスクリーンエラー:', err);
+                });
+            } else {
+                document.exitFullscreen();
+                nav.style.display = 'block';
+            }
+        }
+
+        // 初期表示
+        showSlide(0);
+    </script>
+</body>
+</html>

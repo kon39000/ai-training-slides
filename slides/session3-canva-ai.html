@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>セッション3：Canva AI基礎と実践</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+        }
+        .slide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .slide {
+            background: linear-gradient(135deg, #f7fbfb 0%, #ffffff 100%);
+            padding: 60px 80px;
+            min-height: 80vh;
+            display: none;
+            color: #333;
+            font-size: 24px;
+        }
+        .slide.active {
+            display: block;
+        }
+        .slide h1 {
+            color: #004D47;
+            font-size: 3.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .slide h2 {
+            color: #128277;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: left;
+            border-left: 6px solid #128277;
+            padding-left: 1.5rem;
+        }
+        .slide h3 {
+            color: #004D47;
+            font-size: 2.0rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        .slide p, .slide li {
+            color: #333;
+            line-height: 2.1;
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+        .slide strong {
+            color: #128277;
+            font-weight: 700;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(18, 130, 119, 0.9);
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+        }
+        .nav-btn {
+            background: #128277;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .nav-btn:hover {
+            background: #004D47;
+        }
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .slide-counter {
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        .highlight-box {
+            background: #f8fffe;
+            border-left: 6px solid #128277;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+        }
+        .demo-box {
+            background: #fff3e0;
+            border-left: 6px solid #ff9800;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+        }
+        .feature-box {
+            background: #e8f5e8;
+            border: 2px solid #4caf50;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+            margin: 2rem 0;
+        }
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2.5rem 0;
+        }
+        .comparison-table th {
+            background: #128277;
+            color: white;
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: bold;
+        }
+        .comparison-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid #e2f1ef;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f3fbfa;
+        }
+        .center-content {
+            text-align: center;
+            margin: 3rem 0;
+        }
+        .icon-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .icon-list li {
+            margin-bottom: 1.5rem;
+        }
+        .icon-list .fire::before {
+            content: "🔥 ";
+            margin-right: 0.5rem;
+        }
+        .icon-list .star::before {
+            content: "⭐ ";
+            margin-right: 0.5rem;
+        }
+        .icon-list .check::before {
+            content: "✅ ";
+            margin-right: 0.5rem;
+        }
+        .icon-list .tool::before {
+            content: "🛠️ ";
+            margin-right: 0.5rem;
+        }
+        .icon-list .magic::before {
+            content: "✨ ";
+            margin-right: 0.5rem;
+        }
+        .steps {
+            background: #f0f8ff;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .steps ol {
+            font-size: 1.8rem;
+            line-height: 2.5;
+        }
+        .steps ol li {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- スライド1：セッション3タイトル -->
+        <div class="slide active">
+            <h1>🎨 セッション3</h1>
+            <h2 style="text-align: center; border: none;">Canva AI基礎と実践</h2>
+            <div class="center-content">
+                <p style="font-size: 2rem; color: #128277;"><strong>Canvaで作る・描く・書く</strong></p>
+                <p style="font-size: 1.6rem; margin-top: 3rem;">時間: 11:10-12:00（50分）</p>
+            </div>
+        </div>
+
+        <!-- スライド2：Canva概要 -->
+        <div class="slide">
+            <h2>Canva AI概要</h2>
+            <div class="two-column">
+                <div>
+                    <h3>🎨 Canvaとは</h3>
+                    <ul style="font-size: 1.8rem;">
+                        <li>デザインツールの<strong>決定版</strong></li>
+                        <li>プロ級のデザインを<strong>誰でも</strong>作成</li>
+                        <li>テンプレート<strong>100万点以上</strong></li>
+                        <li>チームでの<strong>共同編集</strong>対応</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>🤖 AI機能の進化</h3>
+                    <ul style="font-size: 1.8rem;">
+                        <li><strong>Magic Write</strong>: テキスト自動生成</li>
+                        <li><strong>Text to Image</strong>: 画像生成</li>
+                        <li><strong>Background Remover</strong>: 背景除去</li>
+                        <li><strong>Magic Eraser</strong>: 不要物除去</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <h3 style="text-align: center;">💡 2025年の大きな変化</h3>
+                <p style="text-align: center; font-size: 1.8rem;">
+                    従来の「テンプレート選択＋編集」から<br>
+                    <strong>「AI対話＋自動生成」</strong>へシフト
+                </p>
+            </div>
+        </div>
+
+        <!-- スライド3：料金プラン比較 -->
+        <div class="slide">
+            <h2>料金プラン比較</h2>
+            <table class="comparison-table">
+                <tr>
+                    <th>プラン</th>
+                    <th>料金</th>
+                    <th>AI機能</th>
+                    <th>制限</th>
+                </tr>
+                <tr>
+                    <td><strong>無料プラン</strong></td>
+                    <td>¥0</td>
+                    <td>Magic Write（月10回）<br>一部画像生成</td>
+                    <td>透かし入り<br>ダウンロード制限</td>
+                </tr>
+                <tr>
+                    <td><strong>Canva Pro</strong></td>
+                    <td>¥1,500/月</td>
+                    <td>全AI機能無制限<br>高品質画像生成</td>
+                    <td>制限なし<br>商用利用OK</td>
+                </tr>
+                <tr>
+                    <td><strong>Teams</strong></td>
+                    <td>¥1,800/月</td>
+                    <td>Pro機能＋<br>チーム管理機能</td>
+                    <td>5名まで<br>ブランドキット</td>
+                </tr>
+            </table>
+            <div class="highlight-box">
+                <p style="text-align: center; font-size: 1.8rem;">
+                    <strong>🎯 本日の実演</strong>：無料プランでできることを中心に解説
+                </p>
+            </div>
+        </div>
+
+        <!-- スライド4：Magic Write概要 -->
+        <div class="slide">
+            <h2>Magic Write: AI文章生成</h2>
+            <div style="margin-top: 4rem;">
+                <h3>✍️ できること</h3>
+                <ul class="icon-list" style="font-size: 1.8rem; margin-bottom: 3rem;">
+                    <li class="star">キャッチコピー作成</li>
+                    <li class="star">商品説明文生成</li>
+                    <li class="star">SNS投稿文作成</li>
+                    <li class="star">メール文案作成</li>
+                    <li class="star">ブログ記事のアウトライン</li>
+                </ul>
+                
+                <h3>🎯 プロンプトのコツ</h3>
+                <div class="three-column">
+                    <div class="feature-box">
+                        <h4>具体的に</h4>
+                        <p>「20代女性向け化粧品の」</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>目的明確</h4>
+                        <p>「購買意欲を高める」</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>条件指定</h4>
+                        <p>「50文字以内で親しみやすく」</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド5：Magic Write実演 -->
+        <div class="slide">
+            <h2>Magic Write 実演デモ</h2>
+            <div class="demo-box" style="margin-top: 4rem;">
+                <h3 style="color: #f57c00;">🎬 ライブデモ：キャッチコピー生成</h3>
+                <div class="steps">
+                    <p style="font-size: 1.8rem; margin-bottom: 2rem;"><strong>課題</strong>：エコバッグのキャッチコピーを作る</p>
+                    <ol>
+                        <li>Canvaでデザインを開始</li>
+                        <li>テキストボックスを配置</li>
+                        <li>Magic Writeを起動</li>
+                        <li>プロンプト入力：「環境に優しいエコバッグの魅力的なキャッチコピーを3つ、30文字以内で作成」</li>
+                        <li>生成結果を確認・選択</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>💡 実演のポイント</h3>
+                <ul style="font-size: 1.7rem;">
+                    <li>同じプロンプトでも<strong>毎回異なる結果</strong></li>
+                    <li>気に入らなければ<strong>再生成</strong>可能</li>
+                    <li>結果を<strong>編集・カスタマイズ</strong>してより良く</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- スライド6：Text to Image概要 -->
+        <div class="slide">
+            <h2>Text to Image: AI画像生成</h2>
+            <div style="margin-top: 4rem;">
+                <h3>🖼️ 画像生成の基本</h3>
+                <ul class="icon-list" style="font-size: 1.8rem; margin-bottom: 3rem;">
+                    <li class="magic">テキスト説明から画像を自動生成</li>
+                    <li class="magic">複数のスタイル選択可能</li>
+                    <li class="magic">商用利用可能（Proプラン）</li>
+                    <li class="magic">日本語プロンプト対応</li>
+                </ul>
+                
+                <div class="two-column">
+                    <div>
+                        <h3>📐 スタイル選択</h3>
+                        <ul style="font-size: 1.7rem;">
+                            <li><strong>写真風</strong>：リアルな画像</li>
+                            <li><strong>イラスト</strong>：手描き風</li>
+                            <li><strong>水彩画</strong>：アート風</li>
+                            <li><strong>3D</strong>：立体的表現</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>💡 プロンプトのコツ</h3>
+                        <ul style="font-size: 1.7rem;">
+                            <li><strong>主語を明確に</strong></li>
+                            <li><strong>色調を指定</strong></li>
+                            <li><strong>背景の説明</strong></li>
+                            <li><strong>雰囲気・トーン</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド7：Text to Image実演 -->
+        <div class="slide">
+            <h2>Text to Image 実演デモ</h2>
+            <div class="demo-box" style="margin-top: 4rem;">
+                <h3 style="color: #f57c00;">🎬 ライブデモ：商品イメージ作成</h3>
+                <div class="steps">
+                    <p style="font-size: 1.8rem; margin-bottom: 2rem;"><strong>課題</strong>：カレンダー用の季節イメージを作る</p>
+                    <ol>
+                        <li>新規デザインでカレンダーテンプレート選択</li>
+                        <li>Text to Image機能を起動</li>
+                        <li>プロンプト入力：「桜が咲く春の公園、暖かい日差し、水彩画風」</li>
+                        <li>スタイルを「水彩画」に設定</li>
+                        <li>複数候補から最適な画像を選択</li>
+                        <li>カレンダーに配置・調整</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド8：Background Remover -->
+        <div class="slide">
+            <h2>Background Remover: 背景除去</h2>
+            <div class="two-column" style="margin-top: 4rem;">
+                <div>
+                    <h3>🎯 使用場面</h3>
+                    <ul class="icon-list" style="font-size: 1.8rem;">
+                        <li class="tool">商品写真の背景除去</li>
+                        <li class="tool">人物写真の切り抜き</li>
+                        <li class="tool">ロゴ・アイコン作成</li>
+                        <li class="tool">合成画像の作成</li>
+                    </ul>
+                    
+                    <h3>⚡ 処理速度</h3>
+                    <p style="font-size: 1.8rem;">
+                        <strong>従来</strong>：Photoshopで30分<br>
+                        <strong>Canva AI</strong>：<span style="color: #ff5722;">1クリック3秒</span>
+                    </p>
+                </div>
+                <div>
+                    <div class="demo-box">
+                        <h3 style="color: #f57c00;">🎬 実演予定</h3>
+                        <ol style="font-size: 1.6rem;">
+                            <li>商品画像をアップロード</li>
+                            <li>Background Removerを適用</li>
+                            <li>透過PNG としてダウンロード</li>
+                            <li>新しい背景と合成</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <p style="text-align: center; font-size: 1.8rem;">
+                    <strong>💰 コスト削減効果</strong>：外注費用 ¥3,000/枚 → ¥0（Pro会員なら無制限）
+                </p>
+            </div>
+        </div>
+
+        <!-- スライド9：Apps機能 -->
+        <div class="slide">
+            <h2>Apps機能：コード生成</h2>
+            <div style="margin-top: 4rem;">
+                <h3>🔧 Canva Appsでできること</h3>
+                <ul class="icon-list" style="font-size: 1.8rem; margin-bottom: 3rem;">
+                    <li class="fire">HTMLコード生成</li>
+                    <li class="fire">簡易Webページ作成</li>
+                    <li class="fire">インタラクティブ要素追加</li>
+                    <li class="fire">モバイル対応デザイン</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <h3>🎯 バイブコーディングとの連携</h3>
+                    <p style="font-size: 1.8rem; line-height: 2.2;">
+                        Canvaで作ったデザイン → HTMLコード出力 → Webサイトに直接実装<br>
+                        <strong>デザイン作業とコーディング作業の境界がなくなる</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド10：実践ワーク課題説明 -->
+        <div class="slide">
+            <h2>🛠️ 実践ワーク（25分）</h2>
+            <div class="demo-box" style="margin-top: 4rem;">
+                <h3 style="color: #f57c00; font-size: 2.4rem;">課題：オリジナルカレンダーデザイン作成</h3>
+            </div>
+            
+            <div class="steps">
+                <h3>📋 作業手順</h3>
+                <ol style="font-size: 1.8rem; line-height: 2.3;">
+                    <li><strong>テーマ決定</strong>（5分）：春・夏・秋・冬から選択</li>
+                    <li><strong>キャッチコピー作成</strong>（5分）：Magic Writeでタイトル生成</li>
+                    <li><strong>画像生成</strong>（10分）：Text to Imageで季節イメージ作成</li>
+                    <li><strong>レイアウト調整</strong>（5分）：文字・画像の配置最適化</li>
+                </ol>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>🎯 完成目標</h3>
+                <ul style="font-size: 1.7rem;">
+                    <li>季節感のある<strong>オリジナル画像</strong>を使用</li>
+                    <li>AIで生成した<strong>魅力的なキャッチコピー</strong></li>
+                    <li>見やすく美しい<strong>レイアウト</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- スライド11：作業時間 -->
+        <div class="slide">
+            <h2>⏰ 作業時間（25分間）</h2>
+            <div class="center-content" style="margin-top: 8rem;">
+                <div style="background: #fff3e0; padding: 4rem; border-radius: 15px; border: 3px solid #ff9800;">
+                    <h3 style="font-size: 3rem; color: #f57c00; margin-bottom: 3rem;">🎨 制作スタート！</h3>
+                    <p style="font-size: 2.2rem; line-height: 2.5;">
+                        <strong>困ったときは挙手してください</strong><br>
+                        講師がサポートに回ります
+                    </p>
+                </div>
+            </div>
+            
+            <div style="position: absolute; bottom: 100px; width: 100%; text-align: center;">
+                <p style="font-size: 1.8rem; color: #666;">
+                    ⏱️ <strong>中間チェック</strong>：15分後に進捗確認<br>
+                    🏁 <strong>完成・発表</strong>：25分後
+                </p>
+            </div>
+        </div>
+
+        <!-- スライド12：成果物共有 -->
+        <div class="slide">
+            <h2>🎉 成果物共有・発表</h2>
+            <div style="margin-top: 4rem;">
+                <div class="highlight-box">
+                    <h3 style="font-size: 2.4rem;">📊 発表内容（1人2分）</h3>
+                    <ul style="font-size: 1.8rem; line-height: 2.5;">
+                        <li><strong>選んだテーマ</strong>とその理由</li>
+                        <li><strong>AIで生成したキャッチコピー</strong>の紹介</li>
+                        <li><strong>画像生成</strong>で工夫した点</li>
+                        <li><strong>完成品</strong>の画面共有</li>
+                    </ul>
+                </div>
+                
+                <div class="two-column" style="margin-top: 3rem;">
+                    <div class="feature-box">
+                        <h3>👏 相互評価ポイント</h3>
+                        <ul style="font-size: 1.6rem; text-align: left;">
+                            <li>デザインの美しさ</li>
+                            <li>季節感の表現</li>
+                            <li>AI活用の巧さ</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h3>🏆 ベストプラクティス</h3>
+                        <ul style="font-size: 1.6rem; text-align: left;">
+                            <li>創意工夫が光る作品</li>
+                            <li>実用性の高いデザイン</li>
+                            <li>技術活用の巧さ</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- スライド13：セッション3まとめ -->
+        <div class="slide">
+            <h2>セッション3まとめ</h2>
+            <div class="highlight-box" style="margin-top: 4rem;">
+                <h3 style="font-size: 2.4rem;">📝 本セッションで習得したスキル</h3>
+                <ul class="icon-list" style="font-size: 2rem; line-height: 2.5;">
+                    <li class="check"><strong>Magic Write</strong>でキャッチコピー・文章生成</li>
+                    <li class="check"><strong>Text to Image</strong>でオリジナル画像作成</li>
+                    <li class="check"><strong>Background Remover</strong>で背景除去</li>
+                    <li class="check">効率的な<strong>デザインワークフロー</strong>の理解</li>
+                </ul>
+            </div>
+            
+            <div class="demo-box">
+                <h3 style="color: #f57c00; font-size: 2.2rem;">💡 業務活用のヒント</h3>
+                <ul style="font-size: 1.8rem; line-height: 2.3;">
+                    <li><strong>営業資料</strong>：商品画像＋魅力的なキャッチコピー</li>
+                    <li><strong>SNS投稿</strong>：季節感のあるビジュアル＋投稿文</li>
+                    <li><strong>会社案内</strong>：プロ品質のデザイン＋簡潔な説明文</li>
+                    <li><strong>イベント告知</strong>：目を引くポスター＋効果的な文言</li>
+                </ul>
+            </div>
+            
+            <div class="center-content">
+                <p style="font-size: 2.4rem; color: #128277; margin-top: 3rem;">
+                    <strong>午後のセッション：バイブコーディング入門</strong>
+                </p>
+                <p style="font-size: 1.8rem;">60分の昼休憩後、13:00から開始します</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="prevSlide()">◀ 前へ</button>
+        <span class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">13</span>
+        </span>
+        <button class="nav-btn" onclick="nextSlide()">次へ ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[n].classList.add('active');
+            document.getElementById('current-slide').textContent = n + 1;
+            
+            document.querySelector('button[onclick="prevSlide()"]').disabled = (n === 0);
+            document.querySelector('button[onclick="nextSlide()"]').disabled = (n === totalSlides - 1);
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key.toLowerCase() === 'f') {
+                e.preventDefault();
+                togglePresentMode();
+            } else if (e.key === 'Escape') {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                    document.querySelector('.navigation').style.display = 'block';
+                }
+            }
+        });
+
+        function togglePresentMode() {
+            const nav = document.querySelector('.navigation');
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().then(() => {
+                    nav.style.display = 'none';
+                }).catch(err => {
+                    console.log('フルスクリーンエラー:', err);
+                });
+            } else {
+                document.exitFullscreen();
+                nav.style.display = 'block';
+            }
+        }
+
+        showSlide(0);
+    </script>
+</body>
+</html>

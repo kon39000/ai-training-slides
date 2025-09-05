@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI活用実践研修 - 全セクション一覧</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', sans-serif;
+            background: linear-gradient(135deg, #f7fbfb 0%, #ffffff 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, #004D47 0%, #128277 100%);
+            color: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(18, 130, 119, 0.3);
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .header p {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid rgba(18, 130, 119, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #128277;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .sessions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .session-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 6px solid #128277;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .session-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #128277, #004D47);
+        }
+
+        .session-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(18, 130, 119, 0.2);
+        }
+
+        .session-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .session-icon {
+            font-size: 2.5rem;
+            margin-right: 1rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e8f5f5, #f0f8f8);
+            border-radius: 12px;
+        }
+
+        .session-title {
+            color: #004D47;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .session-subtitle {
+            color: #128277;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .session-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .session-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .session-duration {
+            background: #f0f8f8;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            color: #128277;
+            font-weight: 500;
+        }
+
+        .session-slides {
+            background: #fff8e1;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            color: #f57c00;
+            font-weight: 500;
+        }
+
+        .session-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #128277, #004D47);
+            color: white;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 100%;
+        }
+
+        .session-button:hover {
+            background: linear-gradient(135deg, #004D47, #128277);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(18, 130, 119, 0.3);
+        }
+
+        .opening-card {
+            border-left-color: #2196f3;
+        }
+
+        .opening-card::before {
+            background: linear-gradient(90deg, #2196f3, #1976d2);
+        }
+
+        .closing-card {
+            border-left-color: #ff9800;
+        }
+
+        .closing-card::before {
+            background: linear-gradient(90deg, #ff9800, #f57c00);
+        }
+
+        .download-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .download-title {
+            color: #004D47;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .download-description {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
+            color: white;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            transform: translateY(-2px);
+        }
+
+        .usage-guide {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .guide-title {
+            color: #004D47;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .guide-title::before {
+            content: '💡';
+            margin-right: 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        .guide-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .guide-list li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: #555;
+        }
+
+        .guide-list li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #128277;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: #777;
+            border-top: 2px solid #e9ecef;
+            margin-top: 3rem;
+        }
+
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .keyboard-shortcuts {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .keyboard-shortcuts strong {
+            color: #1976d2;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .sessions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 AI活用実践研修</h1>
+            <p>最新AI技術を活用して業務効率を劇的に向上させる実践的な6時間研修プログラム</p>
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">セクション</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">106</div>
+                    <div class="stat-label">スライド総数</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">研修時間</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">実践演習</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="usage-guide">
+            <div class="guide-title">使い方ガイド</div>
+            <ul class="guide-list">
+                <li>各セクションのボタンをクリックしてスライドを開始</li>
+                <li>Fキーでフルスクリーン表示（プレゼンテーションモード）</li>
+                <li>矢印キー（← →）またはボタンでスライドナビゲーション</li>
+                <li>Escキーでフルスクリーン解除</li>
+                <li>全セクションを順番に実施することを推奨</li>
+            </ul>
+            <div class="keyboard-shortcuts">
+                <strong>キーボードショートカット:</strong> 
+                <strong>F</strong>=フルスクリーン, <strong>←→</strong>=スライド移動, <strong>Esc</strong>=フルスクリーン解除
+            </div>
+        </div>
+
+        <div class="sessions-grid">
+            <!-- オープニング -->
+            <div class="session-card opening-card">
+                <div class="session-header">
+                    <div class="session-icon">🎯</div>
+                    <div>
+                        <div class="session-title">オープニング</div>
+                        <div class="session-subtitle">研修の概要と目標設定</div>
+                    </div>
+                </div>
+                <div class="session-description">
+                    AI活用研修の全体像を把握し、6時間で習得するスキルと学習目標を明確化します。講師紹介、参加者自己紹介、研修の進め方を確認。
+                </div>
+                <div class="session-info">
+                    <span class="session-duration">⏰ 30分</span>
+                    <span class="session-slides">📄 10スライド</span>
+                </div>
+                <a href="complete-slides.html" class="session-button">スライドを開く</a>
+            </div>
+
+            <!-- セッション1 -->
+            <div class="session-card">
+                <div class="session-header">
+                    <div class="session-icon">🌟</div>
+                    <div>
+                        <div class="session-title">セッション1</div>
+                        <div class="session-subtitle">AIの最新情報と進化</div>
+                    </div>
+                </div>
+                <div class="session-description">
+                    2024年最新のAI技術動向、主要ツールの比較、ビジネスへの影響を学習。ChatGPT、Claude、Geminiなどの特徴と使い分けを理解。
+                </div>
+                <div class="session-info">
+                    <span class="session-duration">⏰ 60分</span>
+                    <span class="session-slides">📄 10スライド</span>
+                </div>
+                <a href="session1-ai-evolution.html" class="session-button">スライドを開く</a>
+            </div>
+
+            <!-- セッション2 -->
+            <div class="session-card">
+                <div class="session-header">
+                    <div class="session-icon">🛡️</div>
+                    <div>
+                        <div class="session-title">セッション2</div>
+                        <div class="session-subtitle">AIリスクと安全な活用</div>
+                    </div>
+                </div>
+                <div class="session-description">
+                    AIセキュリティ、プライバシー保護、著作権、倫理的配慮を学習。企業での安全な活用ガイドラインと炎上事例の分析を実施。
+                </div>
+                <div class="session-info">
+                    <span class="session-duration">⏰ 60分</span>
+                    <span class="session-slides">📄 20スライド</span>
+                </div>
+                <a href="session2-ai-risks.html" class="session-button">スライドを開く</a>
+            </div>
+
+            <!-- セッション3 -->
+            <div class="session-card">
+                <div class="session-header">
+                    <div class="session-icon">🎨</div>
+                    <div>
+                        <div class="session-title">セッション3</div>
+                        <div class="session-subtitle">Canva AI基礎と実践</div>
+                    </div>
+                </div>
+                <div class="session-description">
+                    Canva AIツールの実践的活用。Magic Write、Text to Image、Background Removerを使った資料作成。オリジナルカレンダー制作演習。
+                </div>
+                <div class="session-info">
+                    <span class="session-duration">⏰ 60分</span>
+                    <span class="session-slides">📄 13スライド</span>
+                </div>
+                <a href="session3-canva-ai.html" class="session-button">スライドを開く</a>
+            </div>
+
+            <!-- セッション4 -->
+            <div class="session-card">
+                <div class="session-header">
+                    <div class="session-icon">💻</div>
+                    <div>
+                        <div class="session-title">セッション4</div>
+                        <div class="session-subtitle">バイブコーディング入門</div>
+                    </div>
+                </div>
+                <div class="session-description">
+                    AIとの協働でプログラミング。GitHub Copilot、Claude Code、Cursorの活用。ToDoアプリの実装デモとチームでのアプリ企画演習。
+                </div>
+                <div class="session-info">
+                    <span class="session-duration">⏰ 60分</span>
+                    <span class="session-slides">📄 13スライド</span>
+                </div>
+                <a href="session4-vibe-coding.html" class="session-button">スライドを開く</a>
+            </div>
+
+            <!-- セッション5 -->
+            <div class="session-card">
+                <div class="session-header">
+                    <div class="session-icon">📊</div>
+                    <div>
+                        <div class="session-title">セッション5</div>
+                        <div class="session-subtitle">データ分析・リサーチ活用</div>
+                    </div>
+                </div>
+                <div class="session-description">
+                    AIを使ったデータ分析の実践。ChatGPT Data Analyst、Claude、Tableau AIで売上分析。市場調査とリサーチ手法の習得。
+                </div>
+                <div class="session-info">
+                    <span class="session-duration">⏰ 75分</span>
+                    <span class="session-slides">📄 15スライド</span>
+                </div>
+                <a href="session5-data-analysis.html" class="session-button">スライドを開く</a>
+            </div>
+
+            <!-- セッション6 -->
+            <div class="session-card">
+                <div class="session-header">
+                    <div class="session-icon">🚀</div>
+                    <div>
+                        <div class="session-title">セッション6</div>
+                        <div class="session-subtitle">実践プロジェクト</div>
+                    </div>
+                </div>
+                <div class="session-description">
+                    全スキルを統合した総合演習。チーム協働で実際のビジネス課題を解決するプロトタイプを開発。発表会と評価。
+                </div>
+                <div class="session-info">
+                    <span class="session-duration">⏰ 75分</span>
+                    <span class="session-slides">📄 15スライド</span>
+                </div>
+                <a href="session6-practical-project.html" class="session-button">スライドを開く</a>
+            </div>
+
+            <!-- クロージング -->
+            <div class="session-card closing-card">
+                <div class="session-header">
+                    <div class="session-icon">🎊</div>
+                    <div>
+                        <div class="session-title">まとめ・クロージング</div>
+                        <div class="session-subtitle">総括と今後のアクション</div>
+                    </div>
+                </div>
+                <div class="session-description">
+                    研修全体の振り返り、学習成果の確認、今後の継続学習プラン。質疑応答とサポート体制の説明。修了証の授与。
+                </div>
+                <div class="session-info">
+                    <span class="session-duration">⏰ 15分</span>
+                    <span class="session-slides">📄 10スライド</span>
+                </div>
+                <a href="closing-summary.html" class="session-button">スライドを開く</a>
+            </div>
+        </div>
+
+        <div class="download-section">
+            <div class="download-title">📦 研修資料ダウンロード</div>
+            <div class="download-description">
+                研修で使用する補助資料やテンプレートをダウンロードできます
+            </div>
+            <div class="download-buttons">
+                <a href="../AI研修構成案.md" class="download-btn">📄 研修構成案</a>
+                <a href="../AIセキュリティマルバツクイズ.html" class="download-btn">🧩 セキュリティクイズ</a>
+                <a href="marp-theme.css" class="download-btn">🎨 テーマCSS</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>AI活用実践研修</strong> - 全106スライド</p>
+            <p>最適表示：Chrome, Firefox, Safari (最新版)</p>
+            <p>© 2024 AI Training Program. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // セッションカードのクリックでスライドを開く
+        document.querySelectorAll('.session-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const url = this.getAttribute('href');
+                window.open(url, '_blank');
+            });
+        });
+
+        // ページロード時のアニメーション
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.session-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // 統計カウントアップアニメーション
+        document.addEventListener('DOMContentLoaded', function() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseInt(entry.target.textContent);
+                        animateNumber(entry.target, 0, target, 1000);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+            
+            statNumbers.forEach(number => observer.observe(number));
+        });
+
+        function animateNumber(element, start, end, duration) {
+            const startTime = performance.now();
+            
+            function updateNumber(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const current = Math.floor(start + (end - start) * progress);
+                
+                element.textContent = current;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateNumber);
+                }
+            }
+            
+            requestAnimationFrame(updateNumber);
+        }
+    </script>
+</body>
+</html>

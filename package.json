@@ -1,0 +1,17 @@
+{
+  "name": "ai-training-slides",
+  "version": "1.0.0",
+  "description": "AI活用1日研修用スライド",
+  "scripts": {
+    "build:pdf": "marp slides/slide.md --pdf --config marp.config.js -o slides/slide.pdf",
+    "build:html": "marp slides/slide.md --html -o slides/slide.html",
+    "preview": "marp slides/slide.md --server --config marp.config.js --watch",
+    "build:all": "npm run build:pdf && npm run build:html"
+  },
+  "devDependencies": {
+    "@marp-team/marp-cli": "^3.4.0"
+  },
+  "keywords": ["marp", "presentation", "ai", "training"],
+  "author": "",
+  "license": "ISC"
+}

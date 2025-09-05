@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechCurator - 技術情報キュレーションサイト</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">
+                    <i class="fas fa-code"></i>
+                    TechCurator
+                </h1>
+                <nav class="nav">
+                    <a href="#" class="nav-link active" data-category="all">すべて</a>
+                    <a href="#" class="nav-link" data-category="javascript">JavaScript</a>
+                    <a href="#" class="nav-link" data-category="ai">AI/ML</a>
+                    <a href="#" class="nav-link" data-category="webdev">Web開発</a>
+                    <a href="#" class="nav-link" data-category="tools">ツール</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- 検索・フィルター機能 -->
+            <section class="search-section">
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="技術記事、ツール、チュートリアルを検索...">
+                    </div>
+                    <button class="add-btn" id="addResourceBtn">
+                        <i class="fas fa-plus"></i>
+                        リソース追加
+                    </button>
+                </div>
+                
+                <div class="filters">
+                    <button class="filter-btn active" data-sort="latest">最新順</button>
+                    <button class="filter-btn" data-sort="popular">人気順</button>
+                    <button class="filter-btn" data-sort="alphabetical">名前順</button>
+                </div>
+            </section>
+
+            <!-- 統計ダッシュボード -->
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-bookmark"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalResources">0</h3>
+                            <p>保存済みリソース</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalCategories">5</h3>
+                            <p>カテゴリー数</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-week"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="weeklyAdditions">0</h3>
+                            <p>今週の追加</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- リソース一覧 -->
+            <section class="resources-section">
+                <div class="section-header">
+                    <h2>技術リソース一覧</h2>
+                    <span class="resource-count" id="resourceCount">0件</span>
+                </div>
+                
+                <div class="resources-grid" id="resourcesGrid">
+                    <!-- リソースカードがJavaScriptで動的に追加される -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- リソース追加モーダル -->
+    <div class="modal" id="addResourceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>新しいリソースを追加</h3>
+                <button class="close-btn" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form class="resource-form" id="resourceForm">
+                <div class="form-group">
+                    <label for="resourceTitle">タイトル</label>
+                    <input type="text" id="resourceTitle" required placeholder="リソースのタイトルを入力">
+                </div>
+                <div class="form-group">
+                    <label for="resourceUrl">URL</label>
+                    <input type="url" id="resourceUrl" required placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label for="resourceDescription">説明</label>
+                    <textarea id="resourceDescription" rows="3" placeholder="このリソースについて簡単に説明してください"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="resourceCategory">カテゴリー</label>
+                    <select id="resourceCategory" required>
+                        <option value="">カテゴリーを選択</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="ai">AI/ML</option>
+                        <option value="webdev">Web開発</option>
+                        <option value="tools">ツール</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="resourceTags">タグ（カンマ区切り）</label>
+                    <input type="text" id="resourceTags" placeholder="React, チュートリアル, 初心者">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancelBtn">キャンセル</button>
+                    <button type="submit" class="btn-primary">追加する</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 学習チャレンジセクション -->
+    <section class="challenge-section">
+        <div class="container">
+            <div class="challenge-card">
+                <div class="challenge-header">
+                    <h3><i class="fas fa-trophy"></i> 今週の学習チャレンジ</h3>
+                </div>
+                <div class="challenge-content">
+                    <p>新しい技術トレンドを調べて、3つのリソースを追加してみよう！</p>
+                    <div class="challenge-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="challengeProgress" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text">0/3 完了</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 TechCurator - バイブコーディング学習プロジェクト</p>
+            <p>常に学び続ける姿勢を身につけよう</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

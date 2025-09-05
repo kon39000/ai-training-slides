@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session5 Demo - CSV Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { 
+            font-family: 'Yu Gothic', 'Meiryo', sans-serif; 
+            padding: 2rem; 
+            background: linear-gradient(135deg, #e8f5e8, #f4fff8);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(46, 125, 50, 0.1);
+        }
+        
+        h1 { 
+            color: #2e7d32; 
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            border-bottom: 3px solid #4caf50;
+            padding-bottom: 1rem;
+        }
+        
+        .demo-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f1f8e9, #e8f5e8);
+            border-radius: 15px;
+            border-left: 6px solid #4caf50;
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .data-table th, .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .data-table th {
+            background: linear-gradient(135deg, #4caf50, #66bb6a);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .data-table tr:hover {
+            background: #f1f8e9;
+        }
+        
+        .insights-box {
+            background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 2px solid #4caf50;
+            margin: 2rem 0;
+        }
+        
+        .insight-item {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .prompt-example {
+            background: #2e7d32;
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .buttons {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #4caf50, #66bb6a);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+        }
+        
+        .highlight {
+            color: #2e7d32;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 CSVデータ分析デモ</h1>
+        
+        <div class="demo-section">
+            <h2 style="color: #2e7d32; margin-bottom: 1.5rem;">📈 メルマガ開封率分析結果</h2>
+            <p>以下は架空のメルマガデータをAIで分析した結果です。実際の業務では、CSVファイルをAIにアップロードするだけで同様の分析が可能です。</p>
+        </div>
+        
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>記事タイトル</th>
+                    <th>配信数</th>
+                    <th>開封数</th>
+                    <th>開封率</th>
+                    <th>評価</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>🤖 AI活用で業務効率アップ！</td>
+                    <td>1,000</td>
+                    <td>850</td>
+                    <td class="highlight">85%</td>
+                    <td>🔥 優秀</td>
+                </tr>
+                <tr>
+                    <td>📱 最新ツール紹介</td>
+                    <td>1,000</td>
+                    <td>650</td>
+                    <td class="highlight">65%</td>
+                    <td>✅ 良好</td>
+                </tr>
+                <tr>
+                    <td>💼 業界トレンド解説</td>
+                    <td>1,000</td>
+                    <td>400</td>
+                    <td class="highlight">40%</td>
+                    <td>⚠️ 改善要</td>
+                </tr>
+                <tr>
+                    <td>🎯 マーケティング戦略</td>
+                    <td>1,000</td>
+                    <td>720</td>
+                    <td class="highlight">72%</td>
+                    <td>✅ 良好</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="chart-container">
+            <canvas id="openRateChart"></canvas>
+        </div>
+        
+        <div class="insights-box">
+            <h3 style="color: #2e7d32; margin-bottom: 1.5rem;">🧠 AIが生成したインサイト</h3>
+            
+            <div class="insight-item">
+                <strong>📊 パフォーマンス分析:</strong><br>
+                「AI活用」をテーマにした記事の開封率が最も高く（85%）、読者の関心の高さを示しています。
+            </div>
+            
+            <div class="insight-item">
+                <strong>🎯 改善提案:</strong><br>
+                「業界トレンド解説」の開封率が40%と低いため、より具体的で実用的なタイトルへの変更を推奨します。
+            </div>
+            
+            <div class="insight-item">
+                <strong>📈 傾向:</strong><br>
+                実用性の高いテーマ（AI活用、マーケティング戦略）が60%以上の開封率を維持している傾向があります。
+            </div>
+        </div>
+        
+        <div class="prompt-example">
+            <strong>💬 実際のAI分析プロンプト例:</strong><br><br>
+            「添付したメルマガCSVデータを分析して以下を教えてください：<br>
+            1. 開封率の高い記事の特徴<br>
+            2. 改善が必要な記事とその理由<br>
+            3. 今後のコンテンツ戦略への提案<br>
+            4. 視覚的なグラフも含めて結果をまとめてください」
+        </div>
+        
+        <div class="buttons">
+            <button class="btn" onclick="updateChart()">📊 グラフ更新</button>
+            <button class="btn" onclick="showNewData()">🔄 別データ表示</button>
+        </div>
+        
+        <div class="demo-section">
+            <h3 style="color: #2e7d32;">🚀 AIデータ分析の活用例</h3>
+            <ul style="line-height: 2; font-size: 1.1rem;">
+                <li><strong>売上データ分析:</strong> 月次・商品別売上の傾向分析とグラフ化</li>
+                <li><strong>顧客アンケート分析:</strong> 満足度調査の集計と改善点の抽出</li>
+                <li><strong>Webサイト解析:</strong> アクセス解析データの可視化と改善提案</li>
+                <li><strong>在庫管理:</strong> 商品回転率の分析と発注最適化の提案</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Chart.js設定
+        const ctx = document.getElementById('openRateChart');
+        let myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['AI活用記事', 'ツール紹介', '業界トレンド', 'マーケティング'],
+                datasets: [{
+                    label: '開封率 (%)',
+                    data: [85, 65, 40, 72],
+                    backgroundColor: [
+                        'rgba(76, 175, 80, 0.8)',
+                        'rgba(139, 195, 74, 0.8)', 
+                        'rgba(255, 152, 0, 0.8)',
+                        'rgba(102, 187, 106, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(76, 175, 80, 1)',
+                        'rgba(139, 195, 74, 1)',
+                        'rgba(255, 152, 0, 1)',
+                        'rgba(102, 187, 106, 1)'
+                    ],
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'メルマガ記事別開封率',
+                        font: { size: 18 },
+                        color: '#2e7d32'
+                    },
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        function updateChart() {
+            const newData = [Math.floor(Math.random() * 40 + 60), 
+                           Math.floor(Math.random() * 30 + 50), 
+                           Math.floor(Math.random() * 20 + 30), 
+                           Math.floor(Math.random() * 25 + 55)];
+            myChart.data.datasets[0].data = newData;
+            myChart.update();
+        }
+
+        function showNewData() {
+            myChart.data.labels = ['商品紹介A', '商品紹介B', '商品紹介C', '商品紹介D'];
+            myChart.data.datasets[0].data = [78, 56, 45, 67];
+            myChart.options.plugins.title.text = '商品別コンバージョン率';
+            myChart.update();
+        }
+    </script>
+</body>
+</html>
