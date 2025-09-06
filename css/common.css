@@ -1,64 +1,84 @@
 :root{
-  --container-w: 960px;        /* セッション1の可読幅に合わせる */
+  --container-w: 960px;
   --pad-x: 2rem;
   --pad-x-sm: 1rem;
-  --line-height: 1.75;
-  --font-size: 16px;
+  --lh: 1.75;
+  --fz: 16px;
 }
 
-html{ box-sizing:border-box; font-size:var(--font-size); }
-*, *::before, *::after{ box-sizing:inherit; }
+html{ box-sizing:border-box; font-size:var(--fz); }
+*,*::before,*::after{ box-sizing:inherit; }
 
 body{
   margin:0;
-  color:#111; 
-  line-height:var(--line-height);
+  line-height:var(--lh);
+  color:#111;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
+  overflow-x:hidden; /* 縦スクロールは許可 */
 }
 
-.container{
+.container,
+main.container,
+.content{
   max-width:var(--container-w);
   margin:0 auto;
   padding:1rem var(--pad-x);
 }
 
-@media (max-width: 768px){
-  .container{ max-width:100%; padding: 1rem var(--pad-x-sm); }
+@media (max-width:768px){
+  .container,
+  main.container,
+  .content{
+    max-width:100%;
+    padding:1rem var(--pad-x-sm);
+  }
 }
 
-/* 見出しと段落の間隔を統一 */
-h1,h2,h3{ line-height:1.35; margin: 2rem 0 0.75rem; }
-p, ul, ol{ margin: 0.75rem 0; }
-ul, ol{ padding-left: 1.25rem; }
+/* 見出し/段落の基本間隔 */
+h1,h2,h3{ line-height:1.35; margin:2rem 0 .75rem; }
+p,ul,ol{ margin:.75rem 0; }
+ul,ol{ padding-left:1.25rem; }
 
-/* 画像・表のはみ出し防止 */
-img, video, canvas, svg, iframe{
-  max-width:100%;
-  height:auto;
-  display:block;
-}
+/* メディアのはみ出し防止 */
+img,video,canvas,svg,iframe{ max-width:100%; height:auto; display:block; }
 
-/* 表やコードが横に溢れるのを防ぐ */
+/* 表・コード */
 table{ width:100%; border-collapse:collapse; margin:1rem 0; }
-th, td{ border:1px solid #e5e7eb; padding:0.6rem; text-align:left; }
-pre, code{ overflow:auto; max-width:100%; }
+th,td{ border:1px solid #e5e7eb; padding:.6rem; text-align:left; }
+pre,code{ overflow:auto; max-width:100%; }
 
-/* ページネーション（1 / 11 と 矢印）がはみ出さないように */
-.pagination, .nav{
-  display:flex; align-items:center; gap:.5rem;
-  justify-content:space-between; margin:2rem 0 0;
+/* スライド領域（100vh禁止／svh採用） */
+.slide-container{
+  position:relative;
+  width:100%;
+  min-height:100svh;     /* 実表示高 */
+  height:auto;           /* コンテンツに応じて伸びる */
+  padding-top:env(safe-area-inset-top);
+  padding-bottom:env(safe-area-inset-bottom);
 }
-.pagination > * , .nav > * { white-space:nowrap; }
 
-/* 幅を暴走させるグローバル指定の打ち消し */
-.fullwidth, .wide, .wrap, body > .content, main > .content{
+.slide{
+  width:100%;
+  min-height:100%;       /* "高さ固定"を回避 */
+  overflow-y:auto;       /* 1スライド内での縦スクロール許可 */
+}
+
+/* 固定UIの安全領域 */
+.navigation,.nav,.slide-number,.pager{
+  position:fixed;
+  bottom:calc(20px + env(safe-area-inset-bottom));
+  left:50%;
+  transform:translateX(-50%);
+  display:flex; gap:.5rem; align-items:center;
+}
+.slide-number{ right:20px; left:auto; transform:none; }
+
+/* 横幅暴走クラスの打ち消し（存在する場合） */
+.fullwidth,.wide,body>.content,main>.content{
   max-width:var(--container-w) !important;
   margin-left:auto !important;
   margin-right:auto !important;
   padding-left:var(--pad-x) !important;
   padding-right:var(--pad-x) !important;
 }
-
-/* よくある崩れの元 */
-body, html { overflow-x:hidden; } /* 横スクロール抑止 */
