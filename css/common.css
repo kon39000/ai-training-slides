@@ -1,0 +1,64 @@
+:root{
+  --container-w: 960px;        /* セッション1の可読幅に合わせる */
+  --pad-x: 2rem;
+  --pad-x-sm: 1rem;
+  --line-height: 1.75;
+  --font-size: 16px;
+}
+
+html{ box-sizing:border-box; font-size:var(--font-size); }
+*, *::before, *::after{ box-sizing:inherit; }
+
+body{
+  margin:0;
+  color:#111; 
+  line-height:var(--line-height);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+.container{
+  max-width:var(--container-w);
+  margin:0 auto;
+  padding:1rem var(--pad-x);
+}
+
+@media (max-width: 768px){
+  .container{ max-width:100%; padding: 1rem var(--pad-x-sm); }
+}
+
+/* 見出しと段落の間隔を統一 */
+h1,h2,h3{ line-height:1.35; margin: 2rem 0 0.75rem; }
+p, ul, ol{ margin: 0.75rem 0; }
+ul, ol{ padding-left: 1.25rem; }
+
+/* 画像・表のはみ出し防止 */
+img, video, canvas, svg, iframe{
+  max-width:100%;
+  height:auto;
+  display:block;
+}
+
+/* 表やコードが横に溢れるのを防ぐ */
+table{ width:100%; border-collapse:collapse; margin:1rem 0; }
+th, td{ border:1px solid #e5e7eb; padding:0.6rem; text-align:left; }
+pre, code{ overflow:auto; max-width:100%; }
+
+/* ページネーション（1 / 11 と 矢印）がはみ出さないように */
+.pagination, .nav{
+  display:flex; align-items:center; gap:.5rem;
+  justify-content:space-between; margin:2rem 0 0;
+}
+.pagination > * , .nav > * { white-space:nowrap; }
+
+/* 幅を暴走させるグローバル指定の打ち消し */
+.fullwidth, .wide, .wrap, body > .content, main > .content{
+  max-width:var(--container-w) !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+  padding-left:var(--pad-x) !important;
+  padding-right:var(--pad-x) !important;
+}
+
+/* よくある崩れの元 */
+body, html { overflow-x:hidden; } /* 横スクロール抑止 */

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>セッション5：データ分析・リサーチ活用</title>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/common.css" />
     <style>
         * {
             margin: 0;
@@ -20,6 +21,8 @@
 
         .slide-container {
             position: relative;
+            max-width: 960px;
+            margin: 0 auto;
             width: 100vw;
             height: 100vh;
         }
@@ -28,7 +31,7 @@
             display: none;
             width: 100%;
             height: 100%;
-            padding: 80px 100px;
+            padding: 60px 80px;
             background: linear-gradient(135deg, #f7fbfb 0%, #ffffff 100%);
             font-size: 24px;
             color: #333;
@@ -263,8 +266,11 @@
         }
 
         @media (max-width: 768px) {
+            .slide-container {
+                max-width: 100%;
+            }
             .slide {
-                padding: 40px 40px;
+                padding: 40px 20px;
                 font-size: 18px;
             }
 
@@ -302,32 +308,45 @@
             </div>
         </div>
 
-        <!-- Slide 2: なぜデータ分析が重要なのか -->
+        <!-- Slide 2: データ駆動経営の重要性 -->
         <div class="slide">
-            <h2>🎯 なぜデータ分析が重要なのか</h2>
-            <div style="margin-top: 4rem;">
+            <h2>📈 データ駆動経営の時代</h2>
+            <div class="center-content" style="margin-top: 6rem;">
                 <div class="warning-box">
-                    <h3 style="color: #e65100; text-align: center; font-size: 2.6rem;">
-                        📈 データ駆動経営の時代
+                    <h3 style="color: #e65100; text-align: center; font-size: 2.8rem; margin-bottom: 3rem;">
+                        ビジネスの変革
                     </h3>
-                </div>
-                <div style="margin-top: 5rem;">
-                    <p style="font-size: 2rem; margin-bottom: 2.5rem;">
-                        現代のビジネスでは<strong>「勘」「経験」「根性」</strong>から<strong>「データ」「分析」「洞察」</strong>へのシフトが急加速
+                    <p style="font-size: 2.4rem; text-align: center; line-height: 2.2;">
+                        現代のビジネスでは<br>
+                        <strong>「勘」「経験」「根性」</strong><br>
+                        ↓<br>
+                        <strong style="color: #128277;">「データ」「分析」「洞察」</strong><br>
+                        へのシフトが急加速
                     </p>
-                    <div class="two-column">
-                        <div>
-                            <h3 style="color: #e65100;">❌ 従来の意思決定</h3>
-                            <ul style="font-size: 1.7rem;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: 従来 vs データ駆動 -->
+        <div class="slide">
+            <h2>🆚 従来の意思決定 vs データ駆動</h2>
+            <div style="margin-top: 5rem;">
+                <div class="two-column" style="gap: 5rem;">
+                    <div>
+                        <div class="warning-box">
+                            <h3 style="color: #e65100; text-align: center; font-size: 2.4rem;">❌ 従来の意思決定</h3>
+                            <ul style="font-size: 2rem; margin-top: 3rem; line-height: 2.5;">
                                 <li>経験と直感に依存</li>
                                 <li>主観的な判断</li>
                                 <li>リスクが高い</li>
                                 <li>結果が予測困難</li>
                             </ul>
                         </div>
-                        <div>
-                            <h3 style="color: #2e7d32;">✅ データ駆動の意思決定</h3>
-                            <ul style="font-size: 1.7rem;">
+                    </div>
+                    <div>
+                        <div class="feature-box">
+                            <h3 style="color: #2e7d32; text-align: center; font-size: 2.4rem;">✅ データ駆動の意思決定</h3>
+                            <ul style="font-size: 2rem; margin-top: 3rem; line-height: 2.5;">
                                 <li>客観的な事実に基づく</li>
                                 <li>予測可能性が高い</li>
                                 <li>リスクを最小化</li>
@@ -339,279 +358,301 @@
             </div>
         </div>
 
-        <!-- Slide 3: 既存AIサービスによる分析・リサーチ -->
+        <!-- Slide 4: 今日学ぶこと -->
         <div class="slide">
-            <h2>🤖 既存AIサービスによる分析・リサーチ</h2>
-            <div style="margin-top: 4rem;">
+            <h2>🎯 今日学ぶこと</h2>
+            <div class="center-content" style="margin-top: 6rem;">
                 <div class="highlight-box">
-                    <h3 style="color: #004D47; text-align: center;">🎯 今日学ぶこと</h3>
-                    <p style="text-align: center; font-size: 1.9rem; margin-top: 2rem;">
-                        ChatGPT・Geminiを使った実践的なデータ分析・リサーチ手法
+                    <h3 style="color: #004D47; text-align: center; font-size: 3rem;">🤖 AIを使った実践的手法</h3>
+                    <p style="text-align: center; font-size: 2.4rem; margin-top: 3rem; line-height: 2;">
+                        <strong style="color: #128277;">ChatGPT・Gemini</strong>を使った<br>
+                        データ分析・リサーチ手法を体験
                     </p>
-                </div>
-                <div style="margin-top: 4rem;">
-                    <div class="two-column">
-                        <div>
-                            <div class="feature-box">
-                                <h3 style="color: #2e7d32;">📊 データ分析</h3>
-                                <ul style="font-size: 1.7rem; margin-top: 1.5rem;">
-                                    <li>CSV要約・傾向分析</li>
-                                    <li>メルマガ開封率分析</li>
-                                    <li>アンケート結果分析</li>
-                                    <li>グラフ・ランキング出力</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="insight-box">
-                                <h3 style="color: #1976d2;">🔍 リサーチ</h3>
-                                <ul style="font-size: 1.7rem; margin-top: 1.5rem;">
-                                    <li>他社事例調査</li>
-                                    <li>比較レポート生成</li>
-                                    <li>市場動向分析</li>
-                                    <li>競合情報収集</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 4: 講師デモ - Gemini CLI・Claude Code -->
+        <!-- Slide 5: データ分析 -->
         <div class="slide">
-            <h2>🎬 講師デモ：Gemini CLI・Claude Code</h2>
-            <div style="margin-top: 4rem;">
+            <h2>📊 データ分析でできること</h2>
+            <div class="center-content" style="margin-top: 6rem;">
+                <div class="feature-box">
+                    <h3 style="color: #2e7d32; text-align: center; font-size: 2.8rem;">📊 データ分析</h3>
+                    <ul style="font-size: 2.4rem; margin-top: 4rem; line-height: 3; text-align: center; list-style: none;">
+                        <li>📄 CSV要約・傾向分析</li>
+                        <li>📧 メルマガ開封率分析</li>
+                        <li>📋 アンケート結果分析</li>
+                        <li>📈 グラフ・ランキング出力</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: リサーチ -->
+        <div class="slide">
+            <h2>🔍 リサーチでできること</h2>
+            <div class="center-content" style="margin-top: 6rem;">
+                <div class="insight-box" style="background: #e3f2fd; border: 3px solid #1976d2; border-radius: 15px; padding: 3rem;">
+                    <h3 style="color: #1976d2; text-align: center; font-size: 2.8rem;">🔍 リサーチ</h3>
+                    <ul style="font-size: 2.4rem; margin-top: 4rem; line-height: 3; text-align: center; list-style: none;">
+                        <li>🏢 他社事例調査</li>
+                        <li>📋 比較レポート生成</li>
+                        <li>📈 市場動向分析</li>
+                        <li>🎯 競合情報収集</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: 講師デモ -->
+        <div class="slide">
+            <h2>🎬 講師デモ：AIを使ったデータ分析</h2>
+            <div class="center-content" style="margin-top: 6rem;">
                 <div class="warning-box">
-                    <h3 style="color: #e65100; text-align: center;">📋 デモ内容</h3>
+                    <h3 style="color: #e65100; text-align: center; font-size: 2.8rem;">📋 実際にやってみます</h3>
                 </div>
-                <div style="margin-top: 4rem;">
-                    <div class="steps">
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <h3>メルマガ開封率CSV分析</h3>
-                                <p>人気記事ランキング作成 + グラフ出力</p>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <h3>アンケート結果の傾向分析</h3>
-                                <p>満足度データの可視化と洞察抽出</p>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <h3>リンク先データ比較</h3>
-                                <p>複数のデータソースから比較レポート生成</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="feature-box" style="margin-top: 5rem;">
+                    <h3 style="color: #2e7d32; text-align: center; font-size: 2.4rem;">デモ内容</h3>
+                    <ul style="font-size: 2.2rem; margin-top: 3rem; line-height: 3; text-align: center; list-style: none;">
+                        <li>📧 メルマガ開封率CSV分析</li>
+                        <li>📊 人気記事ランキング作成</li>
+                        <li>📈 グラフ出力と洞察抽出</li>
+                    </ul>
                 </div>
-                <div style="margin-top: 4rem;">
-                    <div class="highlight-box">
-                        <p style="text-align: center; font-size: 1.8rem;">
-                            <strong>🔧 使用ツール</strong><br>
-                            Gemini CLI（コマンドライン操作）・Claude Code（統合開発環境）
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 5: Windsurf紹介 -->
-        <div class="slide">
-            <h2>🌊 Windsurf紹介</h2>
-            <div style="margin-top: 4rem;">
-                <div class="highlight-box">
-                    <h3 style="color: #004D47; text-align: center;">💡 Windsurfとは？</h3>
-                    <p style="text-align: center; font-size: 1.9rem; margin-top: 2rem;">
-                        自然言語でコード修正ができる次世代開発ツール
+                <div class="highlight-box" style="margin-top: 4rem;">
+                    <p style="text-align: center; font-size: 2rem;">
+                        <strong>🔧 使用ツール</strong><br>
+                        Gemini CLI・Claude Code
                     </p>
                 </div>
-                <div style="margin-top: 4rem;">
-                    <div class="two-column">
-                        <div>
-                            <div class="feature-box">
-                                <h3 style="color: #2e7d32;">🚀 主な機能</h3>
-                                <ul style="font-size: 1.7rem; margin-top: 1.5rem;">
-                                    <li>自然言語でコード修正指示</li>
-                                    <li>リアルタイム協業</li>
-                                    <li>AIペアプログラミング</li>
-                                    <li>自動バグ修正提案</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="insight-box">
-                                <h3 style="color: #1976d2;">⚡ 活用シーン</h3>
-                                <ul style="font-size: 1.7rem; margin-top: 1.5rem;">
-                                    <li>「この関数を最適化して」</li>
-                                    <li>「エラー処理を追加して」</li>
-                                    <li>「UI を改善して」</li>
-                                    <li>「テストコードを書いて」</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Windsurf紹介 -->
+        <div class="slide">
+            <h2>🌊 Windsurf - 自然言語でコード修正</h2>
+            <div class="center-content" style="margin-top: 6rem;">
+                <div class="highlight-box">
+                    <h3 style="color: #004D47; text-align: center; font-size: 2.8rem;">💡 Windsurfとは？</h3>
+                    <p style="text-align: center; font-size: 2.4rem; margin-top: 3rem; line-height: 2;">
+                        <strong style="color: #128277;">自然言語でコード修正</strong>ができる<br>
+                        次世代開発ツール
+                    </p>
                 </div>
-                <div style="margin-top: 4rem;">
-                    <div class="warning-box">
-                        <p style="text-align: center; font-size: 1.8rem;">
-                            <strong>🎬 デモ</strong><br>
-                            実際に自然言語でコード修正する様子をご覧ください
-                        </p>
-                    </div>
+                <div class="feature-box" style="margin-top: 5rem;">
+                    <h3 style="color: #2e7d32; text-align: center; font-size: 2.4rem;">⚡ 活用例</h3>
+                    <ul style="font-size: 2.2rem; margin-top: 3rem; line-height: 3; text-align: center; list-style: none;">
+                        <li>💬 「この関数を最適化して」</li>
+                        <li>🔧 「エラー処理を追加して」</li>
+                        <li>🎨 「UI を改善して」</li>
+                        <li>🧪 「テストコードを書いて」</li>
+                    </ul>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 6: AIを活用した日々の情報キャッチアップ方法 -->
+        <!-- Slide 9: 情報キャッチアップ概要 -->
         <div class="slide">
             <h2>📰 AIを活用した情報キャッチアップ</h2>
-            <div style="margin-top: 4rem;">
+            <div class="center-content" style="margin-top: 6rem;">
                 <div class="highlight-box">
-                    <h3 style="color: #004D47; text-align: center;">🎯 効率的な情報収集</h3>
-                    <p style="text-align: center; font-size: 1.9rem; margin-top: 2rem;">
-                        膨大な情報を短時間で整理・要約する手法
+                    <h3 style="color: #004D47; text-align: center; font-size: 2.8rem;">🎯 効率的な情報収集</h3>
+                    <p style="text-align: center; font-size: 2.4rem; margin-top: 3rem; line-height: 2;">
+                        膨大な情報を短時間で<br>
+                        <strong style="color: #128277;">整理・要約する手法</strong>
                     </p>
                 </div>
-                <div style="margin-top: 4rem;">
-                    <div class="steps">
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <h3>公式ブログ・ニュースサイトをAI要約</h3>
-                                <p>ChatGPT・Claude・Geminiで記事の要点を抽出</p>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <h3>SNS情報をAI整理</h3>
-                                <p>Twitter・LinkedIn投稿から重要情報を抽出</p>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <h3>Perplexity・ChatGPTで最新ニュース整理</h3>
-                                <p>リアルタイム情報検索と要約レポート作成</p>
-                            </div>
-                        </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: 基本的な情報源 -->
+        <div class="slide">
+            <h2>📚 基本的な情報源</h2>
+            <div class="center-content" style="margin-top: 6rem;">
+                <div class="feature-box">
+                    <h3 style="color: #2e7d32; text-align: center; font-size: 2.4rem;">📄 主要な情報源</h3>
+                    <ul style="font-size: 2.2rem; margin-top: 4rem; line-height: 3; text-align: center; list-style: none;">
+                        <li>🌐 公式ブログ・ニュースサイト</li>
+                        <li>📱 SNS（Twitter・LinkedIn）</li>
+                        <li>📧 メルマガ・ニュースレター</li>
+                        <li>🔍 Perplexity・ChatGPT検索</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: AI要約ステップ -->
+        <div class="slide">
+            <h2>🤖 AI要約の3ステップ</h2>
+            <div class="center-content" style="margin-top: 6rem;">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 style="font-size: 2.4rem;">記事をAIに投入</h3>
+                        <p style="font-size: 2rem;">ChatGPT・Claude・Geminiに記事URLまたは本文をコピペ</p>
+                    </div>
+                </div>
+                <div class="step" style="margin-top: 4rem;">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 style="font-size: 2.4rem;">要点抽出指示</h3>
+                        <p style="font-size: 2rem;">「3つのポイントで要約して」「業務への影響は？」</p>
+                    </div>
+                </div>
+                <div class="step" style="margin-top: 4rem;">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 style="font-size: 2.4rem;">整理・共有</h3>
+                        <p style="font-size: 2rem;">重要度を判定し、チームに共有</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 7: 社内共有の仕組み化 -->
+        <!-- Slide 12: 社内共有の仕組み化 -->
         <div class="slide">
             <h2>🤝 社内共有の仕組み化</h2>
-            <div style="margin-top: 4rem;">
+            <div class="center-content" style="margin-top: 6rem;">
                 <div class="warning-box">
-                    <h3 style="color: #e65100; text-align: center;">📋 AIキャッチアップ共有会</h3>
-                </div>
-                <div style="margin-top: 4rem;">
-                    <div class="two-column">
-                        <div>
-                            <div class="feature-box">
-                                <h3 style="color: #2e7d32;">🎯 実施内容</h3>
-                                <ul style="font-size: 1.7rem; margin-top: 1.5rem;">
-                                    <li>週次AI情報共有会</li>
-                                    <li>最新ツール・機能紹介</li>
-                                    <li>実践事例シェア</li>
-                                    <li>困りごと相談会</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="insight-box">
-                                <h3 style="color: #1976d2;">⚡ 運営のコツ</h3>
-                                <ul style="font-size: 1.7rem; margin-top: 1.5rem;">
-                                    <li>短時間（30分以内）で集中</li>
-                                    <li>実践重視の内容</li>
-                                    <li>参加者全員が発言</li>
-                                    <li>共有資料をテンプレート化</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div style="margin-top: 4rem;">
-                    <div class="highlight-box">
-                        <h3 style="color: #004D47;">📚 共有テンプレート例</h3>
-                        <ul style="margin-top: 2rem; font-size: 1.7rem;">
-                            <li><strong>今週の注目AI情報</strong>：新機能・アップデート</li>
-                            <li><strong>実践レポート</strong>：実際に試した結果</li>
-                            <li><strong>業務改善事例</strong>：効率化できた作業</li>
-                            <li><strong>次週の挑戦目標</strong>：試してみたいこと</li>
-                        </ul>
-                    </div>
+                    <h3 style="color: #e65100; text-align: center; font-size: 2.8rem;">📋 AIキャッチアップ共有会</h3>
+                    <p style="text-align: center; font-size: 2.2rem; margin-top: 3rem;">
+                        <strong>週次30分</strong>で効果的に情報共有
+                    </p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 8: 実践ワーク -->
+        <!-- Slide 13: 共有会の実施内容 -->
+        <div class="slide">
+            <h2>🎯 共有会の実施内容</h2>
+            <div class="center-content" style="margin-top: 6rem;">
+                <div class="feature-box">
+                    <h3 style="color: #2e7d32; text-align: center; font-size: 2.4rem;">📋 実施内容</h3>
+                    <ul style="font-size: 2.2rem; margin-top: 4rem; line-height: 3; text-align: center; list-style: none;">
+                        <li>📰 週次AI情報共有会</li>
+                        <li>🛠️ 最新ツール・機能紹介</li>
+                        <li>💡 実践事例シェア</li>
+                        <li>❓ 困りごと相談会</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: 運営のコツ -->
+        <div class="slide">
+            <h2>⚡ 運営のコツ</h2>
+            <div class="center-content" style="margin-top: 6rem;">
+                <div class="insight-box">
+                    <h3 style="color: #1976d2; text-align: center; font-size: 2.4rem;">💡 成功のポイント</h3>
+                    <ul style="font-size: 2.2rem; margin-top: 4rem; line-height: 3; text-align: center; list-style: none;">
+                        <li>⏰ 短時間（30分以内）で集中</li>
+                        <li>🔧 実践重視の内容</li>
+                        <li>🗣️ 参加者全員が発言</li>
+                        <li>📝 共有資料をテンプレート化</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: 共有テンプレート例 -->
+        <div class="slide">
+            <h2>📚 共有テンプレート例</h2>
+            <div class="center-content" style="margin-top: 5rem;">
+                <div class="highlight-box">
+                    <h3 style="color: #004D47; text-align: center; font-size: 2.4rem;">📋 定型フォーマット</h3>
+                    <ul style="font-size: 2rem; margin-top: 3rem; line-height: 2.8; text-align: left;">
+                        <li><strong style="color: #128277;">今週の注目AI情報</strong><br>新機能・アップデート</li>
+                        <li><strong style="color: #128277;">実践レポート</strong><br>実際に試した結果</li>
+                        <li><strong style="color: #128277;">業務改善事例</strong><br>効率化できた作業</li>
+                        <li><strong style="color: #128277;">次週の挑戦目標</strong><br>試してみたいこと</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: 実践ワーク -->
         <div class="slide">
             <h2>💼 実践ワーク</h2>
-            <div class="warning-box">
-                <h3 style="font-size: 2.8rem; text-align: center;">🎯 課題：情報収集とAI分析を体験</h3>
-            </div>
-            <div style="margin-top: 4rem;">
-                <div class="steps">
-                    <li><strong>情報収集</strong>（10分）
-                        <ul style="margin-top: 1rem; font-size: 1.6rem;">
-                            <li>自分の業界の最新ニュースを3つ収集</li>
-                            <li>Perplexity・ChatGPTを使用</li>
-                        </ul>
-                    </li>
-                    <li><strong>AI要約</strong>（10分）
-                        <ul style="margin-top: 1rem; font-size: 1.6rem;">
-                            <li>収集した情報をAIで要約</li>
-                            <li>重要ポイントを抽出</li>
-                        </ul>
-                    </li>
-                    <li><strong>共有準備</strong>（5分）
-                        <ul style="margin-top: 1rem; font-size: 1.6rem;">
-                            <li>発見した情報のポイント整理</li>
-                            <li>業務への影響を考察</li>
-                        </ul>
-                    </li>
+            <div class="center-content" style="margin-top: 6rem;">
+                <div class="warning-box">
+                    <h3 style="font-size: 2.8rem; text-align: center; color: #e65100;">🎯 課題：情報収集とAI分析を体験</h3>
+                    <p style="text-align: center; font-size: 2.2rem; margin-top: 3rem;">
+                        <strong>合計25分</strong>で実践的に学習
+                    </p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 9: 発表・共有 -->
+        <!-- Slide 17: ワーク手順1 -->
+        <div class="slide">
+            <h2>📋 ワーク手順1：情報収集</h2>
+            <div class="center-content" style="margin-top: 6rem;">
+                <div class="feature-box">
+                    <h3 style="color: #2e7d32; text-align: center; font-size: 2.8rem;">🔍 情報収集（10分）</h3>
+                    <ul style="font-size: 2.2rem; margin-top: 4rem; line-height: 3; text-align: center; list-style: none;">
+                        <li>📰 自分の業界の最新ニュースを3つ収集</li>
+                        <li>🤖 Perplexity・ChatGPTを使用</li>
+                        <li>🎯 関連キーワードで検索</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: ワーク手順2 -->
+        <div class="slide">
+            <h2>🤖 ワーク手順2：AI要約</h2>
+            <div class="center-content" style="margin-top: 6rem;">
+                <div class="insight-box">
+                    <h3 style="color: #1976d2; text-align: center; font-size: 2.8rem;">📊 AI要約（10分）</h3>
+                    <ul style="font-size: 2.2rem; margin-top: 4rem; line-height: 3; text-align: center; list-style: none;">
+                        <li>📝 収集した情報をAIで要約</li>
+                        <li>⭐ 重要ポイントを抽出</li>
+                        <li>💡 業務への影響を分析</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: ワーク手順3 -->
+        <div class="slide">
+            <h2>📢 ワーク手順3：共有準備</h2>
+            <div class="center-content" style="margin-top: 6rem;">
+                <div class="highlight-box">
+                    <h3 style="color: #004D47; text-align: center; font-size: 2.8rem;">🎯 共有準備（5分）</h3>
+                    <ul style="font-size: 2.2rem; margin-top: 4rem; line-height: 3; text-align: center; list-style: none;">
+                        <li>📋 発見した情報のポイント整理</li>
+                        <li>🔍 業務への影響を考察</li>
+                        <li>💬 発表内容をまとめる</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: 発表・共有 -->
         <div class="slide">
             <h2>📢 発表・共有（15分）</h2>
-            <div style="margin-top: 4rem;">
+            <div class="center-content" style="margin-top: 6rem;">
                 <div class="highlight-box">
-                    <h3 style="color: #004D47; text-align: center;">🏆 情報共有タイム</h3>
+                    <h3 style="color: #004D47; text-align: center; font-size: 2.8rem;">🏆 情報共有タイム</h3>
+                    <p style="font-size: 2.4rem; text-align: center; margin-top: 3rem; color: #128277;">
+                        <strong>📰 最新情報をシェアしよう！</strong>
+                    </p>
                 </div>
-                <div style="margin-top: 6rem;">
-                    <div class="center-content">
-                        <p style="font-size: 3rem; color: #128277; margin-bottom: 3rem;">
-                            <strong>📰 最新情報をシェアしよう！</strong>
-                        </p>
-                        <div class="feature-box" style="padding: 3rem;">
-                            <h3 style="color: #2e7d32; font-size: 2.4rem;">発表内容</h3>
-                            <ul style="font-size: 1.9rem; margin-top: 2rem;">
-                                <li>収集した最新情報（3つ）</li>
-                                <li>AIによる要約結果</li>
-                                <li>自分の業務への影響</li>
-                                <li>今後活用したい方法</li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="feature-box" style="margin-top: 5rem;">
+                    <h3 style="color: #2e7d32; font-size: 2.4rem; text-align: center;">発表内容</h3>
+                    <ul style="font-size: 2.2rem; margin-top: 3rem; line-height: 3; text-align: center; list-style: none;">
+                        <li>📝 収集した最新情報（3つ）</li>
+                        <li>🤖 AIによる要約結果</li>
+                        <li>💼 自分の業務への影響</li>
+                        <li>🚀 今後活用したい方法</li>
+                    </ul>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <div class="slide-number" id="slideNumber">1 / 9</div>
+    <div class="slide-number" id="slideNumber">1 / 20</div>
     
     <div class="navigation">
         <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ 前へ</button>

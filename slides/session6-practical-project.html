@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>セッション6：実践プロジェクト</title>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/common.css" />
     <style>
         * {
             margin: 0;
@@ -20,6 +21,8 @@
 
         .slide-container {
             position: relative;
+            max-width: 960px;
+            margin: 0 auto;
             width: 100vw;
             height: 100vh;
         }
@@ -28,7 +31,7 @@
             display: none;
             width: 100%;
             height: 100%;
-            padding: 80px 100px;
+            padding: 60px 80px;
             background: linear-gradient(135deg, #f7fbfb 0%, #ffffff 100%);
             font-size: 24px;
             color: #333;
@@ -261,6 +264,15 @@
             border-radius: 5px;
             transition: width 0.5s ease;
         }
+
+        @media (max-width: 768px) {
+            .slide-container {
+                max-width: 100%;
+            }
+            .slide {
+                padding: 40px 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -313,57 +325,68 @@
             </div>
         </div>
 
-        <!-- Slide 3: プロジェクト課題の紹介 -->
+        <!-- Slide 3: 業務活用プロジェクト企画 -->
         <div class="slide">
-            <h2>📋 プロジェクト課題一覧</h2>
+            <h2>📋 業務活用プロジェクト企画</h2>
             <div style="margin-top: 4rem;">
-                <div class="project-box">
-                    <h3 style="color: #e65100; font-size: 2.2rem;">🏢 課題1：業務効率化ツール開発</h3>
-                    <p style="font-size: 1.7rem; margin-top: 1.5rem;">
-                        社内の繰り返し作業を自動化するWebアプリケーション
-                    </p>
-                    <ul style="margin-top: 1rem; font-size: 1.6rem;">
-                        <li>レポート自動生成、スケジュール管理、承認ワークフローなど</li>
-                    </ul>
+                <div class="success-box">
+                    <h3 style="color: #2e7d32; text-align: center; font-size: 2.8rem;">
+                        🎯 各グループが業務活用プロジェクトを企画・成果物を作成
+                    </h3>
                 </div>
-                <div class="project-box">
-                    <h3 style="color: #e65100; font-size: 2.2rem;">🛍️ 課題2：顧客体験向上サービス</h3>
-                    <p style="font-size: 1.7rem; margin-top: 1.5rem;">
-                        AI活用で顧客満足度を高めるサービス設計
-                    </p>
-                    <ul style="margin-top: 1rem; font-size: 1.6rem;">
-                        <li>AIチャットボット、パーソナライズ機能、レコメンドシステムなど</li>
-                    </ul>
-                </div>
-                <div class="project-box">
-                    <h3 style="color: #e65100; font-size: 2.2rem;">📈 課題3：データドリブン意思決定支援</h3>
-                    <p style="font-size: 1.7rem; margin-top: 1.5rem;">
-                        経営判断を支援するダッシュボード開発
-                    </p>
-                    <ul style="margin-top: 1rem; font-size: 1.6rem;">
-                        <li>売上予測、トレンド分析、競合比較レポートなど</li>
-                    </ul>
+                <div style="margin-top: 4rem;">
+                    <div class="project-box">
+                        <h3 style="color: #e65100; font-size: 2.4rem;">📝 プロジェクト例</h3>
+                        <div style="margin-top: 2rem;">
+                            <ul style="font-size: 1.9rem; line-height: 2.5;">
+                                <li><strong>商品説明文＋スライド</strong>：AIを活用した魅力的な商品紹介資料</li>
+                                <li><strong>カレンダーデザイン案</strong>：企業ブランドに合わせたオリジナルカレンダー</li>
+                                <li><strong>グッズ新商品企画</strong>：市場分析に基づく商品コンセプト提案</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="highlight-box" style="margin-top: 3rem;">
+                        <h3 style="color: #004D47; text-align: center;">📋 成果物の形式</h3>
+                        <div class="two-column" style="margin-top: 2rem;">
+                            <div>
+                                <h4 style="color: #128277; font-size: 2rem;">🎤 発表形式</h4>
+                                <ul style="margin-top: 1rem; font-size: 1.7rem;">
+                                    <li>代表者による発表</li>
+                                    <li>各5分程度</li>
+                                    <li>実際の成果物を提示</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="color: #128277; font-size: 2rem;">📸 共有方法</h4>
+                                <ul style="margin-top: 1rem; font-size: 1.7rem;">
+                                    <li>他メンバーは成果物を</li>
+                                    <li>スクリーンショットで共有</li>
+                                    <li>チーム内での情報共有</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 4: チーム編成と役割分担 -->
+        <!-- Slide 4: グループ編成と役割分担 -->
         <div class="slide">
-            <h2>👥 チーム編成と役割分担</h2>
+            <h2>👥 グループ編成と役割分担</h2>
             <div style="margin-top: 4rem;">
                 <div class="highlight-box">
-                    <h3 style="color: #004D47; text-align: center;">🎯 チーム構成（4-5名/チーム）</h3>
+                    <h3 style="color: #004D47; text-align: center;">🎯 グループ構成（4-5名/グループ）</h3>
                 </div>
                 <div class="two-column" style="margin-top: 4rem;">
                     <div>
                         <div class="feature-box">
                             <h3 style="color: #2e7d32;">📋 推奨役割分担</h3>
                             <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
-                                <li><strong>プロジェクトマネージャー</strong>：全体統括・進行管理</li>
-                                <li><strong>UX/UIデザイナー</strong>：Canva AIでデザイン担当</li>
-                                <li><strong>開発エンジニア</strong>：バイブコーディング実装</li>
-                                <li><strong>データアナリスト</strong>：データ分析・検証</li>
-                                <li><strong>プレゼンター</strong>：最終発表担当</li>
+                                <li><strong>プロジェクトリーダー</strong>：企画統括・進行管理</li>
+                                <li><strong>コンテンツ企画者</strong>：アイデア発想・企画立案</li>
+                                <li><strong>デザイナー</strong>：Canva AIでビジュアル制作</li>
+                                <li><strong>ライター</strong>：文案作成・コピーライティング</li>
+                                <li><strong>発表者（代表者）</strong>：成果物発表担当</li>
                             </ul>
                         </div>
                     </div>
@@ -372,10 +395,10 @@
                             <h3 style="color: #e65100;">⚡ 重要なポイント</h3>
                             <ul style="margin-top: 1.5rem; font-size: 1.7rem;">
                                 <li>全員がAIツールを活用</li>
-                                <li>役割を超えたコラボレーション</li>
+                                <li>アイデア出しは全員参加</li>
                                 <li>定期的な進捗共有</li>
-                                <li>問題発生時の迅速な調整</li>
-                                <li>最終品質に全員責任</li>
+                                <li>スクリーンショット共有の準備</li>
+                                <li>最終成果物に全員責任</li>
                             </ul>
                         </div>
                     </div>
@@ -388,55 +411,55 @@
             <h2>⏰ プロジェクトタイムライン（75分）</h2>
             <div style="margin-top: 4rem;">
                 <ol class="steps" style="font-size: 1.9rem;">
-                    <li><strong>課題選択・チーム結成</strong>（10分）
+                    <li><strong>テーマ選択・グループ結成</strong>（10分）
                         <ul style="margin-top: 1rem; font-size: 1.6rem;">
-                            <li>課題理解と チーム編成</li>
-                            <li>役割分担の決定</li>
+                            <li>プロジェクトテーマ決定</li>
+                            <li>グループ編成・役割分担</li>
                         </ul>
                     </li>
-                    <li><strong>企画・設計フェーズ</strong>（15分）
+                    <li><strong>企画・アイデア出し</strong>（15分）
                         <ul style="margin-top: 1rem; font-size: 1.6rem;">
-                            <li>アイデア発想とコンセプト設計</li>
-                            <li>機能要件の定義</li>
+                            <li>コンセプト設計・ターゲット設定</li>
+                            <li>具体的な成果物の方向性決定</li>
                         </ul>
                     </li>
-                    <li><strong>プロトタイプ開発</strong>（40分）
+                    <li><strong>成果物制作</strong>（40分）
                         <ul style="margin-top: 1rem; font-size: 1.6rem;">
-                            <li>デザイン作成、開発実装、データ分析</li>
-                            <li>中間レビューと調整</li>
+                            <li>デザイン制作、文章作成、企画書作成</li>
+                            <li>中間確認と品質向上</li>
                         </ul>
                     </li>
-                    <li><strong>最終調整・発表準備</strong>（10分）</li>
+                    <li><strong>発表準備・スクリーンショット共有</strong>（10分）</li>
                 </ol>
                 <div class="timer-box" style="margin-top: 4rem;">
                     <h3 style="color: #d32f2f; font-size: 2.4rem;">⏰ 時間管理が成功の鍵</h3>
                     <p style="font-size: 1.7rem; margin-top: 1rem;">
-                        各フェーズの時間を守り、完成度の高いプロトタイプを目指しましょう
+                        各フェーズの時間を守り、完成度の高い成果物を目指しましょう
                     </p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 6: フェーズ1：課題選択・チーム結成 -->
+        <!-- Slide 6: フェーズ1：テーマ選択・グループ結成 -->
         <div class="slide">
-            <h2>🎯 フェーズ1：課題選択・チーム結成（10分）</h2>
+            <h2>🎯 フェーズ1：テーマ選択・グループ結成（10分）</h2>
             <div class="timer-box" style="margin-top: 3rem;">
                 <h3 style="color: #d32f2f; font-size: 2.8rem;">🕐 開始時刻：15:30</h3>
             </div>
             <div style="margin-top: 4rem;">
                 <div class="steps">
-                    <li><strong>課題理解</strong>（3分）：各課題の詳細を確認</li>
-                    <li><strong>興味のある課題に移動</strong>（2分）：自由に移動してチーム形成</li>
-                    <li><strong>チーム内自己紹介</strong>（2分）：スキル・経験の共有</li>
-                    <li><strong>役割分担決定</strong>（3分）：得意分野に基づく役割配置</li>
+                    <li><strong>プロジェクトテーマ選択</strong>（3分）：興味のある業務活用テーマを決定</li>
+                    <li><strong>グループ形成</strong>（2分）：同じテーマに興味がある人でグループ編成</li>
+                    <li><strong>グループ内自己紹介</strong>（2分）：スキル・経験の共有</li>
+                    <li><strong>役割分担決定</strong>（3分）：得意分野に基づく役割配置・代表者選出</li>
                 </div>
                 <div class="warning-box" style="margin-top: 4rem;">
                     <h3 style="color: #e65100; text-align: center;">📋 このフェーズの成果物</h3>
                     <ul style="margin-top: 1.5rem; font-size: 1.8rem;">
-                        <li>チーム名の決定</li>
-                        <li>選択した課題の確認</li>
+                        <li>グループ名・テーマの決定</li>
+                        <li>代表者（発表者）の選出</li>
                         <li>メンバーの役割分担表</li>
-                        <li>連絡手段の確立</li>
+                        <li>成果物の形式・目標設定</li>
                     </ul>
                 </div>
             </div>
@@ -600,9 +623,9 @@
             </div>
         </div>
 
-        <!-- Slide 11: チーム発表会 -->
+        <!-- Slide 11: グループ発表会 -->
         <div class="slide">
-            <h2>🏆 チーム発表会</h2>
+            <h2>🏆 グループ発表会</h2>
             <div style="margin-top: 4rem;">
                 <div class="success-box">
                     <h3 style="color: #2e7d32; font-size: 2.8rem; text-align: center;">
@@ -611,32 +634,32 @@
                 </div>
                 <div style="margin-top: 4rem;">
                     <div class="highlight-box">
-                        <h3 style="color: #004D47;">📋 発表順序と評価基準</h3>
+                        <h3 style="color: #004D47;">📋 発表形式と共有方法</h3>
                         <div class="two-column" style="margin-top: 2rem;">
                             <div>
                                 <h4 style="color: #128277; font-size: 2rem;">🎤 発表形式</h4>
                                 <ul style="margin-top: 1rem; font-size: 1.7rem;">
-                                    <li>各チーム3分で発表</li>
-                                    <li>質疑応答は1分</li>
-                                    <li>実際のデモを重視</li>
-                                    <li>全員参加型の発表</li>
+                                    <li>代表者による発表</li>
+                                    <li>各5分程度</li>
+                                    <li>実際の成果物を提示</li>
+                                    <li>制作プロセスも紹介</li>
                                 </ul>
                             </div>
                             <div>
-                                <h4 style="color: #f57c00; font-size: 2rem;">🏅 評価ポイント</h4>
+                                <h4 style="color: #f57c00; font-size: 2rem;">📸 共有方法</h4>
                                 <ul style="margin-top: 1rem; font-size: 1.7rem;">
-                                    <li><strong>実用性</strong>：実際に使えるか</li>
-                                    <li><strong>AI活用度</strong>：効果的な使い方</li>
-                                    <li><strong>創造性</strong>：斬新なアイデア</li>
-                                    <li><strong>完成度</strong>：動作の安定性</li>
+                                    <li>他メンバーは成果物を</li>
+                                    <li>スクリーンショットで共有</li>
+                                    <li>制作過程もキャプチャ</li>
+                                    <li>グループ内で情報交換</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="warning-box" style="margin-top: 3rem;">
                         <p style="text-align: center; font-size: 1.8rem;">
-                            <strong>🎊 全チームの努力と成果を讃えましょう！</strong><br>
-                            他チームの発表から新しい学びを得る絶好の機会です
+                            <strong>🎊 全グループの努力と成果を讃えましょう！</strong><br>
+                            他グループの発表から新しいアイデアを得る絶好の機会です
                         </p>
                     </div>
                 </div>

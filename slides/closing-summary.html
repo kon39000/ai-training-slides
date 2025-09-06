@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>まとめ・クロージング</title>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/common.css" />
     <style>
         * {
             margin: 0;
@@ -20,6 +21,8 @@
 
         .slide-container {
             position: relative;
+            max-width: 960px;
+            margin: 0 auto;
             width: 100vw;
             height: 100vh;
         }
@@ -28,7 +31,7 @@
             display: none;
             width: 100%;
             height: 100%;
-            padding: 80px 100px;
+            padding: 60px 80px;
             background: linear-gradient(135deg, #f7fbfb 0%, #ffffff 100%);
             font-size: 24px;
             color: #333;
@@ -260,6 +263,15 @@
             padding: 2rem;
             text-align: center;
             margin: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .slide-container {
+                max-width: 100%;
+            }
+            .slide {
+                padding: 40px 20px;
+            }
         }
     </style>
 </head>
